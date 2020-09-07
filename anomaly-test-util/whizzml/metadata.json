@@ -1,0 +1,24 @@
+{
+  "name": "anomaly-test",
+  "description": "From the input source, creates a dataset and trains an anomaly detector. Applies a batch anomaly score over the original dataset and returns a dataset with the resulting scores",
+  "kind": "script",
+  "inputs": [
+     {
+      "name": "source-id",
+      "type": "source-id",
+      "description": "Source file containing features and error flag for a given studid aggregation"
+    },
+    {
+      "name": "anomaly-input-fields",
+      "type": "list",
+      "description": "List of fields to be used in the anomaly detector, see example in the source code comments at the start"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output-dataset",
+      "type": "dataset-id",
+      "description": "A dataset containing the resulting score for each instance together with error flags and instance identifiers, allowing to evaluate results later"
+    }
+  ]
+}
