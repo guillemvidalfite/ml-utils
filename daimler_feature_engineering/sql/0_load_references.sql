@@ -66,8 +66,8 @@ FROM '/Users/guillem/Data/Customers/Daimler/references/tool_reference_stats_jul.
 
 
 --- create online table with proper types
-drop table if exists weld_references;
-create table weld_references(
+drop table if exists weld_averages;
+create table weld_averages(
       key_tool               varchar(100),
       key_extension          varchar(100),
       key_period             date,
@@ -98,7 +98,7 @@ create table weld_references(
       stickout_low_2sig     numeric
 );
 
-insert into weld_references(
+insert into weld_averages(
        key_tool,
        key_extension,
        key_period,
@@ -158,8 +158,8 @@ select
        a.stickout_low_2sig
 from imp_weld_references a;
 
-create index inx_toolextperiod_weldref on weld_references(key_tool, key_extension, key_period);
-create index inx_period_weldref on weld_references(key_period);
+create index inx_toolextperiod_weldref on weld_averages(key_tool, key_extension, key_period);
+create index inx_period_weldref on weld_averages(key_period);
 
 
 -- penetration: variations spotted over months
