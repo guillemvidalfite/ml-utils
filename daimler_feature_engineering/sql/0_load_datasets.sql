@@ -7846,3 +7846,4 @@ from imp_25_datasets;
 create index inx_extension_w25ds on welds_25_datasets(extensionID,weld_timestamp);
 create index inx_uniqueid_w25ds on welds_25_datasets("uniqueID",weld_timestamp);
 create index inx_tim_w25ds on welds_25_datasets(weld_timestamp);
+create unique index inx_w25ds_fingerprint on welds_25_datasets(fingerprint);
