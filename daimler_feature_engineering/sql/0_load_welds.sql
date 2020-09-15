@@ -46,6 +46,11 @@ create table welds_actuals as select
       WeldVoltageActual
 from imp_welds;
 
-create index inx_weldactuals_uniqueid on welds_actuals(uniqueid);
-create index inx_weldactuals_extensionid on welds_actuals(extensionid);
 create index inx_weldactuals_timestamp on welds_actuals(weld_timestamp);
+create index inx_weldactuals_toolexttime on welds_actuals(extensionid, uniqueid, weld_timestamp);
+create index inx_weldactuals_tooltime on welds_actuals(uniqueid, weld_timestamp);
+
+
+
+#select WeldEnergyActual, DropTimeActual, LMPenetrationActual, StickoutActual, LMLiftHeightActual, WeldCurrentActualPositive, WeldVoltageActual
+#from welds_actuals where WeldTimeActual = 0;
