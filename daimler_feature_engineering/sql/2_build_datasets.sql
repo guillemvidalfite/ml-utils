@@ -217,19 +217,53 @@ select
          e.time_avg_diff_60m,
          e.current_avg_diff_60m,
          e.voltage_avg_diff_60m,
+         f.penetration_offsigma_1m,
+         f.energy_offsigma_1m,
+         f.droptime_offsigma_1m,
+         f.stickout_offsigma_1m,
+         f.lift_offsigma_1m,
+         f.time_offsigma_1m,
+         f.current_offsigma_1m,
+         f.voltage_offsigma_1m,
+         g.penetration_offsigma_5m,
+         g.energy_offsigma_5m,
+         g.droptime_offsigma_5m,
+         g.stickout_offsigma_5m,
+         g.lift_offsigma_5m,
+         g.time_offsigma_5m,
+         g.current_offsigma_5m,
+         g.voltage_offsigma_5m,
+         h.penetration_offsigma_15m,
+         h.energy_offsigma_15m,
+         h.droptime_offsigma_15m,
+         h.stickout_offsigma_15m,
+         h.lift_offsigma_15m,
+         h.time_offsigma_15m,
+         h.current_offsigma_15m,
+         h.voltage_offsigma_15m,
+         i.penetration_offsigma_60m,
+         i.energy_offsigma_60m,
+         i.droptime_offsigma_60m,
+         i.stickout_offsigma_60m,
+         i.lift_offsigma_60m,
+         i.time_offsigma_60m,
+         i.current_offsigma_60m,
+         i.voltage_offsigma_60m,
          a."score",
          a."BodyShopRepair",
          a."AssemblyShopRepair",
          a."Error"
-from welds_25_datasets a, 
-     welds_25_datasets_avg_features_1m b,
-     welds_25_datasets_avg_features_5m c,
-     welds_25_datasets_avg_features_15m d,
-     welds_25_datasets_avg_features_60m e
-where a.fingerprint = b.fingerprint and
-      a.fingerprint = c.fingerprint and
-      a.fingerprint = d.fingerprint and
-      a.fingerprint = e.fingerprint;
+from welds_25_datasets a
+     left join welds_25_datasets_avg_features_1m b on a.fingerprint = b.fingerprint
+     left join welds_25_datasets_avg_features_5m c on a.fingerprint = c.fingerprint
+     left join welds_25_datasets_avg_features_15m d on a.fingerprint = d.fingerprint
+     left join welds_25_datasets_avg_features_60m e on a.fingerprint = e.fingerprint
+     left join welds_25_datasets_sigma_features_1m f on a.fingerprint = f.fingerprint
+     left join welds_25_datasets_sigma_features_5m g on a.fingerprint = g.fingerprint
+     left join welds_25_datasets_sigma_features_15m h on a.fingerprint = h.fingerprint
+     left join welds_25_datasets_sigma_features_60m i on a.fingerprint = i.fingerprint;
+
+
 
 
 
