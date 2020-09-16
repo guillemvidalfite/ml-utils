@@ -567,40 +567,6 @@ create unique index inx_w25dsavg60_fingerprint on welds_25_datasets_avg_features
 create index inx_w25dsavg60_key on welds_25_datasets_avg_features_60m(uniqueid,extensionid,weld_timestamp);
 
 
-alter table welds_25_datasets drop penetration_avg_diff_1m;
-alter table welds_25_datasets drop energy_avg_diff_1m;
-alter table welds_25_datasets drop droptime_avg_diff_1m;
-alter table welds_25_datasets drop stickout_avg_diff_1m;
-alter table welds_25_datasets drop lift_avg_diff_1m;
-alter table welds_25_datasets drop time_avg_diff_1m;
-alter table welds_25_datasets drop current_avg_diff_1m;
-alter table welds_25_datasets drop voltage_avg_diff_1m;
-alter table welds_25_datasets drop penetration_avg_diff_5m;
-alter table welds_25_datasets drop energy_avg_diff_5m;
-alter table welds_25_datasets drop droptime_avg_diff_5m;
-alter table welds_25_datasets drop stickout_avg_diff_5m;
-alter table welds_25_datasets drop lift_avg_diff_5m;
-alter table welds_25_datasets drop time_avg_diff_5m;
-alter table welds_25_datasets drop current_avg_diff_5m;
-alter table welds_25_datasets drop voltage_avg_diff_5m;
-alter table welds_25_datasets drop penetration_avg_diff_15m;
-alter table welds_25_datasets drop energy_avg_diff_15m;
-alter table welds_25_datasets drop droptime_avg_diff_15m;
-alter table welds_25_datasets drop stickout_avg_diff_15m;
-alter table welds_25_datasets drop lift_avg_diff_15m;
-alter table welds_25_datasets drop time_avg_diff_15m;
-alter table welds_25_datasets drop current_avg_diff_15m;
-alter table welds_25_datasets drop voltage_avg_diff_15m;
-alter table welds_25_datasets drop penetration_avg_diff_60m;
-alter table welds_25_datasets drop energy_avg_diff_60m;
-alter table welds_25_datasets drop droptime_avg_diff_60m;
-alter table welds_25_datasets drop stickout_avg_diff_60m;
-alter table welds_25_datasets drop lift_avg_diff_60m;
-alter table welds_25_datasets drop time_avg_diff_60m;
-alter table welds_25_datasets drop current_avg_diff_60m;
-alter table welds_25_datasets drop voltage_avg_diff_60m;
-
-
 -- 1 minute update
 /*
 update welds_25_datasets a set
@@ -729,6 +695,8 @@ from
         b.weld_timestamp between c.weld_timestamp - interval '1 min' and c.weld_timestamp - interval '1 second'
   group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
 
+create unique index inx_w25ds_sigma1_fingerprint on welds_25_datasets_sigma_features_1m(fingerprint);
+create index inx_w25ds_sigma1_key on welds_25_datasets_sigma_features_1m(uniqueid,extensionid,weld_timestamp);
 
 drop table if exists welds_25_datasets_sigma_features_5m;
 create table welds_25_datasets_sigma_features_5m(
@@ -791,6 +759,9 @@ from
         b.weld_timestamp between c.weld_timestamp - interval '5 min' and c.weld_timestamp - interval '1 second'
   group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
 
+create unique index inx_w25ds_sigma5_fingerprint on welds_25_datasets_sigma_features_5m(fingerprint);
+create index inx_w25ds_sigma5_key on welds_25_datasets_sigma_features_5m(uniqueid,extensionid,weld_timestamp);
+
 drop table if exists welds_25_datasets_sigma_features_15m;
 create table welds_25_datasets_sigma_features_15m(
 	  uniqueid varchar(100),
@@ -852,6 +823,8 @@ from
         b.weld_timestamp between c.weld_timestamp - interval '15 min' and c.weld_timestamp - interval '1 second'
   group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
 
+create unique index inx_w25ds_sigma15_fingerprint on welds_25_datasets_sigma_features_15m(fingerprint);
+create index inx_w25ds_sigma15_key on welds_25_datasets_sigma_features_15m(uniqueid,extensionid,weld_timestamp);
 
 drop table if exists welds_25_datasets_sigma_features_60m;
 create table welds_25_datasets_sigma_features_60m(
@@ -914,6 +887,8 @@ from
         b.weld_timestamp between c.weld_timestamp - interval '60 min' and c.weld_timestamp - interval '1 second'
   group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
 
+create unique index inx_w25ds_sigma60_fingerprint on welds_25_datasets_sigma_features_60m(fingerprint);
+create index inx_w25ds_sigma60_key on welds_25_datasets_sigma_features_60m(uniqueid,extensionid,weld_timestamp);
 
 /*
 daimler=# \d welds_actuals
