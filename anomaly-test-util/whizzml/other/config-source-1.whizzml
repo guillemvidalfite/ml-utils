@@ -1,0 +1,725 @@
+;;Step 2
+;;WhizzML for resource: ds1_features.csv
+;;(221 fields (13 categorical, 206 numeric, 1 items))
+;;source/5f60f3e77cfe0671bd01ddc6
+;;created by bigml09
+(define configured-source
+  (update-and-wait input-source
+                   (bigml.fields.to-ids {"fields"
+                                         {"000095"
+                                          {"name"
+                                           "LiftPosition.ACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "000005"
+                                          {"name" "WeldTimeActual"
+                                           "optype" "numeric"}
+                                          "000044"
+                                          {"name" "Voltage.PACF_Mean"
+                                           "optype" "numeric"}
+                                          "000022"
+                                          {"name"
+                                           "MMP.WeldToolMoveTimeLoadingPinBackward"
+                                           "optype" "numeric"}
+                                          "00002d"
+                                          {"name" "Voltage.PSD_2_VALUE"
+                                           "optype" "numeric"}
+                                          "000078"
+                                          {"name" "Current.CWT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "0000cc"
+                                          {"name" "stickout_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "00001e"
+                                          {"name"
+                                           "MMP.WeldToolSlideForwardResponseTimeActualLeaveBackPosition"
+                                           "optype" "numeric"}
+                                          "0000c1"
+                                          {"name"
+                                           "penetration_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "0000c8"
+                                          {"name" "voltage_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "000050"
+                                          {"name" "Voltage.CWT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "0000bf"
+                                          {"name" "current_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "00000f"
+                                          {"name" "MMP.OutletTotalWOPs"
+                                           "optype" "numeric"}
+                                          "000067"
+                                          {"name"
+                                           "Current.ACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "0000d4"
+                                          {"name" "Error"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "00000c"
+                                          {"name" "fingerprint"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "enabled" true
+                                            "language" "none"
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "token_mode" "all"
+                                            "use_stopwords" false}}
+                                          "000053"
+                                          {"name" "Current.FFT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "000041"
+                                          {"name" "Voltage.PACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "000021"
+                                          {"name"
+                                           "MMP.FeedingTimeStudInTube"
+                                           "optype" "numeric"}
+                                          "000052"
+                                          {"name" "Current.FFT_1_LOC"
+                                           "optype" "numeric"}
+                                          "0000d2"
+                                          {"name" "BodyShopRepair"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000075"
+                                          {"name" "Current.PACF_RMS"
+                                           "optype" "numeric"}
+                                          "000097"
+                                          {"name" "LiftPosition.ACF_RMS"
+                                           "optype" "numeric"}
+                                          "000068"
+                                          {"name" "Current.ACF_Variance"
+                                           "optype" "numeric"}
+                                          "000043"
+                                          {"name" "Voltage.PACF_Median"
+                                           "optype" "numeric"}
+                                          "000003"
+                                          {"name" "StudID"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000023"
+                                          {"name"
+                                           "MMP.WeldToolMoveTimeLoadingPinForward"
+                                           "optype" "numeric"}
+                                          "000039"
+                                          {"name"
+                                           "Voltage.ACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "000071"
+                                          {"name" "Current.PACF_Median"
+                                           "optype" "numeric"}
+                                          "0000b6"
+                                          {"name" "time_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "00002a"
+                                          {"name" "Voltage.PSD_1_LOC"
+                                           "optype" "numeric"}
+                                          "000060"
+                                          {"name"
+                                           "Current.ACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "0000af"
+                                          {"name" "has_missing_values"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "00001d"
+                                          {"name"
+                                           "MMP.WeldToolSlideForwardMoveTime"
+                                           "optype" "numeric"}
+                                          "000074"
+                                          {"name" "Current.PACF_Variance"
+                                           "optype" "numeric"}
+                                          "000056"
+                                          {"name" "Current.FFT_3_LOC"
+                                           "optype" "numeric"}
+                                          "000064"
+                                          {"name" "Current.ACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "00008f"
+                                          {"name"
+                                           "LiftPosition.ACF_Quantile5"
+                                           "optype" "numeric"}
+                                          "000010"
+                                          {"name" "MMP.WeldToolTotalWelds"
+                                           "optype" "numeric"}
+                                          "00000d"
+                                          {"name" "MMP.SystemTotalWelds"
+                                           "optype" "numeric"}
+                                          "00004a"
+                                          {"name" "Voltage.CWT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "000029"
+                                          {"name" "Voltage.FFT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "0000b8"
+                                          {"name" "voltage_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "0000b1"
+                                          {"name" "penetration_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "000049"
+                                          {"name" "Voltage.CWT_1_FREQ"
+                                           "optype" "numeric"}
+                                          "00003a"
+                                          {"name" "Voltage.ACF_Variance"
+                                           "optype" "numeric"}
+                                          "000017"
+                                          {"name" "MMP.LiftFinishedMode"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "0000a4"
+                                          {"name" "LiftPosition.CWT_1_TIME"
+                                           "optype" "numeric"}
+                                          "000047"
+                                          {"name" "Voltage.PACF_RMS"
+                                           "optype" "numeric"}
+                                          "000020"
+                                          {"name" "MMP.FeedingTimeActual"
+                                           "optype" "numeric"}
+                                          "000019"
+                                          {"name"
+                                           "MMP.ProtectiveGasFlowDuringWeldprocessActive"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "00002c"
+                                          {"name" "Voltage.PSD_2_LOC"
+                                           "optype" "numeric"}
+                                          "0000a3"
+                                          {"name" "LiftPosition.PACF_RMS"
+                                           "optype" "numeric"}
+                                          "00002b"
+                                          {"name" "Voltage.PSD_1_VALUE"
+                                           "optype" "numeric"}
+                                          "00006e"
+                                          {"name" "Current.PACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "000015"
+                                          {"name"
+                                           "MMP.WeldCurrentActualNegative"
+                                           "optype" "numeric"}
+                                          "000090"
+                                          {"name"
+                                           "LiftPosition.ACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "000033"
+                                          {"name" "Voltage.ACF_Quantile5"
+                                           "optype" "numeric"}
+                                          "000016"
+                                          {"name" "MMP.LMPositionActual"
+                                           "optype" "numeric"}
+                                          "000048"
+                                          {"name" "Voltage.CWT_1_TIME"
+                                           "optype" "numeric"}
+                                          "000013"
+                                          {"name" "MMP.PilotCurrentActual"
+                                           "optype" "numeric"}
+                                          "000096"
+                                          {"name"
+                                           "LiftPosition.ACF_Variance"
+                                           "optype" "numeric"}
+                                          "0000a8"
+                                          {"name" "LiftPosition.CWT_2_FREQ"
+                                           "optype" "numeric"}
+                                          "000057"
+                                          {"name" "Current.FFT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "0000b0"
+                                          {"name" "missing_fields"
+                                           "optype" "items"}
+                                          "00007a"
+                                          {"name" "Current.CWT_2_FREQ"
+                                           "optype" "numeric"}
+                                          "0000b9"
+                                          {"name" "penetration_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "000098"
+                                          {"name"
+                                           "LiftPosition.PACF_Entropy"
+                                           "optype" "numeric"}
+                                          "000091"
+                                          {"name"
+                                           "LiftPosition.ACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "0000bc"
+                                          {"name" "stickout_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "00004f"
+                                          {"name" "Voltage.CWT_3_FREQ"
+                                           "optype" "numeric"}
+                                          "00009d"
+                                          {"name"
+                                           "LiftPosition.PACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "00005b"
+                                          {"name" "Current.PSD_2_VALUE"
+                                           "optype" "numeric"}
+                                          "0000c9"
+                                          {"name"
+                                           "penetration_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "000051"
+                                          {"name" "Voltage.DTW_Distance"
+                                           "optype" "numeric"}
+                                          "0000ba"
+                                          {"name" "energy_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "000024"
+                                          {"name" "Voltage.FFT_1_LOC"
+                                           "optype" "numeric"}
+                                          "000088"
+                                          {"name" "LiftPosition.PSD_2_LOC"
+                                           "optype" "numeric"}
+                                          "0000b4"
+                                          {"name" "stickout_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "00005a"
+                                          {"name" "Current.PSD_2_LOC"
+                                           "optype" "numeric"}
+                                          "00003e"
+                                          {"name"
+                                           "Voltage.PACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "0000a9"
+                                          {"name"
+                                           "LiftPosition.CWT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "0000d3"
+                                          {"name" "AssemblyShopRepair"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000001"
+                                          {"name" "weld_timestamp"
+                                           "optype" "datetime"
+                                           "time_formats"
+                                           ["YYYY-MM-dd HH:mm:ss+SS"]}
+                                          "000018"
+                                          {"name"
+                                           "MMP.ProtectiveGasPreFlowActive"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "00006a"
+                                          {"name" "Current.PACF_Entropy"
+                                           "optype" "numeric"}
+                                          "00009e"
+                                          {"name"
+                                           "LiftPosition.PACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "00005f"
+                                          {"name"
+                                           "Current.ACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "000083"
+                                          {"name"
+                                           "LiftPosition.FFT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "000072"
+                                          {"name" "Current.PACF_Mean"
+                                           "optype" "numeric"}
+                                          "000032"
+                                          {"name"
+                                           "Voltage.ACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "0000ce"
+                                          {"name" "time_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "0000c2"
+                                          {"name" "energy_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "00005c"
+                                          {"name" "Current.PSD_3_LOC"
+                                           "optype" "numeric"}
+                                          "000002"
+                                          {"name" "extensionid"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "00007c"
+                                          {"name" "Current.CWT_3_TIME"
+                                           "optype" "numeric"}
+                                          "000059"
+                                          {"name" "Current.PSD_1_VALUE"
+                                           "optype" "numeric"}
+                                          "0000ab"
+                                          {"name" "LiftPosition.CWT_3_FREQ"
+                                           "optype" "numeric"}
+                                          "000089"
+                                          {"name"
+                                           "LiftPosition.PSD_2_VALUE"
+                                           "optype" "numeric"}
+                                          "00000e"
+                                          {"name" "MMP.OutletTotalWelds"
+                                           "optype" "numeric"}
+                                          "000008"
+                                          {"name" "PilotVoltageActual"
+                                           "optype" "numeric"}
+                                          "00009a"
+                                          {"name"
+                                           "LiftPosition.PACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "0000b7"
+                                          {"name" "current_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "000036"
+                                          {"name" "Voltage.ACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "000025"
+                                          {"name" "Voltage.FFT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "00003c"
+                                          {"name" "Voltage.PACF_Entropy"
+                                           "optype" "numeric"}
+                                          "00008b"
+                                          {"name"
+                                           "LiftPosition.PSD_3_VALUE"
+                                           "optype" "numeric"}
+                                          "000034"
+                                          {"name" "Voltage.ACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "000092"
+                                          {"name"
+                                           "LiftPosition.ACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "00000a"
+                                          {"name" "LMPenetrationActual"
+                                           "optype" "numeric"}
+                                          "0000c6"
+                                          {"name" "time_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "00001a"
+                                          {"name"
+                                           "MMP.ProtectiveGasPostFlowActive"
+                                           "optype" "numeric"}
+                                          "00006c"
+                                          {"name"
+                                           "Current.PACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "000093"
+                                          {"name" "LiftPosition.ACF_Median"
+                                           "optype" "numeric"}
+                                          "0000bb"
+                                          {"name" "droptime_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "000009"
+                                          {"name" "LMLiftHeightActual"
+                                           "optype" "numeric"}
+                                          "000094"
+                                          {"name" "LiftPosition.ACF_Mean"
+                                           "optype" "numeric"}
+                                          "0000ad"
+                                          {"name"
+                                           "LiftPosition.DTW_Distance"
+                                           "optype" "numeric"}
+                                          "0000a1"
+                                          {"name"
+                                           "LiftPosition.PACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "0000c4"
+                                          {"name" "stickout_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "0000a0"
+                                          {"name" "LiftPosition.PACF_Mean"
+                                           "optype" "numeric"}
+                                          "000055"
+                                          {"name" "Current.FFT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "00001b"
+                                          {"name" "MMP.CleanCurrentActual"
+                                           "optype" "numeric"}
+                                          "000069"
+                                          {"name" "Current.ACF_RMS"
+                                           "optype" "numeric"}
+                                          "00007f"
+                                          {"name" "Current.DTW_Distance"
+                                           "optype" "numeric"}
+                                          "000028"
+                                          {"name" "Voltage.FFT_3_LOC"
+                                           "optype" "numeric"}
+                                          "0000b2"
+                                          {"name" "energy_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "00003f"
+                                          {"name" "Voltage.PACF_Quantile5"
+                                           "optype" "numeric"}
+                                          "0000ae"
+                                          {"name" "LMCurrent.DTW_Distance"
+                                           "optype" "numeric"}
+                                          "000007"
+                                          {"name" "WeldEnergyActual"
+                                           "optype" "numeric"}
+                                          "0000cd"
+                                          {"name" "lift_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "0000c5"
+                                          {"name" "lift_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "0000c0"
+                                          {"name" "voltage_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "00004d"
+                                          {"name" "Voltage.CWT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "000058"
+                                          {"name" "Current.PSD_1_LOC"
+                                           "optype" "numeric"}
+                                          "0000a6"
+                                          {"name"
+                                           "LiftPosition.CWT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "000031"
+                                          {"name"
+                                           "Voltage.ACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "000061"
+                                          {"name" "Current.ACF_Quantile5"
+                                           "optype" "numeric"}
+                                          "0000aa"
+                                          {"name" "LiftPosition.CWT_3_TIME"
+                                           "optype" "numeric"}
+                                          "000040"
+                                          {"name" "Voltage.PACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "00008e"
+                                          {"name"
+                                           "LiftPosition.ACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "000054"
+                                          {"name" "Current.FFT_2_LOC"
+                                           "optype" "numeric"}
+                                          "000087"
+                                          {"name"
+                                           "LiftPosition.PSD_1_VALUE"
+                                           "optype" "numeric"}
+                                          "000081"
+                                          {"name"
+                                           "LiftPosition.FFT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "0000d0"
+                                          {"name" "voltage_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "000080"
+                                          {"name" "LiftPosition.FFT_1_LOC"
+                                           "optype" "numeric"}
+                                          "00008d"
+                                          {"name"
+                                           "LiftPosition.ACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "000000"
+                                          {"name" "CarbodyID"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000035"
+                                          {"name" "Voltage.ACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "000006"
+                                          {"name" "WeldVoltageActual"
+                                           "optype" "numeric"}
+                                          "0000c3"
+                                          {"name" "droptime_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "00005d"
+                                          {"name" "Current.PSD_3_VALUE"
+                                           "optype" "numeric"}
+                                          "0000b3"
+                                          {"name" "droptime_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "0000b5"
+                                          {"name" "lift_avg_diff_1m"
+                                           "optype" "numeric"}
+                                          "00001c"
+                                          {"name" "MMP.CleanVoltageActual"
+                                           "optype" "numeric"}
+                                          "0000ca"
+                                          {"name" "energy_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "000026"
+                                          {"name" "Voltage.FFT_2_LOC"
+                                           "optype" "numeric"}
+                                          "000004"
+                                          {"name" "uniqueID"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000045"
+                                          {"name"
+                                           "Voltage.PACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "00000b"
+                                          {"name" "DropTimeActual"
+                                           "optype" "numeric"}
+                                          "000066"
+                                          {"name" "Current.ACF_Mean"
+                                           "optype" "numeric"}
+                                          "00001f"
+                                          {"name"
+                                           "MMP.WeldToolSlideBackwardMoveTime"
+                                           "optype" "numeric"}
+                                          "0000d1"
+                                          {"name" "score"
+                                           "optype" "numeric"}
+                                          "000086"
+                                          {"name" "LiftPosition.PSD_1_LOC"
+                                           "optype" "numeric"}
+                                          "000070"
+                                          {"name" "Current.PACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "000014"
+                                          {"name" "MMP.PilotTimeActual"
+                                           "optype" "numeric"}
+                                          "00009c"
+                                          {"name"
+                                           "LiftPosition.PACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "000011"
+                                          {"name" "MMP.ProgTotalWelds"
+                                           "optype" "numeric"}
+                                          "00002f"
+                                          {"name" "Voltage.PSD_3_VALUE"
+                                           "optype" "numeric"}
+                                          "0000a7"
+                                          {"name" "LiftPosition.CWT_2_TIME"
+                                           "optype" "numeric"}
+                                          "00007d"
+                                          {"name" "Current.CWT_3_FREQ"
+                                           "optype" "numeric"}
+                                          "000076"
+                                          {"name" "Current.CWT_1_TIME"
+                                           "optype" "numeric"}
+                                          "0000cb"
+                                          {"name" "droptime_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "00002e"
+                                          {"name" "Voltage.PSD_3_LOC"
+                                           "optype" "numeric"}
+                                          "000046"
+                                          {"name" "Voltage.PACF_Variance"
+                                           "optype" "numeric"}
+                                          "000030"
+                                          {"name" "Voltage.ACF_Entropy"
+                                           "optype" "numeric"}
+                                          "00003d"
+                                          {"name"
+                                           "Voltage.PACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "000042"
+                                          {"name" "Voltage.PACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "000027"
+                                          {"name" "Voltage.FFT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "000037"
+                                          {"name" "Voltage.ACF_Median"
+                                           "optype" "numeric"}
+                                          "000065"
+                                          {"name" "Current.ACF_Median"
+                                           "optype" "numeric"}
+                                          "0000be"
+                                          {"name" "time_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "0000c7"
+                                          {"name" "current_avg_diff_15m"
+                                           "optype" "numeric"}
+                                          "0000bd"
+                                          {"name" "lift_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "000077"
+                                          {"name" "Current.CWT_1_FREQ"
+                                           "optype" "numeric"}
+                                          "00009b"
+                                          {"name"
+                                           "LiftPosition.PACF_Quantile5"
+                                           "optype" "numeric"}
+                                          "0000a5"
+                                          {"name" "LiftPosition.CWT_1_FREQ"
+                                           "optype" "numeric"}
+                                          "000062"
+                                          {"name" "Current.ACF_Quantile25"
+                                           "optype" "numeric"}
+                                          "00009f"
+                                          {"name"
+                                           "LiftPosition.PACF_Median"
+                                           "optype" "numeric"}
+                                          "00007b"
+                                          {"name" "Current.CWT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "00004b"
+                                          {"name" "Voltage.CWT_2_TIME"
+                                           "optype" "numeric"}
+                                          "00004c"
+                                          {"name" "Voltage.CWT_2_FREQ"
+                                           "optype" "numeric"}
+                                          "00003b"
+                                          {"name" "Voltage.ACF_RMS"
+                                           "optype" "numeric"}
+                                          "000085"
+                                          {"name"
+                                           "LiftPosition.FFT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "000079"
+                                          {"name" "Current.CWT_2_TIME"
+                                           "optype" "numeric"}
+                                          "00005e"
+                                          {"name" "Current.ACF_Entropy"
+                                           "optype" "numeric"}
+                                          "000073"
+                                          {"name"
+                                           "Current.PACF_StdDeviation"
+                                           "optype" "numeric"}
+                                          "0000a2"
+                                          {"name"
+                                           "LiftPosition.PACF_Variance"
+                                           "optype" "numeric"}
+                                          "00004e"
+                                          {"name" "Voltage.CWT_3_TIME"
+                                           "optype" "numeric"}
+                                          "000082"
+                                          {"name" "LiftPosition.FFT_2_LOC"
+                                           "optype" "numeric"}
+                                          "000063"
+                                          {"name" "Current.ACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "00007e"
+                                          {"name" "Current.CWT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "000084"
+                                          {"name" "LiftPosition.FFT_3_LOC"
+                                           "optype" "numeric"}
+                                          "00008c"
+                                          {"name"
+                                           "LiftPosition.ACF_Entropy"
+                                           "optype" "numeric"}
+                                          "0000cf"
+                                          {"name" "current_avg_diff_60m"
+                                           "optype" "numeric"}
+                                          "000038"
+                                          {"name" "Voltage.ACF_Mean"
+                                           "optype" "numeric"}
+                                          "000012"
+                                          {"name" "MMP.WeldProcess"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
+                                          "000099"
+                                          {"name"
+                                           "LiftPosition.PACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "00008a"
+                                          {"name" "LiftPosition.PSD_3_LOC"
+                                           "optype" "numeric"}
+                                          "00006b"
+                                          {"name"
+                                           "Current.PACF_ZeroCrossings"
+                                           "optype" "numeric"}
+                                          "00006f"
+                                          {"name" "Current.PACF_Quantile75"
+                                           "optype" "numeric"}
+                                          "0000ac"
+                                          {"name"
+                                           "LiftPosition.CWT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "00006d"
+                                          {"name" "Current.PACF_Quantile5"
+                                           "optype" "numeric"}}}
+                                        input-source)))
+
+(define output-source configured-source)
