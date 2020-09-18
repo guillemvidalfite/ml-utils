@@ -108,7 +108,7 @@ def execute_whizzml(whizzml_script_id, script_inputs, api, log):
 
 
 #### GATHER SOURCE FEATURESET STATS ################################################################################
-def gather_source_featureSet_stats(scored_df, src, fs_count, src_ct, scored_dataset, fs, log):
+def gather_source_featureSet_stats(scored_df, src, src_ct, fs_count, scored_dataset, fs, log):
      """ Calculates and persists stat results at the source+featureSet level """
      log.info("Gathering stats for current dataset and featureSet...")
 

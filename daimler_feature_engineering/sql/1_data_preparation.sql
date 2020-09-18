@@ -95,31 +95,24 @@ delete from welds_actuals a where WeldTimeActual = 0 and lmpenetrationactual is 
 alter table welds_actuals add column penetration_avg_distance numeric;
 alter table welds_actuals add column penetration_up_limit_distance numeric;
 alter table welds_actuals add column penetration_low_limit_distance numeric;
-
 alter table welds_actuals add column energy_avg_distance numeric;
 alter table welds_actuals add column energy_up_limit_distance numeric;
 alter table welds_actuals add column energy_low_limit_distance numeric;
-
 alter table welds_actuals add column drop_time_avg_distance numeric;
 alter table welds_actuals add column drop_time_up_limit_distance numeric;
 alter table welds_actuals add column drop_time_low_limit_distance numeric;
-
 alter table welds_actuals add column stickout_avg_distance numeric;
 alter table welds_actuals add column stickout_up_limit_distance numeric;
 alter table welds_actuals add column stickout_low_limit_distance numeric;
-
 alter table welds_actuals add column lift_avg_distance numeric;
 alter table welds_actuals add column lift_up_limit_distance numeric;
 alter table welds_actuals add column lift_low_limit_distance numeric;
-
 alter table welds_actuals add column time_avg_distance numeric;
 alter table welds_actuals add column time_up_limit_distance numeric;
 alter table welds_actuals add column time_low_limit_distance numeric;
-
 alter table welds_actuals add column current_avg_distance numeric;
 alter table welds_actuals add column current_up_limit_distance numeric;
 alter table welds_actuals add column current_low_limit_distance numeric;
-
 alter table welds_actuals add column voltage_avg_distance numeric;
 alter table welds_actuals add column voltage_up_limit_distance numeric;
 alter table welds_actuals add column voltage_low_limit_distance numeric;
@@ -356,6 +349,86 @@ update welds_actuals a set voltage_low_limit_distance =
 	       extract(MONTH from a.weld_timestamp) = extract(MONTH from b.key_period) and
 	       a.weldvoltageactual < b.voltage_low_2sig and
 	       b.voltage_low_2sig < b.voltage_avg);
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+------- CREATE TABLE WITH CURRENT WELD FEATURES
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+drop table if exists welds_25_datasets_cur_weld_features;
+create table welds_25_datasets_cur_weld_features as
+select 
+      c."uniqueID",
+      c.extensionid,
+      c.weld_timestamp,
+      c.fingerprint,
+      b.penetration_avg_distance,
+      b.penetration_up_limit_distance,
+      b.penetration_low_limit_distance,
+      coalesce(b.penetration_up_limit_distance,-b.penetration_low_limit_distance,0) as penetration_offsigma_distance,
+      case when b.penetration_up_limit_distance is not null then 1
+           when b.penetration_low_limit_distance is not null then -1
+           else 0 end as penetration_is_offsigma,
+      b.energy_avg_distance,
+      b.energy_up_limit_distance,
+      b.energy_low_limit_distance,
+      coalesce(b.energy_up_limit_distance,-b.energy_low_limit_distance,0) as energy_offsigma_distance,
+      case when b.energy_up_limit_distance is not null then 1
+           when b.energy_low_limit_distance is not null then -1
+           else 0 end as energy_is_offsigma,
+      b.drop_time_avg_distance,
+      b.drop_time_up_limit_distance,
+      b.drop_time_low_limit_distance,
+      coalesce(b.drop_time_up_limit_distance,-b.drop_time_low_limit_distance,0) as drop_time_offsigma_distance,
+      case when b.drop_time_up_limit_distance is not null then 1
+           when b.drop_time_low_limit_distance is not null then -1
+           else 0 end as drop_time_is_offsigma,
+      b.stickout_avg_distance,
+      b.stickout_up_limit_distance,
+      b.stickout_low_limit_distance,
+      coalesce(b.stickout_up_limit_distance,-b.stickout_low_limit_distance,0) as stickout_offsigma_distance,
+      case when b.stickout_up_limit_distance is not null then 1
+           when b.stickout_low_limit_distance is not null then -1
+           else 0 end as stickout_is_offsigma,
+      b.lift_avg_distance,
+      b.lift_up_limit_distance,
+      b.lift_low_limit_distance,
+      coalesce(b.lift_up_limit_distance,-b.lift_low_limit_distance,0) as lift_offsigma_distance,
+      case when b.lift_up_limit_distance is not null then 1
+           when b.lift_low_limit_distance is not null then -1
+           else 0 end as lift_is_offsigma,
+      b.time_avg_distance,
+      b.time_up_limit_distance,
+      b.time_low_limit_distance,
+      coalesce(b.time_up_limit_distance,-b.time_low_limit_distance,0) as time_offsigma_distance,
+      case when b.time_up_limit_distance is not null then 1
+           when b.time_low_limit_distance is not null then -1
+           else 0 end as time_is_offsigma,
+      b.current_avg_distance,
+      b.current_up_limit_distance,
+      b.current_low_limit_distance,
+      coalesce(b.current_up_limit_distance,-b.current_low_limit_distance,0) as current_offsigma_distance,
+      case when b.current_up_limit_distance is not null then 1
+           when b.current_low_limit_distance is not null then -1
+           else 0 end as current_is_offsigma,
+      b.voltage_avg_distance,
+      b.voltage_up_limit_distance,
+      b.voltage_low_limit_distance,
+      coalesce(b.voltage_up_limit_distance,-b.voltage_low_limit_distance,0) as voltage_offsigma_distance,
+      case when b.voltage_up_limit_distance is not null then 1
+           when b.voltage_low_limit_distance is not null then -1
+           else 0 end as voltage_is_offsigma
+from welds_actuals b, welds_25_datasets c
+where b.extensionid = c.extensionid and
+      b.uniqueid = c."uniqueID" and
+      b.weld_timestamp = c.weld_timestamp;
+
+
+ create unique index inx_w25dcurf_fingerprint on welds_25_datasets_cur_weld_features(fingerprint);
+ create index inx_w25dcurf_key on welds_25_datasets_cur_weld_features(uniqueid,extensionid,weld_timestamp);
+
 
 ---------------------------------------------------
 ---------------------------------------------------
@@ -889,6 +962,206 @@ from
 
 create unique index inx_w25ds_sigma60_fingerprint on welds_25_datasets_sigma_features_60m(fingerprint);
 create index inx_w25ds_sigma60_key on welds_25_datasets_sigma_features_60m(uniqueid,extensionid,weld_timestamp);
+
+------------------------------------------------------
+------------------------------------------------------
+--- ADDITIONAL OFF SIGMA FEATURES 3h, 6h, 12h
+------------------------------------------------------
+------------------------------------------------------
+drop table if exists welds_25_datasets_sigma_features_3h;
+create table welds_25_datasets_sigma_features_3h(
+	  uniqueid varchar(100),
+	  extensionid varchar(100),
+	  weld_timestamp timestamp,
+	  fingerprint varchar(100),
+      penetration_offsigma_3h numeric,
+      energy_offsigma_3h numeric,
+      droptime_offsigma_3h numeric,
+      stickout_offsigma_3h numeric,
+      lift_offsigma_3h numeric,
+      time_offsigma_3h numeric,
+      current_offsigma_3h numeric,
+      voltage_offsigma_3h numeric);
+
+insert into welds_25_datasets_sigma_features_3h(
+     uniqueid,
+     extensionid,
+     weld_timestamp,
+     fingerprint,
+     penetration_offsigma_3h,
+     energy_offsigma_3h,
+     droptime_offsigma_3h,
+     stickout_offsigma_3h,
+     lift_offsigma_3h,
+     time_offsigma_3h,
+     current_offsigma_3h,
+     voltage_offsigma_3h)
+select 
+   x.uniqueid, 
+   x.extensionid, 
+   x.weld_timestamp, 
+   x.fingerprint, 
+   round(x.pen_ct_off_limit/x.total_count,6) as pen_off_limit_ratio,
+   round(x.energy_ct_off_limit/x.total_count,6) as energy_off_limit_ratio,
+   round(x.drop_time_ct_off_limit/x.total_count,6) as droptime_off_limit_ratio,
+   round(x.stickout_ct_off_limit/x.total_count,6) as stickout_off_limit_ratio,
+   round(x.lift_ct_off_limit/x.total_count,6) as lift_off_limit_ratio,
+   round(x.t_ct_off_limit/x.total_count,6) as time_off_limit_ratio,
+   round(x.current_ct_off_limit/x.total_count,6) as current_off_limit_ratio,
+   round(x.voltage_ct_off_limit/x.total_count,6) as voltage_off_limit_ratio
+from
+  (select
+      c."uniqueID" as uniqueid,
+      c.extensionid,
+      c.weld_timestamp,
+      c.fingerprint,
+ 	  count(b.energy_up_limit_distance > 0 or b.energy_low_limit_distance < 0) energy_ct_off_limit,
+ 	  count(b.drop_time_up_limit_distance > 0 or b.drop_time_low_limit_distance < 0) drop_time_ct_off_limit,
+ 	  count(b.stickout_up_limit_distance > 0 or b.stickout_low_limit_distance < 0) stickout_ct_off_limit,
+ 	  count(b.lift_up_limit_distance > 0 or b.lift_low_limit_distance < 0) lift_ct_off_limit,
+ 	  count(b.time_up_limit_distance > 0 or b.time_low_limit_distance < 0) t_ct_off_limit,
+ 	  count(b.current_up_limit_distance > 0 or b.current_low_limit_distance < 0) current_ct_off_limit,
+ 	  count(b.voltage_up_limit_distance > 0 or b.voltage_low_limit_distance < 0) voltage_ct_off_limit,
+ 	  count(b.penetration_up_limit_distance > 0 or b.penetration_low_limit_distance < 0) pen_ct_off_limit,
+ 	  count(1) total_count
+  from welds_actuals b, welds_25_datasets c 
+  where b.uniqueid = c."uniqueID" and 
+        b.weld_timestamp between c.weld_timestamp - interval '180 min' and c.weld_timestamp - interval '1 second'
+  group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
+
+create unique index inx_w25ds_sigma3h_fingerprint on welds_25_datasets_sigma_features_3hm(fingerprint);
+create index inx_w25ds_sigma3h_key on welds_25_datasets_sigma_features_3hm(uniqueid,extensionid,weld_timestamp);
+
+
+drop table if exists welds_25_datasets_sigma_features_6h;
+create table welds_25_datasets_sigma_features_6h(
+	  uniqueid varchar(100),
+	  extensionid varchar(100),
+	  weld_timestamp timestamp,
+	  fingerprint varchar(100),
+      penetration_offsigma_6h numeric,
+      energy_offsigma_6h numeric,
+      droptime_offsigma_6h numeric,
+      stickout_offsigma_6h numeric,
+      lift_offsigma_6h numeric,
+      time_offsigma_6h numeric,
+      current_offsigma_6h numeric,
+      voltage_offsigma_6h numeric);
+
+insert into welds_25_datasets_sigma_features_6h(
+     uniqueid,
+     extensionid,
+     weld_timestamp,
+     fingerprint,
+     penetration_offsigma_6h,
+     energy_offsigma_6h,
+     droptime_offsigma_6h,
+     stickout_offsigma_6h,
+     lift_offsigma_6h,
+     time_offsigma_6h,
+     current_offsigma_6h,
+     voltage_offsigma_6h)
+select 
+   x.uniqueid, 
+   x.extensionid, 
+   x.weld_timestamp, 
+   x.fingerprint, 
+   round(x.pen_ct_off_limit/x.total_count,6) as pen_off_limit_ratio,
+   round(x.energy_ct_off_limit/x.total_count,6) as energy_off_limit_ratio,
+   round(x.drop_time_ct_off_limit/x.total_count,6) as droptime_off_limit_ratio,
+   round(x.stickout_ct_off_limit/x.total_count,6) as stickout_off_limit_ratio,
+   round(x.lift_ct_off_limit/x.total_count,6) as lift_off_limit_ratio,
+   round(x.t_ct_off_limit/x.total_count,6) as time_off_limit_ratio,
+   round(x.current_ct_off_limit/x.total_count,6) as current_off_limit_ratio,
+   round(x.voltage_ct_off_limit/x.total_count,6) as voltage_off_limit_ratio
+from
+  (select
+      c."uniqueID" as uniqueid,
+      c.extensionid,
+      c.weld_timestamp,
+      c.fingerprint,
+ 	  count(b.energy_up_limit_distance > 0 or b.energy_low_limit_distance < 0) energy_ct_off_limit,
+ 	  count(b.drop_time_up_limit_distance > 0 or b.drop_time_low_limit_distance < 0) drop_time_ct_off_limit,
+ 	  count(b.stickout_up_limit_distance > 0 or b.stickout_low_limit_distance < 0) stickout_ct_off_limit,
+ 	  count(b.lift_up_limit_distance > 0 or b.lift_low_limit_distance < 0) lift_ct_off_limit,
+ 	  count(b.time_up_limit_distance > 0 or b.time_low_limit_distance < 0) t_ct_off_limit,
+ 	  count(b.current_up_limit_distance > 0 or b.current_low_limit_distance < 0) current_ct_off_limit,
+ 	  count(b.voltage_up_limit_distance > 0 or b.voltage_low_limit_distance < 0) voltage_ct_off_limit,
+ 	  count(b.penetration_up_limit_distance > 0 or b.penetration_low_limit_distance < 0) pen_ct_off_limit,
+ 	  count(1) total_count
+  from welds_actuals b, welds_25_datasets c 
+  where b.uniqueid = c."uniqueID" and 
+        b.weld_timestamp between c.weld_timestamp - interval '360 min' and c.weld_timestamp - interval '1 second'
+  group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
+
+create unique index inx_w25ds_sigma6h_fingerprint on welds_25_datasets_sigma_features_6hm(fingerprint);
+create index inx_w25ds_sigma6h_key on welds_25_datasets_sigma_features_6hm(uniqueid,extensionid,weld_timestamp);
+
+
+drop table if exists welds_25_datasets_sigma_features_12h;
+create table welds_25_datasets_sigma_features_12h(
+	  uniqueid varchar(100),
+	  extensionid varchar(100),
+	  weld_timestamp timestamp,
+	  fingerprint varchar(100),
+      penetration_offsigma_12h numeric,
+      energy_offsigma_12h numeric,
+      droptime_offsigma_12h numeric,
+      stickout_offsigma_12h numeric,
+      lift_offsigma_12h numeric,
+      time_offsigma_12h numeric,
+      current_offsigma_12h numeric,
+      voltage_offsigma_12h numeric);
+
+insert into welds_25_datasets_sigma_features_12h(
+     uniqueid,
+     extensionid,
+     weld_timestamp,
+     fingerprint,
+     penetration_offsigma_12h,
+     energy_offsigma_12h,
+     droptime_offsigma_12h,
+     stickout_offsigma_12h,
+     lift_offsigma_12h,
+     time_offsigma_12h,
+     current_offsigma_12h,
+     voltage_offsigma_12h)
+select 
+   x.uniqueid, 
+   x.extensionid, 
+   x.weld_timestamp, 
+   x.fingerprint, 
+   round(x.pen_ct_off_limit/x.total_count,6) as pen_off_limit_ratio,
+   round(x.energy_ct_off_limit/x.total_count,6) as energy_off_limit_ratio,
+   round(x.drop_time_ct_off_limit/x.total_count,6) as droptime_off_limit_ratio,
+   round(x.stickout_ct_off_limit/x.total_count,6) as stickout_off_limit_ratio,
+   round(x.lift_ct_off_limit/x.total_count,6) as lift_off_limit_ratio,
+   round(x.t_ct_off_limit/x.total_count,6) as time_off_limit_ratio,
+   round(x.current_ct_off_limit/x.total_count,6) as current_off_limit_ratio,
+   round(x.voltage_ct_off_limit/x.total_count,6) as voltage_off_limit_ratio
+from
+  (select
+      c."uniqueID" as uniqueid,
+      c.extensionid,
+      c.weld_timestamp,
+      c.fingerprint,
+ 	  count(b.energy_up_limit_distance > 0 or b.energy_low_limit_distance < 0) energy_ct_off_limit,
+ 	  count(b.drop_time_up_limit_distance > 0 or b.drop_time_low_limit_distance < 0) drop_time_ct_off_limit,
+ 	  count(b.stickout_up_limit_distance > 0 or b.stickout_low_limit_distance < 0) stickout_ct_off_limit,
+ 	  count(b.lift_up_limit_distance > 0 or b.lift_low_limit_distance < 0) lift_ct_off_limit,
+ 	  count(b.time_up_limit_distance > 0 or b.time_low_limit_distance < 0) t_ct_off_limit,
+ 	  count(b.current_up_limit_distance > 0 or b.current_low_limit_distance < 0) current_ct_off_limit,
+ 	  count(b.voltage_up_limit_distance > 0 or b.voltage_low_limit_distance < 0) voltage_ct_off_limit,
+ 	  count(b.penetration_up_limit_distance > 0 or b.penetration_low_limit_distance < 0) pen_ct_off_limit,
+ 	  count(1) total_count
+  from welds_actuals b, welds_25_datasets c 
+  where b.uniqueid = c."uniqueID" and 
+        b.weld_timestamp between c.weld_timestamp - interval '360 min' and c.weld_timestamp - interval '1 second'
+  group by c."uniqueID", c.extensionid, c.weld_timestamp, c.fingerprint) x;
+
+create unique index inx_w25ds_sigma12h_fingerprint on welds_25_datasets_sigma_features_12hm(fingerprint);
+create index inx_w25ds_sigma12h_key on welds_25_datasets_sigma_features_12hm(uniqueid,extensionid,weld_timestamp);
+
 
 /*
 daimler=# \d welds_actuals

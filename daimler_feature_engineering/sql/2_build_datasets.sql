@@ -249,6 +249,46 @@ select
          i.time_offsigma_60m,
          i.current_offsigma_60m,
          i.voltage_offsigma_60m,
+         j.penetration_avg_distance,
+         j.penetration_up_limit_distance,
+         j.penetration_low_limit_distance,
+         j.penetration_offsigma_distance,
+         j.penetration_is_offsigma,
+         j.energy_avg_distance,
+         j.energy_up_limit_distance,
+         j.energy_low_limit_distance,
+         j.energy_offsigma_distance,
+         j.energy_is_offsigma,
+         j.drop_time_avg_distance,
+         j.drop_time_up_limit_distance,
+         j.drop_time_low_limit_distance,
+         j.drop_time_offsigma_distance,
+         j.drop_time_is_offsigma,
+         j.stickout_avg_distance,
+         j.stickout_up_limit_distance,
+         j.stickout_low_limit_distance,
+         j.stickout_offsigma_distance,
+         j.stickout_is_offsigma,
+         j.lift_avg_distance,
+         j.lift_up_limit_distance,
+         j.lift_low_limit_distance,
+         j.lift_offsigma_distance,
+         j.lift_is_offsigma,
+         j.time_avg_distance,
+         j.time_up_limit_distance,
+         j.time_low_limit_distance,
+         j.time_offsigma_distance,
+         j.time_is_offsigma,
+         j.current_avg_distance,
+         j.current_up_limit_distance,
+         j.current_low_limit_distance,
+         j.current_offsigma_distance,
+         j.current_is_offsigma,
+         j.voltage_avg_distance,
+         j.voltage_up_limit_distance,
+         j.voltage_low_limit_distance,
+         j.voltage_offsigma_distance,
+         j.voltage_is_offsigma,
          a."score",
          a."BodyShopRepair",
          a."AssemblyShopRepair",
@@ -261,9 +301,6 @@ from welds_25_datasets a
      left join welds_25_datasets_sigma_features_1m f on a.fingerprint = f.fingerprint
      left join welds_25_datasets_sigma_features_5m g on a.fingerprint = g.fingerprint
      left join welds_25_datasets_sigma_features_15m h on a.fingerprint = h.fingerprint
-     left join welds_25_datasets_sigma_features_60m i on a.fingerprint = i.fingerprint;
-
-
-
-
+     left join welds_25_datasets_sigma_features_60m i on a.fingerprint = i.fingerprint
+     left join welds_25_datasets_cur_weld_features j on a.fingerprint = j.fingerprint;
 

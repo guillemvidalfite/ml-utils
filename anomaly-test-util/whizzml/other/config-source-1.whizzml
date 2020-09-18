@@ -1,21 +1,47 @@
 ;;Step 2
 ;;WhizzML for resource: ds1_features.csv
-;;(221 fields (13 categorical, 206 numeric, 1 items))
-;;source/5f60f3e77cfe0671bd01ddc6
+;;(285 fields (31 categorical, 243 numeric, 11 text))
+;;source/5f6355607cfe0671be006a7e
 ;;created by bigml09
 (define configured-source
-  (update-and-wait input-source
+  (update-and-wait source-input
                    (bigml.fields.to-ids {"fields"
-                                         {"000095"
+                                         {"0000ef"
+                                          {"name" "current_offsigma_60m"
+                                           "optype" "numeric"}
+                                          "000095"
                                           {"name"
                                            "LiftPosition.ACF_StdDeviation"
                                            "optype" "numeric"}
                                           "000005"
                                           {"name" "WeldTimeActual"
                                            "optype" "numeric"}
+                                          "0000e0"
+                                          {"name" "voltage_offsigma_5m"
+                                           "optype" "numeric"}
                                           "000044"
                                           {"name" "Voltage.PACF_Mean"
                                            "optype" "numeric"}
+                                          "000116"
+                                          {"name"
+                                           "voltage_low_limit_distance"
+                                           "optype" "numeric"}
+                                          "0000f2"
+                                          {"name"
+                                           "penetration_up_limit_distance"
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000022"
                                           {"name"
                                            "MMP.WeldToolMoveTimeLoadingPinBackward"
@@ -40,11 +66,29 @@
                                           "0000c8"
                                           {"name" "voltage_avg_diff_15m"
                                            "optype" "numeric"}
+                                          "000112"
+                                          {"name"
+                                           "current_offsigma_distance"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000050"
                                           {"name" "Voltage.CWT_3_VALUE"
                                            "optype" "numeric"}
                                           "0000bf"
                                           {"name" "current_avg_diff_5m"
+                                           "optype" "numeric"}
+                                          "0000e6"
+                                          {"name" "time_offsigma_15m"
                                            "optype" "numeric"}
                                           "00000f"
                                           {"name" "MMP.OutletTotalWOPs"
@@ -54,20 +98,23 @@
                                            "Current.ACF_StdDeviation"
                                            "optype" "numeric"}
                                           "0000d4"
-                                          {"name" "Error"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                          {"name" "stickout_offsigma_1m"
+                                           "optype" "numeric"}
                                           "00000c"
                                           {"name" "fingerprint"
-                                           "optype" "categorical"
+                                           "optype" "text"
                                            "term_analysis"
-                                           {"case_sensitive" false
-                                            "enabled" true
-                                            "language" "none"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
                                             "stopword_removal"
                                             "selected_language"
-                                            "token_mode" "all"
-                                            "use_stopwords" false}}
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000053"
                                           {"name" "Current.FFT_1_VALUE"
                                            "optype" "numeric"}
@@ -80,16 +127,41 @@
                                            "optype" "numeric"}
                                           "000052"
                                           {"name" "Current.FFT_1_LOC"
-                                           "optype" "numeric"}
-                                          "0000d2"
-                                          {"name" "BodyShopRepair"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000d2"
+                                          {"name" "energy_offsigma_1m"
+                                           "optype" "numeric"}
+                                          "0000f3"
+                                          {"name"
+                                           "penetration_low_limit_distance"
+                                           "optype" "numeric"}
                                           "000075"
                                           {"name" "Current.PACF_RMS"
                                            "optype" "numeric"}
                                           "000097"
                                           {"name" "LiftPosition.ACF_RMS"
+                                           "optype" "numeric"}
+                                          "0000ea"
+                                          {"name" "energy_offsigma_60m"
+                                           "optype" "numeric"}
+                                          "0000f9"
+                                          {"name"
+                                           "energy_offsigma_distance"
+                                           "optype" "numeric"}
+                                          "0000fe"
+                                          {"name"
+                                           "drop_time_offsigma_distance"
                                            "optype" "numeric"}
                                           "000068"
                                           {"name" "Current.ACF_Variance"
@@ -99,8 +171,10 @@
                                            "optype" "numeric"}
                                           "000003"
                                           {"name" "StudID"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "optype" "numeric"}
+                                          "0000e3"
+                                          {"name" "droptime_offsigma_15m"
+                                           "optype" "numeric"}
                                           "000023"
                                           {"name"
                                            "MMP.WeldToolMoveTimeLoadingPinForward"
@@ -112,20 +186,62 @@
                                           "000071"
                                           {"name" "Current.PACF_Median"
                                            "optype" "numeric"}
+                                          "0000e2"
+                                          {"name" "energy_offsigma_15m"
+                                           "optype" "numeric"}
                                           "0000b6"
                                           {"name" "time_avg_diff_1m"
                                            "optype" "numeric"}
                                           "00002a"
                                           {"name" "Voltage.PSD_1_LOC"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000060"
                                           {"name"
                                            "Current.ACF_MeanCrossings"
                                            "optype" "numeric"}
+                                          "0000f5"
+                                          {"name" "penetration_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000fc"
+                                          {"name"
+                                           "drop_time_up_limit_distance"
+                                           "optype" "numeric"}
                                           "0000af"
                                           {"name" "has_missing_values"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00001d"
                                           {"name"
                                            "MMP.WeldToolSlideForwardMoveTime"
@@ -135,6 +251,9 @@
                                            "optype" "numeric"}
                                           "000056"
                                           {"name" "Current.FFT_3_LOC"
+                                           "optype" "numeric"}
+                                          "0000eb"
+                                          {"name" "droptime_offsigma_60m"
                                            "optype" "numeric"}
                                           "000064"
                                           {"name" "Current.ACF_Quantile95"
@@ -146,14 +265,39 @@
                                           "000010"
                                           {"name" "MMP.WeldToolTotalWelds"
                                            "optype" "numeric"}
+                                          "0000e4"
+                                          {"name" "stickout_offsigma_15m"
+                                           "optype" "numeric"}
                                           "00000d"
                                           {"name" "MMP.SystemTotalWelds"
+                                           "optype" "numeric"}
+                                          "0000d5"
+                                          {"name" "lift_offsigma_1m"
                                            "optype" "numeric"}
                                           "00004a"
                                           {"name" "Voltage.CWT_1_VALUE"
                                            "optype" "numeric"}
                                           "000029"
                                           {"name" "Voltage.FFT_3_VALUE"
+                                           "optype" "numeric"}
+                                          "000110"
+                                          {"name"
+                                           "current_up_limit_distance"
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000e7"
+                                          {"name" "current_offsigma_15m"
                                            "optype" "numeric"}
                                           "0000b8"
                                           {"name" "voltage_avg_diff_1m"
@@ -167,10 +311,23 @@
                                           "00003a"
                                           {"name" "Voltage.ACF_Variance"
                                            "optype" "numeric"}
+                                          "0000d9"
+                                          {"name" "penetration_offsigma_5m"
+                                           "optype" "numeric"}
                                           "000017"
                                           {"name" "MMP.LiftFinishedMode"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "0000a4"
                                           {"name" "LiftPosition.CWT_1_TIME"
                                            "optype" "numeric"}
@@ -184,7 +341,17 @@
                                           {"name"
                                            "MMP.ProtectiveGasFlowDuringWeldprocessActive"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00002c"
                                           {"name" "Voltage.PSD_2_LOC"
                                            "optype" "numeric"}
@@ -197,17 +364,75 @@
                                           "00006e"
                                           {"name" "Current.PACF_Quantile25"
                                            "optype" "numeric"}
+                                          "0000f7"
+                                          {"name"
+                                           "energy_up_limit_distance"
+                                           "optype" "numeric"}
+                                          "0000de"
+                                          {"name" "time_offsigma_5m"
+                                           "optype" "numeric"}
+                                          "0000f8"
+                                          {"name"
+                                           "energy_low_limit_distance"
+                                           "optype" "numeric"}
                                           "000015"
                                           {"name"
                                            "MMP.WeldCurrentActualNegative"
-                                           "optype" "numeric"}
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000090"
                                           {"name"
                                            "LiftPosition.ACF_Quantile25"
                                            "optype" "numeric"}
+                                          "0000ee"
+                                          {"name" "time_offsigma_60m"
+                                           "optype" "numeric"}
                                           "000033"
                                           {"name" "Voltage.ACF_Quantile5"
                                            "optype" "numeric"}
+                                          "00010e"
+                                          {"name" "time_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000f4"
+                                          {"name"
+                                           "penetration_offsigma_distance"
+                                           "optype" "numeric"}
+                                          "00011c"
+                                          {"name" "Error"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000016"
                                           {"name" "MMP.LMPositionActual"
                                            "optype" "numeric"}
@@ -229,16 +454,37 @@
                                            "optype" "numeric"}
                                           "0000b0"
                                           {"name" "missing_fields"
-                                           "optype" "items"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00007a"
                                           {"name" "Current.CWT_2_FREQ"
                                            "optype" "numeric"}
                                           "0000b9"
                                           {"name" "penetration_avg_diff_5m"
                                            "optype" "numeric"}
+                                          "0000db"
+                                          {"name" "droptime_offsigma_5m"
+                                           "optype" "numeric"}
+                                          "000117"
+                                          {"name"
+                                           "voltage_offsigma_distance"
+                                           "optype" "numeric"}
                                           "000098"
                                           {"name"
                                            "LiftPosition.PACF_Entropy"
+                                           "optype" "numeric"}
+                                          "0000e5"
+                                          {"name" "lift_offsigma_15m"
                                            "optype" "numeric"}
                                           "000091"
                                           {"name"
@@ -261,6 +507,9 @@
                                           {"name"
                                            "penetration_avg_diff_60m"
                                            "optype" "numeric"}
+                                          "000119"
+                                          {"name" "score"
+                                           "optype" "numeric"}
                                           "000051"
                                           {"name" "Voltage.DTW_Distance"
                                            "optype" "numeric"}
@@ -269,13 +518,72 @@
                                            "optype" "numeric"}
                                           "000024"
                                           {"name" "Voltage.FFT_1_LOC"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000df"
+                                          {"name" "current_offsigma_5m"
                                            "optype" "numeric"}
+                                          "000111"
+                                          {"name"
+                                           "current_low_limit_distance"
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000088"
                                           {"name" "LiftPosition.PSD_2_LOC"
                                            "optype" "numeric"}
                                           "0000b4"
                                           {"name" "stickout_avg_diff_1m"
                                            "optype" "numeric"}
+                                          "000107"
+                                          {"name" "lift_low_limit_distance"
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "00011a"
+                                          {"name" "BodyShopRepair"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00005a"
                                           {"name" "Current.PSD_2_LOC"
                                            "optype" "numeric"}
@@ -288,25 +596,48 @@
                                            "LiftPosition.CWT_2_VALUE"
                                            "optype" "numeric"}
                                           "0000d3"
-                                          {"name" "AssemblyShopRepair"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                          {"name" "droptime_offsigma_1m"
+                                           "optype" "numeric"}
                                           "000001"
                                           {"name" "weld_timestamp"
-                                           "optype" "datetime"
-                                           "time_formats"
-                                           ["YYYY-MM-dd HH:mm:ss+SS"]}
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000018"
                                           {"name"
                                            "MMP.ProtectiveGasPreFlowActive"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00006a"
                                           {"name" "Current.PACF_Entropy"
                                            "optype" "numeric"}
                                           "00009e"
                                           {"name"
                                            "LiftPosition.PACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "0000e1"
+                                          {"name"
+                                           "penetration_offsigma_15m"
                                            "optype" "numeric"}
                                           "00005f"
                                           {"name"
@@ -315,9 +646,27 @@
                                           "000083"
                                           {"name"
                                            "LiftPosition.FFT_2_VALUE"
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "000105"
+                                          {"name" "lift_avg_distance"
                                            "optype" "numeric"}
                                           "000072"
                                           {"name" "Current.PACF_Mean"
+                                           "optype" "numeric"}
+                                          "0000f6"
+                                          {"name" "energy_avg_distance"
                                            "optype" "numeric"}
                                           "000032"
                                           {"name"
@@ -335,7 +684,17 @@
                                           "000002"
                                           {"name" "extensionid"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00007c"
                                           {"name" "Current.CWT_3_TIME"
                                            "optype" "numeric"}
@@ -358,6 +717,9 @@
                                           "00009a"
                                           {"name"
                                            "LiftPosition.PACF_MeanCrossings"
+                                           "optype" "numeric"}
+                                          "0000ed"
+                                          {"name" "lift_offsigma_60m"
                                            "optype" "numeric"}
                                           "0000b7"
                                           {"name" "current_avg_diff_1m"
@@ -391,19 +753,50 @@
                                           "00001a"
                                           {"name"
                                            "MMP.ProtectiveGasPostFlowActive"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "000114"
+                                          {"name" "voltage_avg_distance"
                                            "optype" "numeric"}
                                           "00006c"
                                           {"name"
                                            "Current.PACF_MeanCrossings"
                                            "optype" "numeric"}
+                                          "000106"
+                                          {"name" "lift_up_limit_distance"
+                                           "optype" "numeric"}
+                                          "000115"
+                                          {"name"
+                                           "voltage_up_limit_distance"
+                                           "optype" "numeric"}
                                           "000093"
                                           {"name" "LiftPosition.ACF_Median"
+                                           "optype" "numeric"}
+                                          "0000fd"
+                                          {"name"
+                                           "drop_time_low_limit_distance"
                                            "optype" "numeric"}
                                           "0000bb"
                                           {"name" "droptime_avg_diff_5m"
                                            "optype" "numeric"}
                                           "000009"
                                           {"name" "LMLiftHeightActual"
+                                           "optype" "numeric"}
+                                          "000108"
+                                          {"name" "lift_offsigma_distance"
+                                           "optype" "numeric"}
+                                          "00010c"
+                                          {"name" "time_low_limit_distance"
                                            "optype" "numeric"}
                                           "000094"
                                           {"name" "LiftPosition.ACF_Mean"
@@ -419,15 +812,44 @@
                                           "0000c4"
                                           {"name" "stickout_avg_diff_15m"
                                            "optype" "numeric"}
+                                          "000104"
+                                          {"name" "stickout_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "0000a0"
                                           {"name" "LiftPosition.PACF_Mean"
                                            "optype" "numeric"}
                                           "000055"
                                           {"name" "Current.FFT_2_VALUE"
                                            "optype" "numeric"}
+                                          "000103"
+                                          {"name"
+                                           "stickout_offsigma_distance"
+                                           "optype" "numeric"}
                                           "00001b"
                                           {"name" "MMP.CleanCurrentActual"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000069"
                                           {"name" "Current.ACF_RMS"
                                            "optype" "numeric"}
@@ -463,7 +885,18 @@
                                            "optype" "numeric"}
                                           "000058"
                                           {"name" "Current.PSD_1_LOC"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "0000a6"
                                           {"name"
                                            "LiftPosition.CWT_1_VALUE"
@@ -484,7 +917,18 @@
                                           "00008e"
                                           {"name"
                                            "LiftPosition.ACF_MeanCrossings"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000054"
                                           {"name" "Current.FFT_2_LOC"
                                            "optype" "numeric"}
@@ -499,17 +943,61 @@
                                           "0000d0"
                                           {"name" "voltage_avg_diff_60m"
                                            "optype" "numeric"}
+                                          "0000dd"
+                                          {"name" "lift_offsigma_5m"
+                                           "optype" "numeric"}
                                           "000080"
                                           {"name" "LiftPosition.FFT_1_LOC"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00008d"
                                           {"name"
                                            "LiftPosition.ACF_ZeroCrossings"
-                                           "optype" "numeric"}
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000000"
                                           {"name" "CarbodyID"
+                                           "optype" "numeric"}
+                                          "0000e8"
+                                          {"name" "voltage_offsigma_15m"
+                                           "optype" "numeric"}
+                                          "00010b"
+                                          {"name" "time_up_limit_distance"
+                                           "optype" "numeric"}
+                                          "000113"
+                                          {"name" "current_is_offsigma"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000035"
                                           {"name" "Voltage.ACF_Quantile75"
                                            "optype" "numeric"}
@@ -530,17 +1018,48 @@
                                            "optype" "numeric"}
                                           "00001c"
                                           {"name" "MMP.CleanVoltageActual"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "000101"
+                                          {"name"
+                                           "stickout_up_limit_distance"
                                            "optype" "numeric"}
                                           "0000ca"
                                           {"name" "energy_avg_diff_60m"
                                            "optype" "numeric"}
+                                          "0000d6"
+                                          {"name" "time_offsigma_1m"
+                                           "optype" "numeric"}
                                           "000026"
                                           {"name" "Voltage.FFT_2_LOC"
+                                           "optype" "numeric"}
+                                          "00010d"
+                                          {"name" "time_offsigma_distance"
                                            "optype" "numeric"}
                                           "000004"
                                           {"name" "uniqueID"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000045"
                                           {"name"
                                            "Voltage.PACF_StdDeviation"
@@ -548,18 +1067,39 @@
                                           "00000b"
                                           {"name" "DropTimeActual"
                                            "optype" "numeric"}
+                                          "0000fb"
+                                          {"name" "drop_time_avg_distance"
+                                           "optype" "numeric"}
                                           "000066"
                                           {"name" "Current.ACF_Mean"
+                                           "optype" "numeric"}
+                                          "0000f1"
+                                          {"name"
+                                           "penetration_avg_distance"
                                            "optype" "numeric"}
                                           "00001f"
                                           {"name"
                                            "MMP.WeldToolSlideBackwardMoveTime"
                                            "optype" "numeric"}
                                           "0000d1"
-                                          {"name" "score"
+                                          {"name" "penetration_offsigma_1m"
                                            "optype" "numeric"}
                                           "000086"
                                           {"name" "LiftPosition.PSD_1_LOC"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "0000ec"
+                                          {"name" "stickout_offsigma_60m"
                                            "optype" "numeric"}
                                           "000070"
                                           {"name" "Current.PACF_Quantile95"
@@ -623,8 +1163,19 @@
                                           "0000bd"
                                           {"name" "lift_avg_diff_5m"
                                            "optype" "numeric"}
+                                          "0000d7"
+                                          {"name" "current_offsigma_1m"
+                                           "optype" "numeric"}
+                                          "000102"
+                                          {"name"
+                                           "stickout_low_limit_distance"
+                                           "optype" "numeric"}
                                           "000077"
                                           {"name" "Current.CWT_1_FREQ"
+                                           "optype" "numeric"}
+                                          "0000e9"
+                                          {"name"
+                                           "penetration_offsigma_60m"
                                            "optype" "numeric"}
                                           "00009b"
                                           {"name"
@@ -640,8 +1191,14 @@
                                           {"name"
                                            "LiftPosition.PACF_Median"
                                            "optype" "numeric"}
+                                          "00010f"
+                                          {"name" "current_avg_distance"
+                                           "optype" "numeric"}
                                           "00007b"
                                           {"name" "Current.CWT_2_VALUE"
+                                           "optype" "numeric"}
+                                          "0000d8"
+                                          {"name" "voltage_offsigma_1m"
                                            "optype" "numeric"}
                                           "00004b"
                                           {"name" "Voltage.CWT_2_TIME"
@@ -655,12 +1212,44 @@
                                           "000085"
                                           {"name"
                                            "LiftPosition.FFT_3_VALUE"
-                                           "optype" "numeric"}
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000079"
                                           {"name" "Current.CWT_2_TIME"
                                            "optype" "numeric"}
+                                          "0000da"
+                                          {"name" "energy_offsigma_5m"
+                                           "optype" "numeric"}
+                                          "0000ff"
+                                          {"name" "drop_time_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00005e"
                                           {"name" "Current.ACF_Entropy"
+                                           "optype" "numeric"}
+                                          "0000f0"
+                                          {"name" "voltage_offsigma_60m"
                                            "optype" "numeric"}
                                           "000073"
                                           {"name"
@@ -673,9 +1262,35 @@
                                           "00004e"
                                           {"name" "Voltage.CWT_3_TIME"
                                            "optype" "numeric"}
+                                          "000118"
+                                          {"name" "voltage_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000082"
                                           {"name" "LiftPosition.FFT_2_LOC"
-                                           "optype" "numeric"}
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000063"
                                           {"name" "Current.ACF_Quantile75"
                                            "optype" "numeric"}
@@ -684,7 +1299,19 @@
                                            "optype" "numeric"}
                                           "000084"
                                           {"name" "LiftPosition.FFT_3_LOC"
-                                           "optype" "numeric"}
+                                           "optype" "text"
+                                           "term_analysis"
+                                           {"use_stopwords" false
+                                            "case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00008c"
                                           {"name"
                                            "LiftPosition.ACF_Entropy"
@@ -695,10 +1322,40 @@
                                           "000038"
                                           {"name" "Voltage.ACF_Mean"
                                            "optype" "numeric"}
+                                          "00010a"
+                                          {"name" "time_avg_distance"
+                                           "optype" "numeric"}
+                                          "0000fa"
+                                          {"name" "energy_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
+                                          "000100"
+                                          {"name" "stickout_avg_distance"
+                                           "optype" "numeric"}
                                           "000012"
                                           {"name" "MMP.WeldProcess"
                                            "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "000099"
                                           {"name"
                                            "LiftPosition.PACF_ZeroCrossings"
@@ -713,13 +1370,44 @@
                                           "00006f"
                                           {"name" "Current.PACF_Quantile75"
                                            "optype" "numeric"}
+                                          "000109"
+                                          {"name" "lift_is_offsigma"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "0000ac"
                                           {"name"
                                            "LiftPosition.CWT_3_VALUE"
                                            "optype" "numeric"}
+                                          "0000dc"
+                                          {"name" "stickout_offsigma_5m"
+                                           "optype" "numeric"}
+                                          "00011b"
+                                          {"name" "AssemblyShopRepair"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00006d"
                                           {"name" "Current.PACF_Quantile5"
                                            "optype" "numeric"}}}
-                                        input-source)))
+                                        source-input)))
 
 (define output-source configured-source)
