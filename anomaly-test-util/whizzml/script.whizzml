@@ -42,7 +42,7 @@
 ;; uses seeds to make tests more stable 
 (define anomaly-id
   (create-and-wait-anomaly {"dataset" dataset-clean-id
-                            "id_fields" ["000009" "000129"]
+                            "id_fields" ["extensionid" "Error"]
                             "seed"
                             "2c249dda00fbf54ab4cdd850532a584f286af5b6"
                             "input_fields" anomaly-input-fields
