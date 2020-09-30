@@ -289,6 +289,30 @@ select
          j.voltage_low_limit_distance,
          j.voltage_offsigma_distance,
          j.voltage_is_offsigma,
+         k.penetration_offsigma_3h,
+         k.energy_offsigma_3h,
+         k.droptime_offsigma_3h,
+         k.stickout_offsigma_3h,
+         k.lift_offsigma_3h,
+         k.time_offsigma_3h,
+         k.current_offsigma_3h,
+         k.voltage_offsigma_3h,
+         l.penetration_offsigma_6h,
+         l.energy_offsigma_6h,
+         l.droptime_offsigma_6h,
+         l.stickout_offsigma_6h,
+         l.lift_offsigma_6h,
+         l.time_offsigma_6h,
+         l.current_offsigma_6h,
+         l.voltage_offsigma_6h,
+         m.penetration_offsigma_12h,
+         m.energy_offsigma_12h,
+         m.droptime_offsigma_12h,
+         m.stickout_offsigma_12h,
+         m.lift_offsigma_12h,
+         m.time_offsigma_12h,
+         m.current_offsigma_12h,
+         m.voltage_offsigma_12h,
          a."score",
          a."BodyShopRepair",
          a."AssemblyShopRepair",
@@ -302,5 +326,8 @@ from welds_25_datasets a
      left join welds_25_datasets_sigma_features_5m g on a.fingerprint = g.fingerprint
      left join welds_25_datasets_sigma_features_15m h on a.fingerprint = h.fingerprint
      left join welds_25_datasets_sigma_features_60m i on a.fingerprint = i.fingerprint
-     left join welds_25_datasets_cur_weld_features j on a.fingerprint = j.fingerprint;
+     left join welds_25_datasets_cur_weld_features j on a.fingerprint = j.fingerprint 
+     left join welds_25_datasets_sigma_features_3h k on a.fingerprint = k.fingerprint 
+     left join welds_25_datasets_sigma_features_6h l on a.fingerprint = l.fingerprint 
+     left join welds_25_datasets_sigma_features_12h m on a.fingerprint = m.fingerprint;
 
