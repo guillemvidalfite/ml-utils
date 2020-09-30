@@ -90,6 +90,20 @@
                                           "0000e6"
                                           {"name" "time_offsigma_15m"
                                            "optype" "numeric"}
+                                          "000134"
+                                          {"name" "Error"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "00000f"
                                           {"name" "MMP.OutletTotalWOPs"
                                            "optype" "numeric"}
@@ -172,6 +186,20 @@
                                           "000003"
                                           {"name" "StudID"
                                            "optype" "numeric"}
+                                          "000133"
+                                          {"name" "AssemblyShopRepair"
+                                           "optype" "categorical"
+                                           "term_analysis"
+                                           {"case_sensitive" false
+                                            "stem_words" true
+                                            "token_mode" "all"
+                                            "stopword_diligence" "normal"
+                                            "term_filters" []
+                                            "ngrams" 1
+                                            "stopword_removal"
+                                            "selected_language"
+                                            "enabled" true
+                                            "excluded_terms" []}}
                                           "0000e3"
                                           {"name" "droptime_offsigma_15m"
                                            "optype" "numeric"}
@@ -206,6 +234,9 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
+                                          "00012b"
+                                          {"name" "droptime_offsigma_12h"
+                                           "optype" "numeric"}
                                           "000060"
                                           {"name"
                                            "Current.ACF_MeanCrossings"
@@ -257,6 +288,9 @@
                                            "optype" "numeric"}
                                           "000064"
                                           {"name" "Current.ACF_Quantile95"
+                                           "optype" "numeric"}
+                                          "00012f"
+                                          {"name" "current_offsigma_12h"
                                            "optype" "numeric"}
                                           "00008f"
                                           {"name"
@@ -336,6 +370,9 @@
                                            "optype" "numeric"}
                                           "000020"
                                           {"name" "MMP.FeedingTimeActual"
+                                           "optype" "numeric"}
+                                          "000126"
+                                          {"name" "time_offsigma_6h"
                                            "optype" "numeric"}
                                           "000019"
                                           {"name"
@@ -420,19 +457,8 @@
                                            "penetration_offsigma_distance"
                                            "optype" "numeric"}
                                           "00011c"
-                                          {"name" "Error"
-                                           "optype" "categorical"
-                                           "term_analysis"
-                                           {"case_sensitive" false
-                                            "stem_words" true
-                                            "token_mode" "all"
-                                            "stopword_diligence" "normal"
-                                            "term_filters" []
-                                            "ngrams" 1
-                                            "stopword_removal"
-                                            "selected_language"
-                                            "enabled" true
-                                            "excluded_terms" []}}
+                                          {"name" "stickout_offsigma_3h"
+                                           "optype" "numeric"}
                                           "000016"
                                           {"name" "MMP.LMPositionActual"
                                            "optype" "numeric"}
@@ -472,12 +498,18 @@
                                           "0000b9"
                                           {"name" "penetration_avg_diff_5m"
                                            "optype" "numeric"}
+                                          "000131"
+                                          {"name" "score"
+                                           "optype" "numeric"}
                                           "0000db"
                                           {"name" "droptime_offsigma_5m"
                                            "optype" "numeric"}
                                           "000117"
                                           {"name"
                                            "voltage_offsigma_distance"
+                                           "optype" "numeric"}
+                                          "00012a"
+                                          {"name" "energy_offsigma_12h"
                                            "optype" "numeric"}
                                           "000098"
                                           {"name"
@@ -508,7 +540,7 @@
                                            "penetration_avg_diff_60m"
                                            "optype" "numeric"}
                                           "000119"
-                                          {"name" "score"
+                                          {"name" "penetration_offsigma_3h"
                                            "optype" "numeric"}
                                           "000051"
                                           {"name" "Voltage.DTW_Distance"
@@ -571,6 +603,12 @@
                                             "enabled" true
                                             "excluded_terms" []}}
                                           "00011a"
+                                          {"name" "energy_offsigma_3h"
+                                           "optype" "numeric"}
+                                          "00005a"
+                                          {"name" "Current.PSD_2_LOC"
+                                           "optype" "numeric"}
+                                          "000132"
                                           {"name" "BodyShopRepair"
                                            "optype" "categorical"
                                            "term_analysis"
@@ -584,8 +622,8 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
-                                          "00005a"
-                                          {"name" "Current.PSD_2_LOC"
+                                          "00012d"
+                                          {"name" "lift_offsigma_12h"
                                            "optype" "numeric"}
                                           "00003e"
                                           {"name"
@@ -695,6 +733,9 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
+                                          "000130"
+                                          {"name" "voltage_offsigma_12h"
+                                           "optype" "numeric"}
                                           "00007c"
                                           {"name" "Current.CWT_3_TIME"
                                            "optype" "numeric"}
@@ -729,6 +770,9 @@
                                            "optype" "numeric"}
                                           "000025"
                                           {"name" "Voltage.FFT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "00011d"
+                                          {"name" "lift_offsigma_3h"
                                            "optype" "numeric"}
                                           "00003c"
                                           {"name" "Voltage.PACF_Entropy"
@@ -768,6 +812,9 @@
                                           "000114"
                                           {"name" "voltage_avg_distance"
                                            "optype" "numeric"}
+                                          "000122"
+                                          {"name" "energy_offsigma_6h"
+                                           "optype" "numeric"}
                                           "00006c"
                                           {"name"
                                            "Current.PACF_MeanCrossings"
@@ -791,6 +838,9 @@
                                            "optype" "numeric"}
                                           "000009"
                                           {"name" "LMLiftHeightActual"
+                                           "optype" "numeric"}
+                                          "000124"
+                                          {"name" "stickout_offsigma_6h"
                                            "optype" "numeric"}
                                           "000108"
                                           {"name" "lift_offsigma_distance"
@@ -836,6 +886,9 @@
                                           {"name"
                                            "stickout_offsigma_distance"
                                            "optype" "numeric"}
+                                          "000120"
+                                          {"name" "voltage_offsigma_3h"
+                                           "optype" "numeric"}
                                           "00001b"
                                           {"name" "MMP.CleanCurrentActual"
                                            "optype" "categorical"
@@ -850,6 +903,9 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
+                                          "00012e"
+                                          {"name" "time_offsigma_12h"
+                                           "optype" "numeric"}
                                           "000069"
                                           {"name" "Current.ACF_RMS"
                                            "optype" "numeric"}
@@ -975,6 +1031,9 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
+                                          "000125"
+                                          {"name" "lift_offsigma_6h"
+                                           "optype" "numeric"}
                                           "000000"
                                           {"name" "CarbodyID"
                                            "optype" "numeric"}
@@ -998,11 +1057,17 @@
                                             "selected_language"
                                             "enabled" true
                                             "excluded_terms" []}}
+                                          "000121"
+                                          {"name" "penetration_offsigma_6h"
+                                           "optype" "numeric"}
                                           "000035"
                                           {"name" "Voltage.ACF_Quantile75"
                                            "optype" "numeric"}
                                           "000006"
                                           {"name" "WeldVoltageActual"
+                                           "optype" "numeric"}
+                                          "00011e"
+                                          {"name" "time_offsigma_3h"
                                            "optype" "numeric"}
                                           "0000c3"
                                           {"name" "droptime_avg_diff_15m"
@@ -1083,6 +1148,9 @@
                                            "optype" "numeric"}
                                           "0000d1"
                                           {"name" "penetration_offsigma_1m"
+                                           "optype" "numeric"}
+                                          "000123"
+                                          {"name" "droptime_offsigma_6h"
                                            "optype" "numeric"}
                                           "000086"
                                           {"name" "LiftPosition.PSD_1_LOC"
@@ -1228,6 +1296,9 @@
                                           "000079"
                                           {"name" "Current.CWT_2_TIME"
                                            "optype" "numeric"}
+                                          "000127"
+                                          {"name" "current_offsigma_6h"
+                                           "optype" "numeric"}
                                           "0000da"
                                           {"name" "energy_offsigma_5m"
                                            "optype" "numeric"}
@@ -1255,9 +1326,16 @@
                                           {"name"
                                            "Current.PACF_StdDeviation"
                                            "optype" "numeric"}
+                                          "000129"
+                                          {"name"
+                                           "penetration_offsigma_12h"
+                                           "optype" "numeric"}
                                           "0000a2"
                                           {"name"
                                            "LiftPosition.PACF_Variance"
+                                           "optype" "numeric"}
+                                          "000128"
+                                          {"name" "voltage_offsigma_6h"
                                            "optype" "numeric"}
                                           "00004e"
                                           {"name" "Voltage.CWT_3_TIME"
@@ -1363,6 +1441,9 @@
                                           "00008a"
                                           {"name" "LiftPosition.PSD_3_LOC"
                                            "optype" "numeric"}
+                                          "00011f"
+                                          {"name" "current_offsigma_3h"
+                                           "optype" "numeric"}
                                           "00006b"
                                           {"name"
                                            "Current.PACF_ZeroCrossings"
@@ -1392,22 +1473,13 @@
                                           {"name" "stickout_offsigma_5m"
                                            "optype" "numeric"}
                                           "00011b"
-                                          {"name" "AssemblyShopRepair"
-                                           "optype" "categorical"
-                                           "term_analysis"
-                                           {"case_sensitive" false
-                                            "stem_words" true
-                                            "token_mode" "all"
-                                            "stopword_diligence" "normal"
-                                            "term_filters" []
-                                            "ngrams" 1
-                                            "stopword_removal"
-                                            "selected_language"
-                                            "enabled" true
-                                            "excluded_terms" []}}
+                                          {"name" "droptime_offsigma_3h"
+                                           "optype" "numeric"}
+                                          "00012c"
+                                          {"name" "stickout_offsigma_12h"
+                                           "optype" "numeric"}
                                           "00006d"
                                           {"name" "Current.PACF_Quantile5"
                                            "optype" "numeric"}}}
                                         source-input)))
-
 (define output-source configured-source)
