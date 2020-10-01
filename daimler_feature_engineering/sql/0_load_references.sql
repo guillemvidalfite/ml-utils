@@ -61,8 +61,38 @@ copy imp_weld_references(
       stickout_ref,
       stickout_up_limit,
       stickout_low_2sig
-)
-FROM '/Users/guillem/Data/Customers/Daimler/references/tool_reference_stats_jul.csv' DELIMITER ',' CSV HEADER;
+)FROM '/Users/guillem/Data/Customers/Daimler/references/tool_reference_stats_v2_1.csv' DELIMITER ',' CSV HEADER;
+
+copy imp_weld_references(
+      key_tool,
+      key_extension,
+      key_period,
+      num_elements,
+      penetration_ref,
+      penetration_up_limit,
+      penetration_low_2sig,
+      drop_time_ref,
+      drop_time_up_limit,
+      drop_time_low_2sig,
+      voltage_ref,
+      voltage_up_limit,
+      voltage_low_2sig,
+      time_ref,
+      time_up_limit,
+      time_low_2sig,
+      lift_ref,
+      lift_up_limit,
+      lift_low_2sig,
+      current_ref,
+      current_up_limit,
+      current_low_2sig,
+      enery_ref,
+      energy_up_limit,
+      energy_low_2sig,
+      stickout_ref,
+      stickout_up_limit,
+      stickout_low_2sig
+)FROM '/Users/guillem/Data/Customers/Daimler/references/tool_reference_stats_v2_2.csv' DELIMITER ',' CSV HEADER;
 
 
 --- create online table with proper types

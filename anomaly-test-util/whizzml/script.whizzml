@@ -63,15 +63,28 @@
 
 
 ;; output dataset, filter fields
+;;(define output-dataset
+;;  (create-and-wait-dataset (bigml.fields.to-ids {"origin_dataset" dataset-bas
+;;                                                 "all_fields" true
+;;                                                 "input_fields"
+;;                                                 ["extensionid"
+;;                                                  "fingerprint"
+;;                                                  "score"
+;;                                                  "BodyShopRepair"
+;;                                                  "AssemblyShopRepair"
+;;                                                  "Error"
+;;                                                  "score_output"]}
+;;                                                dataset-bas)))
+
 (define output-dataset
   (create-and-wait-dataset (bigml.fields.to-ids {"origin_dataset" dataset-bas
                                                  "all_fields" true
                                                  "input_fields"
                                                  ["extensionid"
                                                   "fingerprint"
-                                                  "score"
-                                                  "BodyShopRepair"
-                                                  "AssemblyShopRepair"
-                                                  "Error"
+                                                  "bodyshop_repair"
+                                                  "assembly_repair"
+                                                  "error"
                                                   "score_output"]}
                                                 dataset-bas)))
+

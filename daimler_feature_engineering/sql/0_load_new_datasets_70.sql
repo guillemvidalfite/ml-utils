@@ -21434,23 +21434,26 @@ create table repair_flags(
      fingerprint varchar(100),
      bodyshop_repair varchar(1),
      assemblyshop_repair varchar(1),
-     repaired varchar(1)
+     repaired varchar(1),
+     score numeric
 );
 
 copy repair_flags(
         fingerprint,
         bodyshop_repair,
         assemblyshop_repair,
-        repaired
-)FROM '/Users/guillem/Data/Customers/Daimler/70_datasets_alvaro_v2/repair_flags.csv' DELIMITER ',' CSV HEADER;
+        repaired,score
+)FROM '/Users/guillem/Data/Customers/Daimler/70_datasets_alvaro_v2/repair_flags2.csv' DELIMITER ',' CSV HEADER;
 
 create index inx_repairflags_fingerpring on repair_flags(fingerprint);
 
 alter table welds_70_datasets add column bodyshop_repair integer;
 alter table welds_70_datasets add column assembly_repair integer;
 alter table welds_70_datasets add column error integer;
+alter table welds_70_datasets add column score numeric;
 
 update welds_70_datasets a set bodyshop_repair = (select case b.bodyshop_repair when 'f' then 0 when 't' then 1 end from repair_flags b where b.fingerprint = a.fingerprint);
 update welds_70_datasets a set assembly_repair = (select case b.assemblyshop_repair when 'f' then 0 when 't' then 1 end from repair_flags b where b.fingerprint = a.fingerprint);
 update welds_70_datasets a set error = (select case b.repaired when 'f' then 0 when 't' then 1 end from repair_flags b where b.fingerprint = a.fingerprint);
+update welds_70_datasets a set score = (select score from repair_flags b where b.fingerprint = a.fingerprint);
 */

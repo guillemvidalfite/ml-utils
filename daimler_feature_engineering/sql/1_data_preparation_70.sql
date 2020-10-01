@@ -43,7 +43,7 @@ update welds_70_datasets a set error = 1 where assembly_repair = 1 or bodyshop_r
 update welds_70_datasets a set error = 0 where error is null;
 
 -- TEST
-drop table if exists repair_flags;
+/*drop table if exists repair_flags;
 create table repair_flags(
      fingerprint varchar(100),
      bodyshop_repair varchar(1),
@@ -64,8 +64,7 @@ create index inx_repairflags_fingerpring on repair_flags(fingerprint);
 --alter table welds_70_datasets add column error2 integer;
 --update welds_70_datasets a set error2 = (select case b.repaired when 'f' then 0 when 't' then 1 end from repair_flags b where b.fingerprint = a.fingerprint);
 --select error2, error, count(1) from welds_70_datasets group by error2, error order by 1,2;
-
-alter table welds_70_datasets drop column error2;
+alter table welds_70_datasets drop column error2;*/
 
 
 ---------------------------------------------------

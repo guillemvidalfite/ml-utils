@@ -113,15 +113,15 @@ def gather_source_featureSet_stats(scored_df, src, src_ct, fs_count, scored_data
      log.info("Gathering stats for current dataset and featureSet...")
 
      # GATHER current dataset results
-     num_errors = scored_df[scored_df.Error == 1].score_output.shape[0]
+     num_errors = scored_df[scored_df.error == 1].score_output.shape[0]
      log.info("Number of errors in current dataset: %s" % str(num_errors))
 
      # errors scores, init to null as missing values should exist
      max_error_score, min_error_score, avg_error_score = np.nan, np.nan, np.nan
      if num_errors > 0:
-         max_error_score = scored_df[scored_df.Error == 1].score_output.max(0)
+         max_error_score = scored_df[scored_df.error == 1].score_output.max(0)
      if num_errors > 1:
-         min_error_score = scored_df[scored_df.Error == 1].score_output.min(0)
+         min_error_score = scored_df[scored_df.error == 1].score_output.min(0)
          avg_error_score = (max_error_score + min_error_score)/2
 
      log.info("Error scores processed")
@@ -132,7 +132,7 @@ def gather_source_featureSet_stats(scored_df, src, src_ct, fs_count, scored_data
          max_score_ratio = round(1/scored_df[scored_df.score_output >= max_error_score].score_output.count(), 4)
      if num_errors > 1:
          min_score_ratio = round(num_errors/scored_df[scored_df.score_output >= min_error_score].score_output.count(), 4)
-         avg_score_ratio = round((scored_df[(scored_df.score_output >= avg_error_score) & (scored_df.Error == 1)].score_output.count())/scored_df[scored_df.score_output >= avg_error_score].score_output.count(), 4)
+         avg_score_ratio = round((scored_df[(scored_df.score_output >= avg_error_score) & (scored_df.error == 1)].score_output.count())/scored_df[scored_df.score_output >= avg_error_score].score_output.count(), 4)
 
      log.info("Error ratios calculated")
       
