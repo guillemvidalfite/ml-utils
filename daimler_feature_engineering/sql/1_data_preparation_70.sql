@@ -1,3 +1,73 @@
+---------------------------------------
+---------------------------------------
+-- DATASETS INFO
+---------------------------------------
+---------------------------------------
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds1','620168_213_1_2_1_1_1_2','620168','h902-130tsb401-kf130.m050g9sub64sps4.1.1','050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_1_1_2.csv',1);
+
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds1', '610063_213_1_1_1_2_1_1', '610063', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds2', '610063_213_3_1_1_2_1_1', '610063', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds3', '610319_213_3_1_1_2_1_1', '610319', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds4', '610352_213_1_1_1_2_1_1', '610352', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds5', '610490_213_3_1_1_2_1_1', '610490', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds6', '610502_213_3_1_1_2_1_1', '610502', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds8', '610580_213_3_1_1_1_1_1', '610580', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds9', '610582_213_1_1_1_1_1_2', '610582', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds10', '610582_213_3_1_1_2_1_1', '610582', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds11', '610583_213_1_1_1_1_1_2', '610583', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds12', '610586_213_1_1_1_2_1_1', '610586', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds13', '610630_213_1_1_1_1_1_1', '610630', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds14', '610630_213_1_1_1_2_1_1', '610630', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds15', '610631_213_1_1_1_1_1_1', '610631', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds16', '610631_213_1_1_1_2_1_1', '610631', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds17', '610638_213_1_1_1_2_1_1', '610638', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds18', '610638_213_3_1_1_2_1_1', '610638', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds19', '610640_213_1_1_1_1_1_1', '610640', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds21', '610649_213_1_1_1_1_1_1', '610649', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds22', '610653_213_1_1_1_2_1_1', '610653', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds23', '610653_213_1_2_1_2_1_1', '610653', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds24', '610727_213_1_1_1_1_1_1', '610727', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds25', '610748_213_1_1_1_2_1_1', '610748', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds26', '610760_213_3_1_1_2_1_1', '610760', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds28', '610761_213_1_1_1_2_1_1', '610761', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds29', '610761_213_3_1_1_2_1_1', '610761', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds30', '610762_213_3_1_1_2_1_1', '610762', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds32', '610871_213_3_1_1_1_1_1', '610871', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds33', '610871_213_3_1_1_2_1_1', '610871', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds34', '610873_213_3_1_1_2_1_2', '610873', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds35', '610980_213_1_1_1_1_1_1', '610980', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds36', '610994_213_1_1_1_1_1_1', '610994', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds41', '611382_213_1_2_1_1_1_1', '611382', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds42', '611382_213_3_1_1_2_1_1', '611382', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds43', '620239_213_1_1_1_1_1_1', '620239', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds44', '620321_213_3_1_1_1_1_1', '620321', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds48', '620420_213_1_1_1_2_1_1', '620420', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds49', '620422_213_1_2_1_1_1_1', '620422', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds50', '620422_213_1_2_1_2_1_1', '620422', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds51', '620422_213_3_2_1_2_1_1', '620422', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds54', '620480_213_3_1_1_2_1_1', '620480', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds56', '620504_213_3_1_1_2_1_1', '620504', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds57', '620520_213_3_1_1_2_1_1', '620520', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds58', '620558_213_1_2_1_2_1_1', '620558', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds59', '620558_213_3_2_1_2_1_1', '620558', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds60', '620645_213_1_1_1_1_1_1', '620645', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds61', '620645_213_1_1_1_2_1_2', '620645', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds62', '620667_213_1_1_1_2_1_2', '620667', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds63', '620671_213_1_2_1_2_1_1', '620671', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds68', '620776_213_1_1_1_2_1_1', '620776', 2);
+insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds69', '620776_213_3_1_1_2_1_1', '620776', 2);
+
+update datasets_info a set uniqueid = (select distinct "uniqueID" from welds_70_datasets b where b.extensionid = a.extensionid);
+
+-- select i.dataset_alias, i.extensionid, i.uniqueid, count(1) as total_welds, count(a.error > 0) as total_errors
+-- from datasets_info i, welds_70_datasets a
+-- where i.extensionid = a.extensionid
+-- group by i.dataset_alias, i.extensionid, i.uniqueid;
+
+
+
+
 ---------------------------------------------------
 ---------------------------------------------------
 -- ADD REPAIR FLAGS 
@@ -66,7 +136,7 @@ create index inx_repairflags_fingerpring on repair_flags(fingerprint);
 --select error2, error, count(1) from welds_70_datasets group by error2, error order by 1,2;
 alter table welds_70_datasets drop column error2;*/
 
-
+---------------------------------------------------
 ---------------------------------------------------
 ---------------------------------------------------
 ------- WELDS NEW FIELDS
@@ -399,4 +469,42 @@ update welds_70_current_stats set lift_offsigma_distance = coalesce(lift_up_limi
 update welds_70_current_stats set time_offsigma_distance = coalesce(time_up_limit_distance,-time_low_limit_distance,0);
 update welds_70_current_stats set current_offsigma_distance = coalesce(current_up_limit_distance,-current_low_limit_distance,0);
 update welds_70_current_stats set voltage_offsigma_distance = coalesce(voltage_up_limit_distance,-voltage_low_limit_distance,0);
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+------- WELDS GLOBAL STATS
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+drop table if exists welds_70_global_stats;
+create table welds_70_global_stats(
+      fingerprint varchar(100),
+      extensionid varchar(100),
+      uniqueid varchar(100),
+      avg_offsigma numeric,
+      max_offsigma numeric,
+      count_offsigma numeric,
+      avg_avgdistance numeric,
+      max_avgdistance numeric
+);
+
+insert into welds_70_global_stats (fingerprint,extensionid,uniqueid,avg_offsigma,max_offsigma,count_offsigma,avg_avgdistance,max_avgdistance)
+select a.fingerprint, a.extensionid, a.uniqueid, 
+       (a.penetration_offsigma_distance + a.energy_offsigma_distance + a.drop_time_offsigma_distance + a.stickout_offsigma_distance + a.lift_offsigma_distance + a.time_offsigma_distance + a.current_offsigma_distance + a.voltage_offsigma_distance) / 8 as avg_offsigma,
+       greatest(a.penetration_offsigma_distance,a.energy_offsigma_distance,a.drop_time_offsigma_distance,a.stickout_offsigma_distance,a.lift_offsigma_distance,a.time_offsigma_distance,a.current_offsigma_distance,a.voltage_offsigma_distance) as max_offsigma,
+       case when a.penetration_offsigma_distance > 0 then 1 else 0 end +
+       case when a.energy_offsigma_distance > 0 then 1 else 0 end +
+       case when a.drop_time_offsigma_distance > 0 then 1 else 0 end +
+       case when a.stickout_offsigma_distance > 0  then 1 else 0 end +
+       case when a.lift_offsigma_distance > 0 then 1 else 0 end +
+       case when a.time_offsigma_distance > 0 then 1 else 0 end +
+       case when a.current_offsigma_distance > 0 then 1 else 0 end +
+       case when a.voltage_offsigma_distance > 0 then 1 else 0 end as count_offsigma,
+       (a.penetration_avg_distance + a.energy_avg_distance + a.drop_time_avg_distance + a.stickout_avg_distance + a.lift_avg_distance + a.time_avg_distance + a.current_avg_distance + a.voltage_avg_distance)/ 8 as avg_avgdistance,
+       greatest(a.penetration_avg_distance, a.energy_avg_distance, a.drop_time_avg_distance, a.stickout_avg_distance, a.lift_avg_distance, a.time_avg_distance, a.current_avg_distance , a.voltage_avg_distance) as max_avgdistance
+from welds_70_current_stats a;
+
+
+
 

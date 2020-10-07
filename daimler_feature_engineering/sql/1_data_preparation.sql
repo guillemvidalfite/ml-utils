@@ -10,6 +10,7 @@
 ---------------------------------------------------
 drop table if exists datasets_info;
 create table datasets_info(
+	 round  integer,
      dataset_alias varchar(10),
      extensionid varchar(50),
      studid varchar(10),
@@ -17,58 +18,58 @@ create table datasets_info(
      filename varchar(100)
 );
 
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds1','620168_213_1_2_1_1_1_2','620168','h902-130tsb401-kf130.m050g9sub64sps4.1.1','050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_1_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds2','610836_213_1_2_1_2_1_1','610836','h902-170tsb101-kf130.m050g9sub64sps5.1.1','050-213-Z1-UB64-170-100-101-1.1-610836_213_1_2_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds3','620168_213_1_2_1_2_1_2','620168','h902-130tsb401-kf130.m050g9sub64sps4.1.1','050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_2_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds4','620625_213_1_1_1_1_1_1','620625','h902-110tsb201-kf130.m050g9sub64sps3.2.1','050-213-Z1-UB64-110-200-201-2.1-620625_213_1_1_1_1_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds5','610762_213_3_1_1_2_1_2','610762','h902-060tsb401-kf130.m050g9sub64sps2.2.1','050-213-Z1-UB64-060-400-401-2.1-610762_213_3_1_1_2_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds6','610445_213_3_2_1_2_1_1','610445','h902-040tsb201-kf130.m050g9sub64sps1.1.1','050-213-Z1-UB64-040-200-201-1.1-610445_213_3_2_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds7','610662_213_1_1_1_1_1_1','610662','h902-120tsb101-kf130.m050g9sub64sps3.1.1','050-213-Z1-UB64-120-100-101-1.1-610662_213_1_1_1_1_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds8','610456_213_3_1_1_1_1_1','610456','h902-110tsb101-kf130.m050g9sub64sps3.1.1','050-213-Z1-UB64-110-100-101-1.1-610456_213_3_1_1_1_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds9','620671_213_1_2_1_2_1_1','620671','h902-140tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-100-101-1.1-620671_213_1_2_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds10','620671_213_1_2_1_1_1_1','620671','h902-140tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-100-101-1.1-620671_213_1_2_1_1_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds11','620420_213_3_1_1_2_1_1','620420','h902-140tsb301-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-300-301-1.1-620420_213_3_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds12','620558_213_1_2_1_2_1_1','620558','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620558_213_1_2_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds13','620556_213_3_1_1_2_1_1','620556','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620556_213_3_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds14','620548_213_1_2_1_2_1_1','620548','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620548_213_1_2_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds15','610653_213_1_2_1_2_1_2','610653','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610653_213_1_2_1_2_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds16','620546_213_1_1_1_2_1_1','620546','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620546_213_1_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds17','620556_213_1_1_1_2_1_1','620556','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620556_213_1_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds18','610649_213_1_1_1_1_1_2','610649','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610649_213_1_1_1_1_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds19','610582_213_1_1_1_2_1_2','610582','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610582_213_1_1_1_2_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds20','610871_213_3_1_1_2_1_1','610871','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610871_213_3_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds21','620542_213_1_1_1_2_1_1','620542','h902-080tsb201-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-200-201-1.1-620542_213_1_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds22','610631_213_1_1_1_1_1_1','610631','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610631_213_1_1_1_1_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds23','610630_213_1_1_1_2_1_1','610630','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610630_213_1_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds24','620645_213_1_1_1_2_1_1','620645','h902-070tsb201-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-070-200-201-1.1-620645_213_1_1_1_2_1_1.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds25','610582_213_1_1_1_1_1_2','610582','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610582_213_1_1_1_1_1_2.csv');
-insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename)
-values ('ds26','610653_213_1_1_1_2_1_1','610653','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610653_213_1_1_1_2_1_1.csv');
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds1','620168_213_1_2_1_1_1_2','620168','h902-130tsb401-kf130.m050g9sub64sps4.1.1','050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_1_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds2','610836_213_1_2_1_2_1_1','610836','h902-170tsb101-kf130.m050g9sub64sps5.1.1','050-213-Z1-UB64-170-100-101-1.1-610836_213_1_2_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds3','620168_213_1_2_1_2_1_2','620168','h902-130tsb401-kf130.m050g9sub64sps4.1.1','050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_2_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds4','620625_213_1_1_1_1_1_1','620625','h902-110tsb201-kf130.m050g9sub64sps3.2.1','050-213-Z1-UB64-110-200-201-2.1-620625_213_1_1_1_1_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds5','610762_213_3_1_1_2_1_2','610762','h902-060tsb401-kf130.m050g9sub64sps2.2.1','050-213-Z1-UB64-060-400-401-2.1-610762_213_3_1_1_2_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds6','610445_213_3_2_1_2_1_1','610445','h902-040tsb201-kf130.m050g9sub64sps1.1.1','050-213-Z1-UB64-040-200-201-1.1-610445_213_3_2_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds7','610662_213_1_1_1_1_1_1','610662','h902-120tsb101-kf130.m050g9sub64sps3.1.1','050-213-Z1-UB64-120-100-101-1.1-610662_213_1_1_1_1_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds8','610456_213_3_1_1_1_1_1','610456','h902-110tsb101-kf130.m050g9sub64sps3.1.1','050-213-Z1-UB64-110-100-101-1.1-610456_213_3_1_1_1_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds9','620671_213_1_2_1_2_1_1','620671','h902-140tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-100-101-1.1-620671_213_1_2_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds10','620671_213_1_2_1_1_1_1','620671','h902-140tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-100-101-1.1-620671_213_1_2_1_1_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds11','620420_213_3_1_1_2_1_1','620420','h902-140tsb301-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-140-300-301-1.1-620420_213_3_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds12','620558_213_1_2_1_2_1_1','620558','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620558_213_1_2_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds13','620556_213_3_1_1_2_1_1','620556','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620556_213_3_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds14','620548_213_1_2_1_2_1_1','620548','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620548_213_1_2_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds15','610653_213_1_2_1_2_1_2','610653','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610653_213_1_2_1_2_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds16','620546_213_1_1_1_2_1_1','620546','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620546_213_1_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds17','620556_213_1_1_1_2_1_1','620556','h902-130tsb101-kf130.m050g9sub63sps3.1.1','050-213-Z1-UB63-130-100-101-1.1-620556_213_1_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds18','610649_213_1_1_1_1_1_2','610649','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610649_213_1_1_1_1_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds19','610582_213_1_1_1_2_1_2','610582','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610582_213_1_1_1_2_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds20','610871_213_3_1_1_2_1_1','610871','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610871_213_3_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds21','620542_213_1_1_1_2_1_1','620542','h902-080tsb201-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-200-201-1.1-620542_213_1_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds22','610631_213_1_1_1_1_1_1','610631','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610631_213_1_1_1_1_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds23','610630_213_1_1_1_2_1_1','610630','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610630_213_1_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds24','620645_213_1_1_1_2_1_1','620645','h902-070tsb201-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-070-200-201-1.1-620645_213_1_1_1_2_1_1.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds25','610582_213_1_1_1_1_1_2','610582','h902-090tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-090-100-101-1.1-610582_213_1_1_1_1_1_2.csv',1);
+insert into datasets_info (dataset_alias,extensionid,studid,uniqueid,filename,round)
+values ('ds26','610653_213_1_1_1_2_1_1','610653','h902-080tsb101-kf130.m050g9sub63sps2.1.1','050-213-Z1-UB63-080-100-101-1.1-610653_213_1_1_1_2_1_1.csv',1);
 
 
 create index inx_datasetsinfo_alias on datasets_info(dataset_alias);

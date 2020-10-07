@@ -307,12 +307,18 @@ select
         b.current_offsigma_distance,
         b.voltage_avg_distance,
         b.voltage_offsigma_distance,
+        c.avg_offsigma,
+        c.max_offsigma,
+        c.count_offsigma,
+        c.avg_avgdistance,
+        c.max_avgdistance,
         a.bodyshop_repair,
         a.assembly_repair,
         a.error
 from welds_70_datasets a
      left join welds_70_current_stats b on a.fingerprint = b.fingerprint
-where extensionid not in
+     left join welds_70_global_stats c on c.fingerprint = b.fingerprint
+where a.extensionid not in
 ('610504_213_3_1_1_2_1_1','610641_213_1_1_1_1_1_1','610761_213_1_1_1_1_1_1','610811_213_1_1_1_2_1_1','610997_213_3_1_1_2_1_1','611022_213_1_1_1_1_1_1',
 '611046_213_3_1_1_2_1_1','611048_213_1_1_1_2_1_1','620406_213_1_1_1_1_1_1','620406_213_3_1_1_2_1_1','620418_213_1_2_1_1_1_1','620448_213_1_1_1_1_1_1',
 '620478_213_1_2_1_2_1_1','620488_213_1_1_1_2_1_1','620691_213_1_2_1_1_1_1','620774_213_1_1_1_2_1_1','620774_213_3_1_1_2_1_1','620776_213_1_1_1_1_1_1',

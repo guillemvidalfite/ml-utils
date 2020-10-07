@@ -21427,6 +21427,13 @@ create index inx_tim_w70ds on welds_70_datasets(weld_timestamp);
 create unique index inx_w70ds_fingerprint on welds_70_datasets(fingerprint);
 create index inx_studid_w70s on welds_70_datasets("StudID");
 
+
+-- DATA CLEAN
+-- Remove missing welds
+delete from welds_70_datasets a where "WeldTimeActual" = 0;
+--select distinct(a.extensionid) from welds_70_datasets a where a.extensionid not in (select x.extensionid from (select b.extensionid, count(1) from welds_70_datasets b where error = 1 group by b.extensionid) x);
+
+
 -- import repair flags data
 /*
 drop table if exists repair_flags;
