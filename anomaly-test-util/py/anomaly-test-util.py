@@ -120,6 +120,8 @@ def gather_source_featureSet_stats(scored_df, src, src_ct, fs_count, scored_data
      max_error_score, min_error_score, avg_error_score = np.nan, np.nan, np.nan
      if num_errors > 0:
          max_error_score = scored_df[scored_df.error == 1].score_output.max(0)
+         min_error_score = max_error_score
+         avg_error_score = max_error_score
      if num_errors > 1:
          min_error_score = scored_df[scored_df.error == 1].score_output.min(0)
          avg_error_score = (max_error_score + min_error_score)/2
