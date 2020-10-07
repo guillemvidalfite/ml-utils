@@ -1,5 +1,7 @@
+
+
 (define configured-source
-  (update-and-wait source-input
+  (update-and-wait input-source
                    (bigml.fields.to-ids {"fields"
                                          {"0000ef"
                                           {"name" "LMCurrent.FFT_2_LOC"
@@ -147,9 +149,8 @@
                                           {"name" "CleanTimeActual"
                                            "optype" "numeric"}
                                           "00012b"
-                                          {"name" "bodyshop_repair"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                          {"name" "avg_offsigma"
+                                           "optype" "numeric"}
                                           "000060"
                                           {"name"
                                            "MMP.WeldToolGripperOpenMoveTimeActual"
@@ -178,6 +179,9 @@
                                            "optype" "numeric"}
                                           "000064"
                                           {"name" "Voltage.FFT_1_VALUE"
+                                           "optype" "numeric"}
+                                          "00012f"
+                                          {"name" "max_avgdistance"
                                            "optype" "numeric"}
                                           "00008f"
                                           {"name" "Voltage.CWT_3_VALUE"
@@ -256,7 +260,7 @@
                                            "optype" "numeric"}
                                           "00002b"
                                           {"name" "fingerprint"
-                                           "optype" "categorical"
+                                           "optype" "text"
                                            "term_analysis"
                                            {"case_sensitive" false
                                             "enabled" true
@@ -330,6 +334,10 @@
                                           "0000b9"
                                           {"name" "Current.CWT_2_FREQ"
                                            "optype" "numeric"}
+                                          "000131"
+                                          {"name" "assembly_repair"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
                                           "0000db"
                                           {"name"
                                            "LiftPosition.PACF_Quantile25"
@@ -364,8 +372,7 @@
                                           "00005b"
                                           {"name"
                                            "MMP.WeldToolMoveTimeRotationSegmentInPickupPosition"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "optype" "numeric"}
                                           "0000c9"
                                           {"name" "LiftPosition.PSD_3_LOC"
                                            "optype" "numeric"}
@@ -406,10 +413,13 @@
                                           {"name"
                                            "MMP.WeldToolMoveTimeLoadingPinForward"
                                            "optype" "numeric"}
-                                          "00012d"
+                                          "000132"
                                           {"name" "error"
                                            "optype" "categorical"
                                            "term_analysis" {"enabled" true}}
+                                          "00012d"
+                                          {"name" "count_offsigma"
+                                           "optype" "numeric"}
                                           "00003e"
                                           {"name" "MMP.PilotTimeActual"
                                            "optype" "numeric"}
@@ -481,6 +491,10 @@
                                             "selected_language"
                                             "token_mode" "all"
                                             "use_stopwords" false}}
+                                          "000130"
+                                          {"name" "bodyshop_repair"
+                                           "optype" "categorical"
+                                           "term_analysis" {"enabled" true}}
                                           "00007c"
                                           {"name"
                                            "Voltage.PACF_ZeroCrossings"
@@ -609,8 +623,7 @@
                                           "000055"
                                           {"name"
                                            "MMP.WTSForwardSlidePosition"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                           "optype" "numeric"}
                                           "000103"
                                           {"name" "LMCurrent.ACF_Variance"
                                            "optype" "numeric"}
@@ -620,6 +633,9 @@
                                            "optype" "numeric"}
                                           "00001b"
                                           {"name" "WeldEnergyLowerLimit"
+                                           "optype" "numeric"}
+                                          "00012e"
+                                          {"name" "avg_avgdistance"
                                            "optype" "numeric"}
                                           "000069"
                                           {"name" "Voltage.PSD_1_LOC"
@@ -1042,11 +1058,10 @@
                                            "penetration_avg_distance"
                                            "optype" "numeric"}
                                           "00012c"
-                                          {"name" "assembly_repair"
-                                           "optype" "categorical"
-                                           "term_analysis" {"enabled" true}}
+                                          {"name" "max_offsigma"
+                                           "optype" "numeric"}
                                           "00006d"
                                           {"name" "Voltage.PSD_3_LOC"
                                            "optype" "numeric"}}}
-                                        source-input)))
+                                        input-source)))
 (define output-source configured-source)
