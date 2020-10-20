@@ -60,6 +60,12 @@ insert into datasets_info (dataset_alias,extensionid,studid,round) values ('ds69
 
 update datasets_info a set uniqueid = (select distinct "uniqueID" from welds_70_datasets b where b.extensionid = a.extensionid);
 
+
+alter table datasets_info add total_errors integer;
+alter table datasets_info add total_welds integer;
+
+update datasets_info a set total_errors = (select count(1) from welds_70_datasets b where a.extensionid = b.extensionid and b.error = 1);
+update datasets_info a set total_welds = (select count(1) from welds_70_datasets b where a.extensionid = b.extensionid);
 -- select i.dataset_alias, i.extensionid, i.uniqueid, count(1) as total_welds, count(a.error > 0) as total_errors
 -- from datasets_info i, welds_70_datasets a
 -- where i.extensionid = a.extensionid
