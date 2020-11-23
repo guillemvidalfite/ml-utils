@@ -42,7 +42,7 @@
 ;; uses seeds to make tests more stable 
 (define anomaly-id
   (create-and-wait-anomaly {"dataset" dataset-clean-id
-                            "id_fields" ["extensionid" "Error"]
+                            "id_fields" ["MeasurementData.MeasurementParameter.StudID.value" "error"]
                             "seed"
                             "2c249dda00fbf54ab4cdd850532a584f286af5b6"
                             "input_fields" anomaly-input-fields
@@ -80,10 +80,10 @@
   (create-and-wait-dataset (bigml.fields.to-ids {"origin_dataset" dataset-bas
                                                  "all_fields" true
                                                  "input_fields"
-                                                 ["extensionid"
+                                                 ["MeasurementData.MeasurementParameter.StudID.value"
                                                   "fingerprint"
-                                                  "bodyshop_repair"
-                                                  "assembly_repair"
+                                                  "BodyShopRepair"
+                                                  "AssemblyShopRepair"
                                                   "error"
                                                   "score_output"]}
                                                 dataset-bas)))
