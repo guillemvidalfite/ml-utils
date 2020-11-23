@@ -4,7 +4,7 @@
     "bigml_project": "project/5f27f8b4aca2055dc100771e",
     "bigml_username": "bigml09",
     "log_level": "INFO",
-    "anomaly_test_whizzml_id": "script/5f743ad77cfe066d7000f8f2",
+    "anomaly_test_whizzml_id": "script/5faa5c87ffd90016c20113be",
     "tmp_datasets_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/tmp_datasets",
     "all_scores_datasets_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/tmp_datasets",
     "resulting_csv_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/resulting_csvs",
