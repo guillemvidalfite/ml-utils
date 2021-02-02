@@ -49,14 +49,14 @@ from imp_hits_all a
 where exists (select 1 from tmp_repaired_studs b
               where b.stud_id = a.stud_id and
                     b.carbody_id = a.carbody_id and 
-                    extract(month from a.timestamp) >= 2 and extract(month from a.timestamp) <= 7 and
+                    extract(month from a.timestamp) >= 6 and extract(month from a.timestamp) <= 8 and
                     b.repaired_at is not null and
                     error_code != '1000' and
                     not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint))
 group by a.tool_stud_ext)
 intersect
 (select x.tool_stud_ext from
-    (select b.tool_stud_ext, count(1) from imp_hits_all b where extract(month from b.timestamp) >= 2 and extract(month from b.timestamp) <= 7 group by b.tool_stud_ext having count(1) > 4000) x)
+    (select b.tool_stud_ext, count(1) from imp_hits_all b where extract(month from b.timestamp) >= 6 and extract(month from b.timestamp) <= 8 group by b.tool_stud_ext having count(1) between 1000 and 9000) x)
 intersect
 (select a.tool_stud_ext
 from imp_hits_all a
@@ -67,4 +67,6 @@ where exists (select 1 from tmp_repaired_studs b
                     b.repaired_at is not null and
                     error_code != '1000' and
                     not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint))
-group by a.tool_stud_ext);
+
+
+

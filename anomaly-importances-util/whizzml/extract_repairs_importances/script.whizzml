@@ -1,0 +1,75 @@
+
+
+
+
+
+;; repair flags dataset
+(define dataset_repair_flags
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_repair_flags
+                                                 "all_fields" true}
+                                                source_repair_flags)))
+;; train dataset
+(define dataset_train
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_train
+                                                 "all_fields" true} source_train)))
+
+;;join both datasets by fingerid
+(define dataset_train_flags
+  (create-and-wait-dataset {"origin_datasets"
+                            [{"id" dataset_train "name" "A"}
+                             {"id" dataset_repair_flags "name" "B"}]
+                            "sql_query"
+                            "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`fingerprint` = `B`.`fingerprint`"
+                            "all_fields" true}))
+
+
+;;train anomaly detector using all fields
+(define anomaly1
+  (create-and-wait-anomaly {"dataset" dataset_train_flags
+                            "seed"
+                            "mltoolbox"
+                            "input_fields" all_input_features
+                            "anomaly_seed"
+                            "mltoolbox"}))
+
+;;batch anomaly score over training dataset
+(define batchanomalyscore1
+  (create-and-wait-batchanomalyscore {"anomaly" anomaly1
+                                      "dataset" dataset_train_flags
+                                      "all_fields" true
+                                      "score_name" "std_anomaly_score"
+                                      "output_dataset" true
+                                      "importance" true}))
+
+
+;;batch anomaly score fetch
+(define dataset_importances
+  ((fetch batchanomalyscore1) ["output_dataset_resource"] false))
+
+
+
+;;filter only repairs
+(define dataset_repairs_importances
+  (create-and-wait-dataset (bigml.fields.to-ids {"origin_dataset" dataset_importances
+                                                 "json_filter"
+                                                 ["="
+                                                  "t"
+                                                  ["field" "repaired"]]
+                                                 "all_fields" true}
+                                                dataset_importances)))
+
+;;filter only non-repais
+(define dataset_normal_importances
+  (create-and-wait-dataset (bigml.fields.to-ids {"origin_dataset" dataset_importances
+                                                 "json_filter"
+                                                 ["="
+                                                  "f"
+                                                  ["field" "repaired"]]
+                                                 "all_fields" true}
+                                                dataset_importances)))
+
+
+;;output dataset
+(define importance-datasets-output {"repairs-importances" dataset_repairs_importances "normal-importances" dataset_normal_importances})
+
+

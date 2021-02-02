@@ -1,0 +1,29 @@
+{
+  "name": "Extract_repairs_importances",
+  "kind": "script",
+  "description": "Extract repairs importances from an anomaly detector execution",
+  "inputs": [
+    {
+      "name": "source_repair_flags",
+      "type": "source-id",
+      "description": "Source identifier of the repairs flag dataset"
+    },
+    {
+      "name": "source_train",
+      "type": "source-id",
+      "description": "Source identifier for the training welds data"
+    },
+    {
+      "name": "all_input_features",
+      "type": "list",
+      "description": "Input features list, contained into the training data and to be used as anomaly detection training"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "importance-datasets-output",
+      "type": "map",
+      "description": "Map containing references to the \"repairs-importances\" and  \"normal-importances\" datasets respectively, containing importances data."
+    }
+  ]
+}

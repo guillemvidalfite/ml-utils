@@ -1,0 +1,10 @@
+{
+    "bigml_apikey": "75c612eaa132e9c0577ddea9c84f4f734eae738f",
+    "bigml_domain": "daimler.dev.bigml.com/io",
+    "bigml_project": "project/6006921a79b77d6f6800d722",
+    "bigml_username": "bigml09",
+    "log_level": "INFO",
+    "extract_importances_whizzml_id": "script/6014889679b77d363b00a58b",
+    "tmp_datasets_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/tmp_datasets",
+    "bigml_dashboard_base_url": "https://daimler.dev.bigml.com/dashboard/"
+}
