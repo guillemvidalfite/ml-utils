@@ -125,7 +125,7 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
         if 'importance' in field_name:
             # if importance is greater than 0
             if repairs_importances_dataset["object"]["fields"][field_id]["summary"]["mean"] > 0:
-                log.info("Adding stats for %s ..." % field_name)
+                log.debug("Adding stats for %s ..." % field_name)
 
                 field_names.append(field_name)
                 # mean
@@ -145,7 +145,7 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
     
     log.info("Building dataframe...")
 
-    data = {'field_names': field_names,
+    data = {'field_names': [sub.replace(' importance','') for sub in field_names],  # removes importance string from current field name
             'imp_means': importances_means,
             'imp_medians': importances_medians,
             'imp_maxes': importances_maxes,
@@ -219,6 +219,9 @@ def main(args=sys.argv[1:]):
      # init total importances dataframe
      all_importances_df = pd.DataFrame()
 
+     # init worse features list
+     useless_features_list = all_input_features
+
      # LOOP over TSEs
      for tse in params_dict["tse-files-list"]:
         #log.info("Starting treatment for TSE dataset %s , file: %s" % (tse["name"], tse["file"]))
@@ -251,6 +254,17 @@ def main(args=sys.argv[1:]):
      
         # build importances dataframes
         importances_df = build_importances_dataframes(repairs_importances_dataset, normal_importances_dataset, log)
+
+        # UPDATE USELESS FEATURES LIST by removing current dataset useful features
+        # loop over current dataframe
+        for index, row in importances_df.iterrows():
+            # if both diff median and mean are positives the feature is isolating well repairs this time
+            if row["imp_mean_diffs"] > 0.01 and row["imp_median_diffs"] > 0.01:
+                #check if current row parameter exists in the original list
+                if row["field_names"] in useless_features_list:
+                    log.info("Useful field found: %s" % row["field_names"])
+                    useless_features_list.remove(row["field_names"])
+
         # export into CSV file
         export_file_path = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_field_importances_stats.csv"
         importances_df.to_csv(export_file_path, index = False, header=True)
@@ -272,6 +286,10 @@ def main(args=sys.argv[1:]):
      export_file_path = config_dict["tmp_datasets_directory"] + "/" + params_dict["test_name"] + "_overall_importances_stats.csv"
      overall_importances_stats_df.to_csv(export_file_path, index = False, header=True)
      log.info("Importances overall file exported: %s" % export_file_path)
+
+     # log useless features
+     for f_name in useless_features_list:
+        log.info("Useless Feature Detected: %s" % f_name)
 
 if __name__ == "__main__":
    main()
