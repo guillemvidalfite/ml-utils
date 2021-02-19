@@ -1,0 +1,222 @@
+   "WeldVoltageActual",
+   "WeldEnergyActual",
+   "LMLiftHeightActual",
+   "LMPenetrationActual",
+   "MeasurementData.MeasurementParameter.LMPositionActual.value",
+   "MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+   "MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value",
+   "MeasurementData.MeasurementParameter.CleanVoltageActual.value",
+   "MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinBackward.value",
+   "StickoutActual",
+   "CleanTimeActual",
+   "Current.DTW_Distance",
+   "Voltage.DTW_Distance",
+   "LiftPosition.DTW_Distance",
+   "LMCurrent.DTW_Distance"
+
+
+
+
+
+                                          [ "WeldVoltageActual",
+                                            "MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value",
+                                            "voltage_max",
+                                            "resistance_part3_SNR",
+                                            "lift_pos_range",
+                                            "voltage_SNR",
+                                            "resistance_part2_variance",
+                                            "voltage_variance",
+                                            "resistance_part2_range",
+                                            "current_range",
+                                            "resistance_SNR",
+                                            "resistance_part2_mean",
+                                            "MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+                                            "lift_pos_SNR",
+                                            "current_SNR",
+                                            "lift_pos_mean",
+                                            "current_min",
+                                            "current_max",
+                                            "current_mean",
+                                            "current_variance",
+                                            "lift_pos_min",
+                                            "lift_pos_max",
+                                            "weld_power",
+                                            "voltage_min",
+                                            "voltage_range",
+                                            "voltage_mean"]
+
+                                           ["lift_pos_SNR",
+                                            "lift_pos_range",
+                                            "voltage_range",
+                                            "voltage_variance",
+                                            "current_range",
+                                            "current_variance",
+                                            "resistance_part3_SNR"]
+
+                                          [ "lift_pos_SNR",
+                                            "lift_pos_range",
+                                            "lift_pos_min",
+                                            "lift_pos_max",
+                                            "lift_pos_mean",
+                                            "LMLiftHeightActual",
+                                            "LMPenetrationActual",
+                                            "MeasurementData.MeasurementParameter.LMPositionActual.value"]
+
+                                           ["current_length",
+                                            "current_shift",
+                                            "current_distance",
+                                            "current_imp_error",
+                                            "current_imp_snr",
+                                            "lift_pos_length",
+                                            "lift_pos_shift",
+                                            "lift_pos_imp_snr",
+                                            "lift_pos_distance",
+                                            "lift_pos_imp_error"]
+
+                                           ["lift_pos_SNR",
+                                            "lift_pos_range",
+                                            "voltage_range",
+                                            "voltage_variance",
+                                            "current_range",
+                                            "current_variance",
+                                            "resistance_part3_SNR",
+                                            "lift_pos_shift",
+                                            "lift_pos_length",
+                                            "current_imp_error",
+                                            "current_distance"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+["WeldVoltageActual",
+ "MeasurementData.MeasurementParameter.CleanVoltageActual.value",
+ "PilotVoltageActual",
+ "WeldEnergyActual",
+ "MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value",
+ "MeasurementData.MeasurementParameter.LMPositionActual.value",
+ "LMLiftHeightActual",
+ "LMPenetrationActual",
+ "MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+ "MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinBackward.value",
+ "WeldTimeActual",
+ "DropTimeActual",
+ "lift_pos_SNR",
+ "lift_pos_range",
+ "voltage_range",
+ "voltage_variance",
+ "current_range",
+ "current_variance",
+ "resistance_part3_SNR",
+ "weld_power",
+ "current_min",
+ "lift_pos_max",
+ "lift_pos_min",
+ "lift_pos_mean",
+ "current_mean",
+ "current_SNR",
+ "voltage_SNR",
+ "voltage_max",
+ "resistance_part2_range",
+ "resistance_part2_mean"]
+
+
+["MeasurementData.MeasurementParameter.CleanCurrentActual.value",
+"MeasurementData.MeasurementParameter.CleanVoltageActual.value",
+"MeasurementData.MeasurementParameter.LMPositionActual.value",
+"MeasurementData.MeasurementParameter.PilotCurrentActual.value",
+"MeasurementData.MeasurementParameter.PilotTimeActual.value",
+"MeasurementData.MeasurementParameter.TRRotationAngleActual.value",
+"MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value",
+"MeasurementData.MeasurementParameter.WeldToolGripperCloseMoveTimeActual.value",
+"MeasurementData.MeasurementParameter.WeldToolGripperOpenMoveTimeActual.value",
+"MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinBackward.value",
+"MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinForward.value",
+"MeasurementData.MeasurementParameter.WeldToolPickupRotationAnglePosition.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardMoveTime.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardSlidePosition.value",
+"MeasurementData.MeasurementParameter.WeldToolStudBlockValueActual.value",
+"PilotVoltageActual",
+"StickoutActual",
+"WeldCurrentActualPositive",
+"WeldEnergyActual",
+"WeldTimeActual",
+"WeldToolType",
+"WeldVoltageActual",
+"WeldVoltageDropActual",
+"WeldVoltagePeakActual",
+"LMLiftHeightActual",
+"LMPenetrationActual",
+"DropTimeActual",
+"CleanTimeActual",
+"current_length",
+"current_min",
+"current_max",
+"current_range",
+"current_mean",
+"current_variance",
+"current_SNR",
+"lift_pos_length",
+"lift_pos_min",
+"lift_pos_max",
+"lift_pos_range",
+"lift_pos_mean",
+"lift_pos_variance",
+"lift_pos_SNR",
+"weld_power",
+"voltage_min",
+"voltage_max",
+"voltage_range",
+"voltage_mean",
+"voltage_variance",
+"voltage_SNR",
+"resistance_min",
+"resistance_max",
+"resistance_range",
+"resistance_mean",
+"resistance_SNR",
+"resistance_part1_min",
+"resistance_part1_range",
+"resistance_part1_mean",
+"resistance_part1_variance",
+"resistance_part1_SNR",
+"resistance_part2_min",
+"resistance_part2_range",
+"resistance_part2_mean",
+"resistance_part2_variance",
+"resistance_part2_SNR",
+"resistance_part3_max",
+"resistance_part3_range",
+"resistance_part3_mean",
+"resistance_part3_variance",
+"resistance_part3_SNR",
+"resistance_variance",
+"resistance_part1_max",
+"resistance_part2_max",
+"resistance_part3_min"]
+
+
+
+
+
+
+
+
+
+
