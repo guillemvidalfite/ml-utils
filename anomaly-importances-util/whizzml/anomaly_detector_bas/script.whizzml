@@ -1,0 +1,74 @@
+;; repair flags dataset
+(define dataset_repair_flags
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_repair_flags
+                                                 "all_fields" true}
+                                                source_repair_flags)))
+;; train dataset
+(define dataset_train
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_train
+                                                 "all_fields" true} source_train)))
+
+;; test dataset
+(define dataset_test
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_test
+                                                 "all_fields" true} source_test)))
+
+;; test join both datasets by fingerid
+(define dataset_test_flags
+  (create-and-wait-dataset {"origin_datasets"
+                            [{"id" dataset_test "name" "A"}
+                             {"id" dataset_repair_flags "name" "B"}]
+                            "sql_query"
+                            "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`CarbodyID` = `B`.`carbody_id` and `A`.`StudID` = `B`.`stud_id`"
+                            "all_fields" true}))
+
+
+;;train anomaly detector using optimal fields
+(define anomaly_optimal
+  (create-and-wait-anomaly {"dataset" dataset_train
+                            "seed"
+                            "mltoolbox"
+                            "input_fields" optimal_input_features
+                            "anomaly_seed"
+                            "mltoolbox"}))
+
+
+;;train anomaly detector using original fields
+(define anomaly_original
+  (create-and-wait-anomaly {"dataset" dataset_train
+                            "seed"
+                            "mltoolbox"
+                            "input_fields" original_input_features
+                            "anomaly_seed"
+                            "mltoolbox"}))
+
+
+;; optimal test BAS
+(define batchanomalyscore_optimal
+  (create-and-wait-batchanomalyscore {"anomaly" anomaly_optimal
+                                      "dataset" dataset_test_flags
+                                      "all_fields" true
+                                      "score_name" "std_anomaly_score"
+                                      "output_dataset" true}))
+
+;;batch anomaly score fetch
+(define ds_test_optimal_BAS
+  ((fetch batchanomalyscore_optimal) ["output_dataset_resource"] false))
+
+;;batch anomaly score over test dataset
+(define batchanomalyscore_original
+  (create-and-wait-batchanomalyscore {"anomaly" anomaly_original
+                                      "dataset" dataset_test_flags
+                                      "all_fields" true
+                                      "score_name" "std_anomaly_score"
+                                      "output_dataset" true}))
+
+;;batch anomaly score fetch
+(define ds_test_original_BAS
+  ((fetch batchanomalyscore_original) ["output_dataset_resource"] false))
+
+
+;;output dataset
+(define bas-datasets-output {"ds_test_optimal_BAS" ds_test_optimal_BAS "ds_test_original_BAS" ds_test_original_BAS})
+
+
