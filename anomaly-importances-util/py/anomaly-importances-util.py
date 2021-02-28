@@ -380,10 +380,13 @@ def main(args=sys.argv[1:]):
         rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
 
         # gather ds rank stats
-        current_ds_stats_df = gather_ds_stats(current_data_df, log)
-        log.debug("Appending dataset stats")
-        ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
-        log.info("Dataset rank stats: %s" % current_ds_stats_df) 
+        if current_data_df.shape[0] > 0:
+            current_ds_stats_df = gather_ds_stats(current_data_df, log)
+            log.debug("Appending dataset stats")
+            ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
+            log.info("Dataset rank stats: %s" % current_ds_stats_df)
+        else:
+            log.info("No repairs found in test")
 
 
      # generate overall importances report information
