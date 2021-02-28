@@ -196,6 +196,8 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         optimal_bas_df['orig_score_rank'] = original_bas_df['std_anomaly_score'].rank(method='max')
         optimal_bas_df['orig_score_pct_rank'] = original_bas_df['std_anomaly_score'].rank(pct=True)
 
+        # init empty dataframe:
+        cur_ds_rank_stats_df = pd.DataFrame()
         # gather current DS REPAIRS stats into global stats dataframe
         for index, row in optimal_bas_df[optimal_bas_df.repaired=='t'].iterrows():
             current_data_dict = {'dataset_name': [tse["name"]],
@@ -214,8 +216,9 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
                                  }
         
             current_data_df = pd.DataFrame(current_data_dict, columns = ['dataset_name','TSE','fingerprint','timestamp','original_score','optimal_score','original_rank','optimal_rank','original_pct_rank','optimal_pct_rank','assembly_repair','optimal_BAS','original_BAS'])
+            cur_ds_rank_stats_df = cur_ds_rank_stats_df.append(current_data_df, ignore_index=True)
 
-        return current_data_df
+        return cur_ds_rank_stats_df
 
 #### GATHER ANOMALY SCORES RANKS ########################################################################################
 def gather_ds_stats(current_data_df, log):
@@ -345,7 +348,7 @@ def main(args=sys.argv[1:]):
         importances_df = build_importances_dataframes(repairs_importances_dataset, normal_importances_dataset, log)
 
         # append within all importances df
-        all_importances_df = all_importances_df.append(importances_df)
+        all_importances_df = all_importances_df.append(importances_df, ignore_index=True)
 
         # UPDATE USELESS FEATURES LIST by removing current dataset useful features
         # loop over current dataframe
