@@ -4,7 +4,10 @@
     "bigml_project": "project/6006921a79b77d6f6800d722",
     "bigml_username": "bigml09",
     "log_level": "INFO",
-    "extract_importances_whizzml_id": "script/6014889679b77d363b00a58b",
+    "extract_importances_whizzml_id": "script/603bcfc279b77d6eb4000003",
+    "anomaly_detector_whizzml_id": "script/603bd5a679b77d6ecf000019",
     "tmp_datasets_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/tmp_datasets",
-    "bigml_dashboard_base_url": "https://daimler.dev.bigml.com/dashboard/"
+    "bigml_dashboard_base_url": "https://daimler.dev.bigml.com/dashboard/",
+    "useless_importance_limit": 0.01,
+    "optimal_field_num": 4
 }

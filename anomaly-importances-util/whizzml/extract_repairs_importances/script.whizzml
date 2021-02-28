@@ -19,7 +19,7 @@
                             [{"id" dataset_train "name" "A"}
                              {"id" dataset_repair_flags "name" "B"}]
                             "sql_query"
-                            "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`fingerprint` = `B`.`fingerprint`"
+                            "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`CarbodyID` = `B`.`carbody_id` and `A`.`StudID`=`B`.`stud_id`"
                             "all_fields" true}))
 
 

@@ -233,3 +233,109 @@
 "MeasurementData.MeasurementParameter.ProtectiveGasPostFlowActive.value",
 "MeasurementData.MeasurementParameter.ProtectiveGasPreFlowActive.value",
 "MeasurementData.MeasurementParameter.WeldProcess.value"]
+
+
+
+# reduced features list 1:
+["CleanTimeActual",
+"DropTimeActual",
+"LMLiftHeightActual",
+"LMPenetrationActual",
+"MeasurementData.MeasurementParameter.CleanCurrentActual.value",
+"MeasurementData.MeasurementParameter.CleanVoltageActual.value",
+"MeasurementData.MeasurementParameter.LMPositionActual.value",
+"MeasurementData.MeasurementParameter.PilotCurrentActual.value",
+"MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value",
+"MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinBackward.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardMoveTime.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value",
+"PilotVoltageActual",
+"StickoutActual",
+"WeldCurrentActualPositive",
+"WeldEnergyActual",
+"WeldTimeActual",
+"WeldVoltageActual",
+"current_length",
+"current_min",
+"current_range",
+"current_mean",
+"current_variance",
+"lift_pos_length",
+"lift_pos_min",
+"lift_pos_max",
+"lift_pos_range",
+"lift_pos_mean",
+"lift_pos_variance",
+"weld_power",
+"voltage_min",
+"voltage_max",
+"voltage_range",
+"voltage_SNR",
+"resistance_min",
+"resistance_mean",
+"resistance_SNR",
+"resistance_part2_min",
+"resistance_part2_range",
+"resistance_part2_mean",
+"resistance_part2_SNR",
+"resistance_part3_variance",
+"resistance_part3_SNR",
+"MeasurementData.MeasurementParameter.LiftFinishedMode.value"]
+
+
+
+
+# AC Aluminum
+{"name": "TSE2_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-130-100-101-1.1-620556_213_1_1_1_2_1_1_train.csv"},
+{"name": "TSE10_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-130-100-101-1.1-620556_213_1_1_1_1_1_1_train.csv"},
+{"name": "TSE12_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-100-200-201-1.1-620590_213_1_1_1_2_1_2_train.csv"},
+{"name": "TSE13_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-090-100-101-1.1-610648_213_1_1_1_2_1_2_train.csv"},
+{"name": "TSE16_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-100-200-201-1.1-620590_213_1_1_1_1_1_2_train.csv"},
+{"name": "TSE17_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-130-100-101-2.1-610813_213_1_1_1_1_1_1_train.csv"},
+{"name": "TSE22_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-130-100-101-2.1-610813_213_1_1_1_2_1_1_train.csv"},
+{"name": "TSE23_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-090-100-101-1.1-610871_213_3_1_1_2_1_2_train.csv"},
+{"name": "TSE27_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-080-100-101-1.1-610653_213_1_1_1_2_1_1_train.csv"},
+{"name": "TSE28_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-090-100-101-1.1-610641_213_1_1_1_2_1_2_train.csv"},
+{"name": "TSE29_train_AC_alu", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-080-100-101-1.1-610865_213_3_1_1_2_1_1_train.csv"},
+
+
+# DC Steel
+{"name": "TSE4_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-120-200-201-2.1-620773_213_1_1_1_1_1_1_train.csv"},
+{"name": "TSE7_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-130-400-401-1.1-620168_213_1_2_1_2_1_2_train.csv"},
+{"name": "TSE14_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-130-200-201-2.1-620772_213_1_1_1_2_1_2_train.csv"},
+{"name": "TSE18_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-120-400-401-1.1-611113_213_1_2_1_2_1_1_train.csv"},
+{"name": "TSE20_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-130-200-201-2.1-611219_213_1_1_1_2_1_2_train.csv"},
+{"name": "TSE24_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-120-200-201-2.1-620773_213_1_1_1_2_1_1_train.csv"},
+{"name": "TSE25_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-140-100-101-1.1-620482_213_1_1_1_1_1_2_train.csv"},
+{"name": "TSE26_train_DC_steel", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB64-160-100-101-1.1-610598_213_1_1_1_1_1_2_train.csv"},
+
+
+
+
+                         
+                         {"name": "050-213-Z1-UB63-080-100-101-1.1-610871_213_3_1_1_2_1_1_train", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-080-100-101-1.1-610871_213_3_1_1_2_1_1_train.csv"},
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         {"name": "050-213-Z1-UB63-140-200-201-1.1-620620_213_1_1_1_2_1_1_train", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-140-200-201-1.1-620620_213_1_1_1_2_1_1_train.csv"},
+                         {"name": "050-213-Z1-UB63-140-300-301-1.1-620420_213_1_1_1_1_1_1_train", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-140-300-301-1.1-620420_213_1_1_1_1_1_1_train.csv"},
+                         {"name": "050-213-Z1-UB63-140-300-301-1.1-620420_213_1_1_1_2_1_1_train", "file": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/importances_fs/golden_lrg_all_features2/050-213-Z1-UB63-140-300-301-1.1-620420_213_1_1_1_2_1_1_train.csv"},
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+
+
+
+
