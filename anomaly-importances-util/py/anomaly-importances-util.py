@@ -469,6 +469,8 @@ def main(args=sys.argv[1:]):
      log.info("Original Rank: %s" % ds_rank_stats_df['median_original_rank'].median())
      log.info("Optimal Score: %s" % ds_rank_stats_df['median_optimal_score'].median())
      log.info("Original Score: %s" % ds_rank_stats_df['median_original_score'].median())
+     log.info("Optimal Alerts Count: %s" % ds_rank_stats_df['optimal_alerts_count'].median())
+     log.info("Original Alerts Count: %s" % ds_rank_stats_df['original_alerts_count'].median())
      log.info("Total Repairs: %s" % ds_rank_stats_df['total_repaired'].sum())
      log.info("Total Assembly Repairs: %s" % ds_rank_stats_df['total_assembly'].sum())
      
