@@ -159,7 +159,7 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
 
 
 #### GATHER ANOMALY SCORES RANKS ########################################################################################
-def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, rank_stats_df, log, api):
+def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, log, api):
 
         # WHIZZML train anomaly detector and extract BAS
         log.info("Building WhizzML inputs")
@@ -187,6 +187,10 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         log.info("BAS original dataset downloaded: %s" % export_file_path_orig)
         optimal_bas_df = pd.read_csv(export_file_path_opti)
         original_bas_df = pd.read_csv(export_file_path_orig)
+
+        # count welds over standard threshold in each case
+        optimal_alerts_count = optimal_bas_df[optimal_bas_df.std_anomaly_score > config_dict["standard_alert_score_threshold"]].shape[0]
+        original_alerts_count = original_bas_df[original_bas_df.std_anomaly_score > config_dict["standard_alert_score_threshold"]].shape[0]
         
         # calculate ranks
         log.info("Gathering ranks information")
@@ -217,31 +221,60 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         
             current_data_df = pd.DataFrame(current_data_dict, columns = ['dataset_name','TSE','fingerprint','timestamp','original_score','optimal_score','original_rank','optimal_rank','original_pct_rank','optimal_pct_rank','assembly_repair','optimal_BAS','original_BAS'])
             cur_ds_rank_stats_df = cur_ds_rank_stats_df.append(current_data_df, ignore_index=True)
+        
+        # build result dictionnary
+        result_dict = {'original_alerts_count': original_alerts_count, 'optimal_alerts_count': optimal_alerts_count, 'rank_stats_df': cur_ds_rank_stats_df}
 
-        return cur_ds_rank_stats_df
+        return result_dict
 
 #### GATHER ANOMALY SCORES RANKS ########################################################################################
-def gather_ds_stats(current_data_df, log):
+def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log):
         log.info("Gathering dataset stats")
-        # gather ds rank stats
-        cur_ds_stats_dict = {'dataset_name': [current_data_df['dataset_name'].loc[0]],
-                             'TSE': [current_data_df['TSE'].loc[0]],
-                             'median_rank_diff': [current_data_df['optimal_rank'].median() - current_data_df['original_rank'].median()],
-                             'avg_rank_diff': [current_data_df['optimal_rank'].mean() - current_data_df['original_rank'].mean()],
-                             'max_rank_diff': [current_data_df['optimal_rank'].max() - current_data_df['original_rank'].max()],
-                             'min_rank_diff': [current_data_df['optimal_rank'].min() - current_data_df['original_rank'].min()],
-                             'median_pct_rank_diff': [current_data_df['optimal_pct_rank'].median() - current_data_df['original_pct_rank'].median()],
-                             'avg_pct_rank_diff': [current_data_df['optimal_pct_rank'].mean() - current_data_df['original_pct_rank'].mean()],
-                             'max_pct_rank_diff': [current_data_df['optimal_pct_rank'].max() - current_data_df['original_pct_rank'].max()],
-                             'min_pct_rank_diff': [current_data_df['optimal_pct_rank'].min() - current_data_df['original_pct_rank'].min()],                       
-                             'median_optimal_rank': [current_data_df['optimal_rank'].median()],
-                             'median_original_rank': [current_data_df['original_rank'].median()],
-                             'median_optimal_score': [current_data_df['optimal_score'].median()],
-                             'median_original_score': [current_data_df['original_score'].median()],
-                             'total_repaired': [current_data_df.shape[0]],
-                             'total_assembly': [current_data_df[current_data_df.assembly_repair == 't'].shape[0]],
-                             'optimal_BAS': [current_data_df['optimal_BAS'].loc[0]],
-                             'original_BAS': [current_data_df['original_BAS'].loc[0]]}
+
+        if current_data_df.shape[0] > 0:
+            # REPAIRS FOUND IN TEST: gather ds rank stats
+            cur_ds_stats_dict = {'dataset_name': tse["name"],
+                                 'TSE': [current_data_df['TSE'].loc[0]],
+                                 'median_rank_diff': [current_data_df['original_rank'].median() - current_data_df['optimal_rank'].median()],
+                                 'avg_rank_diff': [current_data_df['original_rank'].mean() - current_data_df['optimal_rank'].mean()],
+                                 'max_rank_diff': [current_data_df['original_rank'].max() - current_data_df['optimal_rank'].max()],
+                                 'min_rank_diff': [current_data_df['original_rank'].min() - current_data_df['optimal_rank'].min()],
+                                 'median_pct_rank_diff': [current_data_df['original_pct_rank'].median() - current_data_df['optimal_pct_rank'].median()],
+                                 'avg_pct_rank_diff': [current_data_df['original_pct_rank'].mean() - current_data_df['optimal_pct_rank'].mean()],
+                                 'max_pct_rank_diff': [current_data_df['original_pct_rank'].max() - current_data_df['optimal_pct_rank'].max()],
+                                 'min_pct_rank_diff':  [current_data_df['original_pct_rank'].min()-current_data_df['optimal_pct_rank'].min()],
+                                 'median_optimal_rank': [current_data_df['optimal_rank'].median()],
+                                 'median_original_rank': [current_data_df['original_rank'].median()],
+                                 'median_optimal_score': [current_data_df['optimal_score'].median()],
+                                 'median_original_score': [current_data_df['original_score'].median()],
+                                 'optimal_alerts_count': [optimal_alerts_count],
+                                 'original_alerts_count': [original_alerts_count],
+                                 'total_repaired': [current_data_df.shape[0]],
+                                 'total_assembly': [current_data_df[current_data_df.assembly_repair == 't'].shape[0]],
+                                 'optimal_BAS': [current_data_df['optimal_BAS'].loc[0]],
+                                 'original_BAS': [current_data_df['original_BAS'].loc[0]]}
+        else:
+            # REPAIRS NOT FOUND: empty rank stats
+            cur_ds_stats_dict = {'dataset_name': tse["name"],
+                                 'TSE': None,
+                                 'median_rank_diff': None,
+                                 'avg_rank_diff': None,
+                                 'max_rank_diff': None,
+                                 'min_rank_diff': None,
+                                 'median_pct_rank_diff': None,
+                                 'avg_pct_rank_diff': None,
+                                 'max_pct_rank_diff': None,
+                                 'min_pct_rank_diff':  None,
+                                 'median_optimal_rank': None,
+                                 'median_original_rank': None,
+                                 'median_optimal_score': None,
+                                 'median_original_score': None,
+                                 'optimal_alerts_count': [optimal_alerts_count],
+                                 'original_alerts_count': [original_alerts_count],
+                                 'total_repaired': 0,
+                                 'total_assembly': 0,
+                                 'optimal_BAS': None,
+                                 'original_BAS': None}
         
         current_ds_stats_df = pd.DataFrame(cur_ds_stats_dict, columns = ['dataset_name','TSE','median_rank_diff','avg_rank_diff','max_rank_diff','min_rank_diff','median_pct_rank_diff','avg_pct_rank_diff','max_pct_rank_diff','min_pct_rank_diff','median_optimal_rank','median_original_rank','median_optimal_score','median_original_score','total_repaired','total_assembly','optimal_BAS','original_BAS'])
 
@@ -316,7 +349,7 @@ def main(args=sys.argv[1:]):
 
      # LOOP over TSEs
      for tse in params_dict["tse-files-list"]:
-        log.debug("Starting treatment for TSE dataset %s , file: %s" % (tse["name"], tse["train_file"]))
+        log.info("Starting treatment for TSE %s , train file: %s" % (tse["name"], tse["train_file"]))
 
         # create training file source
         train_source = create_source(tse["train_file"], api, log)
@@ -371,26 +404,39 @@ def main(args=sys.argv[1:]):
         for index, row in importances_df.sort_values('imp_median_diffs', ascending=False).reset_index(drop=True).iterrows():
             if index == config_dict["optimal_field_num"]:
                 break  # exit loop
-            log.debug("Top feature found: %s ,importance diff median: %s" % (row["field_names"],row["imp_median_diffs"]) )
-            new_input_fields.append(row["field_names"])
-            min_imp_median_diffs = row["imp_median_diffs"]
+            # check median importance difference is greater than the minumum configured value before keeping the feature
+            if row["imp_median_diffs"] > config_dict["minimum_imp_median_diff"]:
+                log.debug("Top feature found: %s ,importance diff median: %s" % (row["field_names"],row["imp_median_diffs"]) )
+                new_input_fields.append(row["field_names"])
+            else:
+                log.debug("Stop searching for features, median diff values too low: %s" % row["imp_median_diffs"])
+                break #exit loop
 
 
-        if len(new_input_fields) > 0:
+        if len(new_input_fields) >= config_dict["minimum_field_num"]:
             # Train anomaly detector, perform BAS and gather ranks stats
-            current_data_df = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, rank_stats_df, log, api)
+            log.info("Input fields selected: %s" % new_input_fields)
+            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, log, api)
+            # obtain results from dictionnary:
+            original_alerts_count = result_dict['original_alerts_count']
+            optimal_alerts_count = result_dict['optimal_alerts_count']
+            current_data_df = result_dict['rank_stats_df']
+
             rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
 
             # gather ds rank stats
-            if current_data_df.shape[0] > 0:
-                current_ds_stats_df = gather_ds_stats(current_data_df, log)
-                log.debug("Appending dataset stats")
-                ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
-                log.info("Dataset rank stats: %s" % current_ds_stats_df)
-            else:
-                log.warning("No repairs found in test")
+            current_ds_stats_df = gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log)
+            log.debug("Appending dataset stats")
+            ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
+            
         else:
-            log.warning("No input fields found")
+            log.warning("Not enough input fields found: %s" % new_input_fields)
+
+        log.info("TSE treatment ended")
+        log.info("##################################")
+        log.info("##################################")
+        log.info("##################################")
+        log.info("##################################")
 
 
 
