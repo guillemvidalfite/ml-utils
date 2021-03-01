@@ -374,19 +374,24 @@ def main(args=sys.argv[1:]):
             log.debug("Top feature found: %s ,importance diff median: %s" % (row["field_names"],row["imp_median_diffs"]) )
             new_input_fields.append(row["field_names"])
             min_imp_median_diffs = row["imp_median_diffs"]
-        
-        # Train anomaly detector, perform BAS and gather ranks stats
-        current_data_df = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, rank_stats_df, log, api)
-        rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
 
-        # gather ds rank stats
-        if current_data_df.shape[0] > 0:
-            current_ds_stats_df = gather_ds_stats(current_data_df, log)
-            log.debug("Appending dataset stats")
-            ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
-            log.info("Dataset rank stats: %s" % current_ds_stats_df)
+
+        if len(new_input_fields) > 0:
+            # Train anomaly detector, perform BAS and gather ranks stats
+            current_data_df = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, rank_stats_df, log, api)
+            rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
+
+            # gather ds rank stats
+            if current_data_df.shape[0] > 0:
+                current_ds_stats_df = gather_ds_stats(current_data_df, log)
+                log.debug("Appending dataset stats")
+                ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
+                log.info("Dataset rank stats: %s" % current_ds_stats_df)
+            else:
+                log.warning("No repairs found in test")
         else:
-            log.info("No repairs found in test")
+            log.warning("No input fields found")
+
 
 
      # generate overall importances report information
