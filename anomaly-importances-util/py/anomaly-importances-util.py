@@ -415,10 +415,8 @@ def main(args=sys.argv[1:]):
         # BASELINE FEATURES MODE
         if config_dict["baseline_features_mode"] == 1:
             log.info("Merging baseline features")
-            # merge new features to baseline features
-            concat_input_fields = params_dict["baseline-input-features"].append(new_input_fields)
-            # remove duplicates
-            final_input_fields = list(dict.fromkeys(concat_input_fields))
+            # merge new features to baseline features and remove duplicates
+            final_input_fields = list(dict.fromkeys(params_dict["baseline-input-features"] + new_input_fields))
         else:
             final_input_fields = new_input_fields
 
