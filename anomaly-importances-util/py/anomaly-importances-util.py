@@ -10,6 +10,8 @@ import numpy as np
 from bigml.api import BigML
 from datetime import datetime
 
+#from shapsplain.forest import ShapForest
+
 # HTTPS WARNINGS workaround https://github.com/influxdata/influxdb-python/issues/240
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -324,15 +326,6 @@ def main(args=sys.argv[1:]):
      # initialize json parameters file into a dictionnary
      params_dict = init_params(json_params_file, log)
 
-     # read all_input_fields param from config
-     all_input_features=params_dict["input-features"]
-
-     # define and validate other configuration parameters
-     importances_whizzml_script_id = config_dict["extract_importances_whizzml_id"]
-     if importances_whizzml_script_id == "":
-        log.error("The WhizzML script is not defined in the configuration please deploy the WhizzML code before carrying on")
-        sys.exit("WhizzML script not configured")
-
      # init api
      api = BigML(config_dict["bigml_username"],config_dict["bigml_apikey"],project=config_dict["bigml_project"],domain=config_dict["bigml_domain"])
      
@@ -345,7 +338,7 @@ def main(args=sys.argv[1:]):
      ds_rank_stats_df = pd.DataFrame()
 
      # init worse features list
-     useless_features_list = all_input_features
+     useless_features_list = params_dict["input-features"][:]
 
      # LOOP over TSEs
      for tse in params_dict["tse-files-list"]:
@@ -361,11 +354,11 @@ def main(args=sys.argv[1:]):
            "inputs": [
             ["source_repair_flags", repairs_source["resource"]],
             ["source_train", train_source["resource"]],
-            ["all_input_features", all_input_features]
+            ["all_input_features", params_dict["input-features"]]
            ]
         }
      
-        importances_execution_result = execute_whizzml(importances_whizzml_script_id, script_inputs, api, log)
+        importances_execution_result = execute_whizzml(config_dict["extract_importances_whizzml_id"], script_inputs, api, log)
      
         # get whizzml results
         repairs_importances_dataset_id = importances_execution_result["repairs-importances"]
