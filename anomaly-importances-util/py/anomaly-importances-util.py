@@ -412,11 +412,21 @@ def main(args=sys.argv[1:]):
                 log.debug("Stop searching for features, median diff values too low: %s" % row["imp_median_diffs"])
                 break #exit loop
 
+        # BASELINE FEATURES MODE
+        if config_dict["baseline_features_mode"] == 1:
+            log.info("Merging baseline features")
+            # merge new features to baseline features
+            concat_input_fields = params_dict["baseline-input-features"].append(new_input_fields)
+            # remove duplicates
+            final_input_fields = list(dict.fromkeys(concat_input_fields))
+        else:
+            final_input_fields = new_input_fields
 
-        if len(new_input_fields) >= config_dict["minimum_field_num"]:
+
+        if len(final_input_fields) >= config_dict["minimum_field_num"]:
             # Train anomaly detector, perform BAS and gather ranks stats
-            log.info("Input fields selected: %s" % new_input_fields)
-            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, log, api)
+            log.info("Input fields selected: %s" % final_input_fields)
+            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, final_input_fields, params_dict, config_dict, log, api)
             # obtain results from dictionnary:
             original_alerts_count = result_dict['original_alerts_count']
             optimal_alerts_count = result_dict['optimal_alerts_count']
@@ -430,7 +440,7 @@ def main(args=sys.argv[1:]):
             ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
             
         else:
-            log.warning("Not enough input fields found: %s" % new_input_fields)
+            log.warning("Not enough input fields found: %s" % final_input_fields)
 
         log.info("TSE treatment ended")
         log.info("##################################")
