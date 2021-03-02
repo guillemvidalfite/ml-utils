@@ -196,11 +196,11 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         
         # calculate ranks
         log.info("Gathering ranks information")
-        optimal_bas_df['score_rank'] = optimal_bas_df['std_anomaly_score'].rank(method='max')
-        optimal_bas_df['score_pct_rank'] = optimal_bas_df['std_anomaly_score'].rank(pct=True)
+        optimal_bas_df['score_rank'] = optimal_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
+        optimal_bas_df['score_pct_rank'] = optimal_bas_df['std_anomaly_score'].rank(pct=True,ascending=False)
         optimal_bas_df['orig_score'] = original_bas_df['std_anomaly_score']
-        optimal_bas_df['orig_score_rank'] = original_bas_df['std_anomaly_score'].rank(method='max')
-        optimal_bas_df['orig_score_pct_rank'] = original_bas_df['std_anomaly_score'].rank(pct=True)
+        optimal_bas_df['orig_score_rank'] = original_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
+        optimal_bas_df['orig_score_pct_rank'] = original_bas_df['std_anomaly_score'].rank(pct=True,ascending=False)
 
         # init empty dataframe:
         cur_ds_rank_stats_df = pd.DataFrame()
@@ -458,20 +458,20 @@ def main(args=sys.argv[1:]):
      # gather overall stats
      log.info("##################################")
      log.info("##################################")
-     log.info("OVERALL RANK STATISTICS (medians):")
+     log.info("OVERALL RANK STATISTICS (means):")
      log.info("##################################")
      log.info("##################################")
-     log.info("Median Rank Difference: %s" % ds_rank_stats_df['median_rank_diff'].median())
-     log.info("Median Percentile Rank Difference: %s" % ds_rank_stats_df['median_pct_rank_diff'].median())
-     log.info("Average Rank Difference: %s" % ds_rank_stats_df['avg_rank_diff'].median())
-     log.info("Max Rank Difference: %s" % ds_rank_stats_df['max_rank_diff'].median())
-     log.info("Min Rank Difference: %s" % ds_rank_stats_df['min_rank_diff'].median())
-     log.info("Optimal Rank: %s" % ds_rank_stats_df['median_optimal_rank'].median())
-     log.info("Original Rank: %s" % ds_rank_stats_df['median_original_rank'].median())
-     log.info("Optimal Score: %s" % ds_rank_stats_df['median_optimal_score'].median())
-     log.info("Original Score: %s" % ds_rank_stats_df['median_original_score'].median())
-     log.info("Optimal Alerts Count: %s" % ds_rank_stats_df['optimal_alerts_count'].median())
-     log.info("Original Alerts Count: %s" % ds_rank_stats_df['original_alerts_count'].median())
+     log.info("Median Rank Difference: %s" % ds_rank_stats_df['median_rank_diff'].mean())
+     log.info("Median Percentile Rank Difference: %s" % ds_rank_stats_df['median_pct_rank_diff'].mean())
+     log.info("Average Rank Difference: %s" % ds_rank_stats_df['avg_rank_diff'].mean())
+     log.info("Max Rank Difference: %s" % ds_rank_stats_df['max_rank_diff'].mean())
+     log.info("Min Rank Difference: %s" % ds_rank_stats_df['min_rank_diff'].mean())
+     log.info("Optimal Rank: %s" % ds_rank_stats_df['median_optimal_rank'].mean())
+     log.info("Original Rank: %s" % ds_rank_stats_df['median_original_rank'].mean())
+     log.info("Optimal Score: %s" % ds_rank_stats_df['median_optimal_score'].mean())
+     log.info("Original Score: %s" % ds_rank_stats_df['median_original_score'].mean())
+     log.info("Optimal Alerts Count: %s" % ds_rank_stats_df['optimal_alerts_count'].mean())
+     log.info("Original Alerts Count: %s" % ds_rank_stats_df['original_alerts_count'].mean())
      log.info("Total Repairs: %s" % ds_rank_stats_df['total_repaired'].sum())
      log.info("Total Assembly Repairs: %s" % ds_rank_stats_df['total_assembly'].sum())
      
@@ -485,7 +485,7 @@ def main(args=sys.argv[1:]):
      # Repair level stats
      export_file_path = config_dict["tmp_datasets_directory"] + "/" + params_dict["test_name"] + "_repair_rank_stats.csv"
      rank_stats_df.to_csv(export_file_path, index = False, header=True)
-     log.info("Dataset level rank stats file exported: %s" % export_file_path)
+     log.info("Repairs level rank stats file exported: %s" % export_file_path)
 
      # log useless features
      for f_name in useless_features_list:
