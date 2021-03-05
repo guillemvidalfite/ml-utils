@@ -168,7 +168,7 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_ds_id, test_source, ne
         script_inputs = {
            "inputs": [
             ["source_repair_flags", repairs_source["resource"]],
-            ["source_train", train_source["resource"]],
+            ["dataset_train", train_ds_id],
             ["source_test", test_source["resource"]],
             ["optimal_input_features", new_input_fields],
             ["original_input_features", params_dict["original-input-features"]]
