@@ -161,7 +161,7 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
 
 
 #### GATHER ANOMALY SCORES RANKS ########################################################################################
-def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, log, api):
+def train_anomaly_gather_ranks(tse, repairs_source, train_ds_id, test_source, new_input_fields, params_dict, config_dict, log, api):
 
         # WHIZZML train anomaly detector and extract BAS
         log.info("Building WhizzML inputs")
@@ -179,16 +179,21 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         # get whizzml results
         test_BAS_optimal_ds_id = bas_execution_result["ds_test_optimal_BAS"]
         test_BAS_original_ds_id = bas_execution_result["ds_test_original_BAS"]
+        train_BAS_optimal_ds_id = bas_execution_result["ds_train_BAS"]
 
         # get BAS datasets into dataframes
         export_file_path_opti = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_optimal_BAS.csv"
         export_file_path_orig = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_original_BAS.csv"
+        export_file_path_train = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_train_BAS.csv"
         api.download_dataset(test_BAS_optimal_ds_id,export_file_path_opti)
         log.info("BAS optimal dataset downloaded: %s" % export_file_path_opti)
         api.download_dataset(test_BAS_original_ds_id,export_file_path_orig)
         log.info("BAS original dataset downloaded: %s" % export_file_path_orig)
+        api.download_dataset(train_BAS_optimal_ds_id,export_file_path_train)
+        log.info("BAS train dataset downloaded: %s" % export_file_path_train)
         optimal_bas_df = pd.read_csv(export_file_path_opti)
         original_bas_df = pd.read_csv(export_file_path_orig)
+        train_bas_df = pd.read_csv(export_file_path_train)
 
         # count welds over standard threshold in each case
         optimal_alerts_count = optimal_bas_df[optimal_bas_df.std_anomaly_score > config_dict["standard_alert_score_threshold"]].shape[0]
@@ -201,6 +206,8 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         optimal_bas_df['orig_score'] = original_bas_df['std_anomaly_score']
         optimal_bas_df['orig_score_rank'] = original_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
         optimal_bas_df['orig_score_pct_rank'] = original_bas_df['std_anomaly_score'].rank(pct=True,ascending=False)
+        train_bas_df['score_rank'] = train_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
+
 
         # init empty dataframe:
         cur_ds_rank_stats_df = pd.DataFrame()
@@ -223,14 +230,19 @@ def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, n
         
             current_data_df = pd.DataFrame(current_data_dict, columns = ['dataset_name','TSE','fingerprint','timestamp','original_score','optimal_score','original_rank','optimal_rank','original_pct_rank','optimal_pct_rank','assembly_repair','optimal_BAS','original_BAS'])
             cur_ds_rank_stats_df = cur_ds_rank_stats_df.append(current_data_df, ignore_index=True)
+
+        # get training repairs rank information
+        repair_ranks ={'max_train_repair_rank': train_bas_df[train_bas_df.repaired=='t']['score_rank'].max(),
+                       'min_train_repair_rank': train_bas_df[train_bas_df.repaired=='t']['score_rank'].min(),
+                       'avg_train_repair_rank': train_bas_df[train_bas_df.repaired=='t']['score_rank'].mean()}
         
         # build result dictionnary
-        result_dict = {'original_alerts_count': original_alerts_count, 'optimal_alerts_count': optimal_alerts_count, 'rank_stats_df': cur_ds_rank_stats_df}
+        result_dict = {'original_alerts_count': original_alerts_count, 'optimal_alerts_count': optimal_alerts_count, 'rank_stats_df': cur_ds_rank_stats_df, 'repair_ranks': repair_ranks}
 
         return result_dict
 
 #### GATHER ANOMALY SCORES RANKS ########################################################################################
-def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log):
+def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, repair_ranks, log):
         log.info("Gathering dataset stats")
 
         if current_data_df.shape[0] > 0:
@@ -251,6 +263,9 @@ def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_
                                  'median_original_score': [current_data_df['original_score'].median()],
                                  'optimal_alerts_count': [optimal_alerts_count],
                                  'original_alerts_count': [original_alerts_count],
+                                 'max_train_repair_rank': [repair_ranks['max_train_repair_rank']],
+                                 'min_train_repair_rank': [repair_ranks['min_train_repair_rank']],
+                                 'avg_train_repair_rank': [repair_ranks['avg_train_repair_rank']],
                                  'total_repaired': [current_data_df.shape[0]],
                                  'total_assembly': [current_data_df[current_data_df.assembly_repair == 't'].shape[0]],
                                  'optimal_BAS': [current_data_df['optimal_BAS'].loc[0]],
@@ -273,6 +288,9 @@ def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_
                                  'median_original_score': None,
                                  'optimal_alerts_count': [optimal_alerts_count],
                                  'original_alerts_count': [original_alerts_count],
+                                 'max_train_repair_rank': [repair_ranks['max_train_repair_rank']],
+                                 'min_train_repair_rank': [repair_ranks['min_train_repair_rank']],
+                                 'avg_train_repair_rank': [repair_ranks['avg_train_repair_rank']],
                                  'total_repaired': 0,
                                  'total_assembly': 0,
                                  'optimal_BAS': None,
@@ -363,6 +381,7 @@ def main(args=sys.argv[1:]):
         # get whizzml results
         repairs_importances_dataset_id = importances_execution_result["repairs-importances"]
         normal_importances_dataset_id = importances_execution_result["normal-importances"]
+        train_ds_id = importances_execution_result["train-ds-id"]
      
         # get structured datasets in JSON format
         log.info("Loading repairs importances dataset...")
@@ -416,17 +435,18 @@ def main(args=sys.argv[1:]):
 
         if len(final_input_fields) >= config_dict["minimum_field_num"]:
             # Train anomaly detector, perform BAS and gather ranks stats
-            log.info("Input fields selected: %s" % final_input_fields)
-            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, final_input_fields, params_dict, config_dict, log, api)
+            log.info("%s input fields selected: %s" % (len(final_input_fields),final_input_fields)
+            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_ds_id, test_source, final_input_fields, params_dict, config_dict, log, api)
             # obtain results from dictionnary:
             original_alerts_count = result_dict['original_alerts_count']
             optimal_alerts_count = result_dict['optimal_alerts_count']
             current_data_df = result_dict['rank_stats_df']
+            repair_ranks = result_dict['repair_ranks']
 
             rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
 
             # gather ds rank stats
-            current_ds_stats_df = gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log)
+            current_ds_stats_df = gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, repair_ranks, log)
             log.debug("Appending dataset stats")
             ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
             

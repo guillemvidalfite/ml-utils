@@ -4,9 +4,9 @@
                                                  "all_fields" true}
                                                 source_repair_flags)))
 ;; train dataset
-(define dataset_train
-  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_train
-                                                 "all_fields" true} source_train)))
+;;(define dataset_train
+;;  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_train
+;;                                                 "all_fields" true} source_train)))
 
 ;; test dataset
 (define dataset_test
@@ -68,7 +68,20 @@
   ((fetch batchanomalyscore_original) ["output_dataset_resource"] false))
 
 
-;;output dataset
-(define bas-datasets-output {"ds_test_optimal_BAS" ds_test_optimal_BAS "ds_test_original_BAS" ds_test_original_BAS})
+;;batch anomaly score train
+(define batchanomalyscore_train
+  (create-and-wait-batchanomalyscore {"anomaly" anomaly_optimal
+                                      "dataset" dataset_train
+                                      "all_fields" true
+                                      "score_name" "std_anomaly_score"
+                                      "output_dataset" true}))
+
+;;batch anomaly score fetch
+(define ds_train_BAS
+  ((fetch batchanomalyscore_train) ["output_dataset_resource"] false))
+
+
+;;output map
+(define bas-datasets-output {"ds_test_optimal_BAS" ds_test_optimal_BAS "ds_test_original_BAS" ds_test_original_BAS "ds_train_BAS" ds_train_BAS})
 
 

@@ -23,7 +23,7 @@
     {
       "name": "importance-datasets-output",
       "type": "map",
-      "description": "Map containing references to the \"repairs-importances\" and  \"normal-importances\" datasets respectively, containing importances data."
+      "description": "Map containing references to the \"repairs-importances\" and  \"normal-importances\" and \"train-ds-id\" datasets respectively, containing importances data and the joined train dataset to be reused."
     }
   ]
 }

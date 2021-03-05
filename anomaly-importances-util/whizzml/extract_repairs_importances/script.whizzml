@@ -70,6 +70,6 @@
 
 
 ;;output dataset
-(define importance-datasets-output {"repairs-importances" dataset_repairs_importances "normal-importances" dataset_normal_importances})
+(define importance-datasets-output {"repairs-importances" dataset_repairs_importances "normal-importances" dataset_normal_importances "train-ds-id" dataset_train_flags})
 
 
