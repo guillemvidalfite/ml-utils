@@ -435,7 +435,7 @@ def main(args=sys.argv[1:]):
 
         if len(final_input_fields) >= config_dict["minimum_field_num"]:
             # Train anomaly detector, perform BAS and gather ranks stats
-            log.info("%s input fields selected: %s" % (len(final_input_fields),final_input_fields)
+            log.info("%s input fields selected: %s" % (len(final_input_fields),final_input_fields))
             result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_ds_id, test_source, final_input_fields, params_dict, config_dict, log, api)
             # obtain results from dictionnary:
             original_alerts_count = result_dict['original_alerts_count']
