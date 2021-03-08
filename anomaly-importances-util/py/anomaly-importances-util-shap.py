@@ -145,7 +145,7 @@ def build_importances_dataframes(imp_df, log):
     
     log.info("Building dataframe...")
 
-    data = {'field_names': [sub.replace(' importance','') for sub in field_names],  # removes importance string from current field name
+    data = {'field_names': [sub.replace('_importance','') for sub in field_names],  # removes importance string from current field name
             'imp_means': importances_means,
             'imp_medians': importances_medians,
             'imp_maxes': importances_maxes,
