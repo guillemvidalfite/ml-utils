@@ -296,7 +296,7 @@ def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_
                                  'optimal_BAS': None,
                                  'original_BAS': None}
         
-        current_ds_stats_df = pd.DataFrame(cur_ds_stats_dict, columns = ['dataset_name','TSE','median_rank_diff','avg_rank_diff','max_rank_diff','min_rank_diff','median_pct_rank_diff','avg_pct_rank_diff','max_pct_rank_diff','min_pct_rank_diff','median_optimal_rank','median_original_rank','median_optimal_score','median_original_score','optimal_alerts_count','original_alerts_count','total_repaired','total_assembly','optimal_BAS','original_BAS'])
+        current_ds_stats_df = pd.DataFrame(cur_ds_stats_dict)
 
         return current_ds_stats_df
 
