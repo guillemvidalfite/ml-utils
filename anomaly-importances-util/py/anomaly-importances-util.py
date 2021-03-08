@@ -447,7 +447,7 @@ def main(args=sys.argv[1:]):
 
             # gather ds rank stats
             current_ds_stats_df = gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, repair_ranks, log)
-            log.debug("Appending dataset stats")
+            log.debug("Appending dataset stats ds_rank_stats_df size %s" % ds_rank_stats_df.shape)
             ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
             
         else:

@@ -29,5 +29,9 @@
                                 "lift_pos_min",
                                 "lift_pos_mean",
                                 "voltage_SNR",
-                                "resistance_part3_SNR"]
+                                "resistance_part3_SNR"],
+    "baseline-input-features": ["WeldCurrentActualPositive",
+                                "LMPenetrationActual",
+                                "WeldVoltageActual",
+                                "MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value"]
 }
