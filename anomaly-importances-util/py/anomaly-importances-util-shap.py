@@ -66,7 +66,7 @@ def init_params(json_file_path, log):
 def execute_whizzml(whizzml_script_id, script_inputs, api, log):
      """Executes whizzml script and returns results """
      log.info("Executing WhizzML script %s" % whizzml_script_id)
-     log.info("Script inputs: %s" % script_inputs)
+     log.debug("Script inputs: %s" % script_inputs)
      
      # execute WhizzML script to generate ensemble and evaluation
      execution = api.create_execution(whizzml_script_id, script_inputs)
@@ -107,7 +107,7 @@ def create_source(source_path, api, log, args=None):
     return source
 
 #### BUILD_IMPORTANCES_DATAFRAMES #################################################################
-def build_importances_dataframes(repairs_importances_dataset, normal_importances_dataset, log):
+def build_importances_dataframes(imp_df, log):
     log.info("Starting to build importances dataframe...")
 
     # init empty arrays as temporary variables in further loop
@@ -119,30 +119,28 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
     importances_mean_diffs=[]
     importances_median_diffs=[]
     
-    
     # loop over fields, retrieve name and stats + build dictionnary for further dataframe
-    for field_id in repairs_importances_dataset["object"]["fields"]:
-        field_name = repairs_importances_dataset["object"]["fields"][field_id]["name"]
+    for column in imp_df:
         # for importances fields only:
-        if 'importance' in field_name:
+        if 'importance' in column:
             # if importance is greater than 0
-            if repairs_importances_dataset["object"]["fields"][field_id]["summary"]["mean"] > 0:
-                log.debug("Adding stats for %s ..." % field_name)
+            if imp_df[imp_df.repaired == 't'][column].mean() > 0:
+                log.debug("Adding stats for %s ..." % column)
 
-                field_names.append(field_name)
+                field_names.append(column)
                 # mean
-                repair_imp_field_mean = repairs_importances_dataset["object"]["fields"][field_id]["summary"]["mean"]
+                repair_imp_field_mean = imp_df[imp_df.repaired == 't'][column].mean()
                 importances_means.append(repair_imp_field_mean)
                 # median
-                repair_imp_field_median = repairs_importances_dataset["object"]["fields"][field_id]["summary"]["median"]
+                repair_imp_field_median = imp_df[imp_df.repaired == 't'][column].median()
                 importances_medians.append(repair_imp_field_median)
                 #max + min
-                importances_maxes.append(repairs_importances_dataset["object"]["fields"][field_id]["summary"]["maximum"])
-                importances_mins.append(repairs_importances_dataset["object"]["fields"][field_id]["summary"]["minimum"])
+                importances_maxes.append(imp_df[imp_df.repaired == 't'][column].max())
+                importances_mins.append(imp_df[imp_df.repaired == 't'][column].min())
                 # mean diff
-                importances_mean_diffs.append(repair_imp_field_mean - normal_importances_dataset["object"]["fields"][field_id]["summary"]["mean"])
+                importances_mean_diffs.append(repair_imp_field_mean - imp_df[imp_df.repaired == 'f'][column].mean())
                 # median diff
-                importances_median_diffs.append(repair_imp_field_median - normal_importances_dataset["object"]["fields"][field_id]["summary"]["median"])
+                importances_median_diffs.append(repair_imp_field_median - imp_df[imp_df.repaired == 'f'][column].median())
                 
     
     log.info("Building dataframe...")
@@ -159,37 +157,185 @@ def build_importances_dataframes(repairs_importances_dataset, normal_importances
                 
     return(importances_df)
 
-###  CREATE TRAIN DATASET #############################################################
-def create_joined_dataset(input_file, repairs_dataset_id, log, api):
-        # create training source
-        source = create_source(input_file, api, log)
-       
-        # create training dataset
-        api.ok(source)
-        dataset = api.create_dataset(source)
-         
-        # join datasets
-        api.ok(dataset)
+
+#### GATHER ANOMALY SCORES RANKS ########################################################################################
+def train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, new_input_fields, params_dict, config_dict, log, api):
+
+        # WHIZZML train anomaly detector and extract BAS
+        log.info("Building WhizzML inputs")
+        script_inputs = {
+           "inputs": [
+            ["source_repair_flags", repairs_source["resource"]],
+            ["source_train", train_source["resource"]],
+            ["source_test", test_source["resource"]],
+            ["optimal_input_features", new_input_fields],
+            ["original_input_features", params_dict["original-input-features"]]
+           ]
+        }
+        bas_execution_result = execute_whizzml(config_dict["anomaly_detector_whizzml_id"], script_inputs, api, log)
+     
+        # get whizzml results
+        test_BAS_optimal_ds_id = bas_execution_result["ds_test_optimal_BAS"]
+        test_BAS_original_ds_id = bas_execution_result["ds_test_original_BAS"]
+
+        # get BAS datasets into dataframes
+        export_file_path_opti = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_optimal_BAS.csv"
+        export_file_path_orig = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_original_BAS.csv"
+        api.download_dataset(test_BAS_optimal_ds_id,export_file_path_opti)
+        log.info("BAS optimal dataset downloaded: %s" % export_file_path_opti)
+        api.download_dataset(test_BAS_original_ds_id,export_file_path_orig)
+        log.info("BAS original dataset downloaded: %s" % export_file_path_orig)
+        optimal_bas_df = pd.read_csv(export_file_path_opti)
+        original_bas_df = pd.read_csv(export_file_path_orig)
+
+        # count welds over standard threshold in each case
+        optimal_alerts_count = optimal_bas_df[optimal_bas_df.std_anomaly_score > config_dict["standard_alert_score_threshold"]].shape[0]
+        original_alerts_count = original_bas_df[original_bas_df.std_anomaly_score > config_dict["standard_alert_score_threshold"]].shape[0]
+        
+        # calculate ranks
+        log.info("Gathering ranks information")
+        optimal_bas_df['score_rank'] = optimal_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
+        optimal_bas_df['score_pct_rank'] = optimal_bas_df['std_anomaly_score'].rank(pct=True,ascending=False)
+        optimal_bas_df['orig_score'] = original_bas_df['std_anomaly_score']
+        optimal_bas_df['orig_score_rank'] = original_bas_df['std_anomaly_score'].rank(method='max',ascending=False)
+        optimal_bas_df['orig_score_pct_rank'] = original_bas_df['std_anomaly_score'].rank(pct=True,ascending=False)
+
+        # init empty dataframe:
+        cur_ds_rank_stats_df = pd.DataFrame()
+        # gather current DS REPAIRS stats into global stats dataframe
+        for index, row in optimal_bas_df[optimal_bas_df.repaired=='t'].iterrows():
+            current_data_dict = {'dataset_name': [tse["name"]],
+                                 'TSE': [row["tse"]], 
+                                 'fingerprint': [row["fingerprint"]],
+                                 'timestamp': [row["timestamp"]],
+                                 'original_score': [row["orig_score"]],
+                                 'optimal_score': [row["std_anomaly_score"]],
+                                 'original_rank': [row["orig_score_rank"]],
+                                 'optimal_rank': [row["score_rank"]],
+                                 'original_pct_rank': [row["orig_score_pct_rank"]],
+                                 'optimal_pct_rank': [row["score_pct_rank"]],
+                                 'assembly_repair': [row["assembly_repair"]],
+                                 'optimal_BAS': [test_BAS_optimal_ds_id],
+                                 'original_BAS': [test_BAS_original_ds_id],
+                                 }
+        
+            current_data_df = pd.DataFrame(current_data_dict, columns = ['dataset_name','TSE','fingerprint','timestamp','original_score','optimal_score','original_rank','optimal_rank','original_pct_rank','optimal_pct_rank','assembly_repair','optimal_BAS','original_BAS'])
+            cur_ds_rank_stats_df = cur_ds_rank_stats_df.append(current_data_df, ignore_index=True)
+        
+        # build result dictionnary
+        result_dict = {'original_alerts_count': original_alerts_count, 'optimal_alerts_count': optimal_alerts_count, 'rank_stats_df': cur_ds_rank_stats_df}
+
+        return result_dict
+
+#### GATHER ANOMALY SCORES RANKS ########################################################################################
+def gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log):
+        log.info("Gathering dataset stats")
+
+        if current_data_df.shape[0] > 0:
+            # REPAIRS FOUND IN TEST: gather ds rank stats
+            cur_ds_stats_dict = {'dataset_name': tse["name"],
+                                 'TSE': [current_data_df['TSE'].loc[0]],
+                                 'median_rank_diff': [current_data_df['original_rank'].median() - current_data_df['optimal_rank'].median()],
+                                 'avg_rank_diff': [current_data_df['original_rank'].mean() - current_data_df['optimal_rank'].mean()],
+                                 'max_rank_diff': [current_data_df['original_rank'].max() - current_data_df['optimal_rank'].max()],
+                                 'min_rank_diff': [current_data_df['original_rank'].min() - current_data_df['optimal_rank'].min()],
+                                 'median_pct_rank_diff': [current_data_df['original_pct_rank'].median() - current_data_df['optimal_pct_rank'].median()],
+                                 'avg_pct_rank_diff': [current_data_df['original_pct_rank'].mean() - current_data_df['optimal_pct_rank'].mean()],
+                                 'max_pct_rank_diff': [current_data_df['original_pct_rank'].max() - current_data_df['optimal_pct_rank'].max()],
+                                 'min_pct_rank_diff':  [current_data_df['original_pct_rank'].min()-current_data_df['optimal_pct_rank'].min()],
+                                 'median_optimal_rank': [current_data_df['optimal_rank'].median()],
+                                 'median_original_rank': [current_data_df['original_rank'].median()],
+                                 'median_optimal_score': [current_data_df['optimal_score'].median()],
+                                 'median_original_score': [current_data_df['original_score'].median()],
+                                 'optimal_alerts_count': [optimal_alerts_count],
+                                 'original_alerts_count': [original_alerts_count],
+                                 'total_repaired': [current_data_df.shape[0]],
+                                 'total_assembly': [current_data_df[current_data_df.assembly_repair == 't'].shape[0]],
+                                 'optimal_BAS': [current_data_df['optimal_BAS'].loc[0]],
+                                 'original_BAS': [current_data_df['original_BAS'].loc[0]]}
+        else:
+            # REPAIRS NOT FOUND: empty rank stats
+            cur_ds_stats_dict = {'dataset_name': tse["name"],
+                                 'TSE': None,
+                                 'median_rank_diff': None,
+                                 'avg_rank_diff': None,
+                                 'max_rank_diff': None,
+                                 'min_rank_diff': None,
+                                 'median_pct_rank_diff': None,
+                                 'avg_pct_rank_diff': None,
+                                 'max_pct_rank_diff': None,
+                                 'min_pct_rank_diff':  None,
+                                 'median_optimal_rank': None,
+                                 'median_original_rank': None,
+                                 'median_optimal_score': None,
+                                 'median_original_score': None,
+                                 'optimal_alerts_count': [optimal_alerts_count],
+                                 'original_alerts_count': [original_alerts_count],
+                                 'total_repaired': 0,
+                                 'total_assembly': 0,
+                                 'optimal_BAS': None,
+                                 'original_BAS': None}
+        
+        current_ds_stats_df = pd.DataFrame(cur_ds_stats_dict, columns = ['dataset_name','TSE','median_rank_diff','avg_rank_diff','max_rank_diff','min_rank_diff','median_pct_rank_diff','avg_pct_rank_diff','max_pct_rank_diff','min_pct_rank_diff','median_optimal_rank','median_original_rank','median_optimal_score','median_original_score','optimal_alerts_count','original_alerts_count','total_repaired','total_assembly','optimal_BAS','original_BAS'])
+
+        return current_ds_stats_df
+
+
+#### CALCULATE IMPORTANCES ########################################################################################
+## calculates shapsplain importances for a candidate set of welds and returns them structured in a small dataframe
+##
+def calculate_importances(imp_anomaly_detector_id, train_dataset, train_df, params_dict, api, log):
+    log.info("Calculating shapsplain importances...")
+
+    # load anomaly detector and initialize shap forest
+    anomaly_all_features = api.get_anomaly(imp_anomaly_detector_id)
+    forest = ShapForest(anomaly_all_features)
+
+    # build train CANDIDATES dataframe to make explained predictions:
+    # due to performance reasons predictions will only be executed for a limited amount of welds
+    train_df['score_rank']= train_df['score'].rank(method='max',ascending=False)
+    # train candidates are repairs and highly scored normal welds >= 100
+    candidates_train_df = train_df[(train_df['repaired'] == 't') | (train_df['score_rank'] <= 100)].reset_index(drop=True)
+
+    # Make predictions and gather importances for candidate welds
+    imp_df = pd.DataFrame()    
+    # loop over train dataframe and make/store explained predictions
+    for index, row in candidates_train_df.iterrows():
+        log.debug("Gathering importances for row %s" % index)
     
-        ds_flags = api.create_dataset(
-                             [{
-                         
-                                 "id": dataset["resource"],
-                                 "name": "A"
-                              },
-                              {
-                                 "id": repairs_dataset,
-                                 "name": "B"
-                              }
-                             ],
-                             {
-                                 "sql_query": "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`fingerprint` = `B`.`fingerprint`"
-                             }
-                         )
+        # build current predictions dictionnary looping over features list
+        input_values = {} 
+        for i in params_dict['input-features']: 
+            # build input_values dynamically
+            log.debug("Adding %s information to input_values, value: %s" % (i,row[i]))
+            input_values[i] = row[i]
+            
+        # append score and importances in both lists
+        log.debug("Making prediction for row: %s" % row["fingerprint"])
+        current_pred_res = forest.predict(input_values, explanation=True)
+    
+        cur_importances = current_pred_res[0][1:]
+        
+        # build current prediction dictionnary
+        cur_prediction = {}
+        cur_prediction['imp_score'] = current_pred_res[0][0]
+        # add importances keys in loop
+        for imp in cur_importances:
+            # each imp is an importance with format ['000031', 0.03384744428211511] field + importance value
+            cur_prediction[train_dataset["object"]["fields"][imp[0]]["name"]+"_importance"]=[imp[1]]
+        
+        col_list = list(cur_prediction.keys())
+        cur_df = pd.DataFrame(cur_prediction)
+        imp_df = imp_df.append(cur_df, sort = True)
 
-        log.info("Dataset ready %s" % ds_flags['resource'])
+    # reset imp_df index and add importance needed columns
+    imp_df = imp_df.reset_index(drop=True)
+    imp_df['fingerprint'] = candidates_train_df['fingerprint']
+    imp_df['repaired'] = candidates_train_df['repaired']
 
-        return ds_flags
+    return imp_df
+    
+
 
 ####################################################################################
 ####### MAIN
@@ -234,86 +380,174 @@ def main(args=sys.argv[1:]):
      # initialize json parameters file into a dictionnary
      params_dict = init_params(json_params_file, log)
 
-     # read all_input_fields param from config
-     all_input_features=params_dict["input-features"]
-
      # init api
      api = BigML(config_dict["bigml_username"],config_dict["bigml_apikey"],project=config_dict["bigml_project"],domain=config_dict["bigml_domain"])
      
-     # create repairs flags source and dataset
+     # create repairs flags source
      repairs_source = create_source(params_dict["repair_flags_file"], api, log)
-     repairs_dataset = api.create_dataset(repairs_source)
-     log.info("Repairs dataset created %s" % repairs_dataset)
 
+     # init global dataframes
+     all_importances_df = pd.DataFrame()
+     rank_stats_df = pd.DataFrame()
+     ds_rank_stats_df = pd.DataFrame()
+
+     # init worse features list
+     useless_features_list = params_dict["input-features"][:]
 
      # LOOP over TSEs
      for tse in params_dict["tse-files-list"]:
-        log.debug("Starting treatment for TSE dataset %s , file: %s" % (tse["name"], tse["train_file"]))
+        log.info("Starting treatment for TSE %s " % tse["name"])
 
-        # get train and test joined datasets:
-        log.info("Train dataset treatment...")
-        train_ds = create_joined_dataset(tse["train_file"], repairs_dataset["resource"], log, api)
-        log.info("Test dataset treatment...")
-        test_ds = create_joined_dataset(tse["test_file"], repairs_dataset["resource"], log, api)
+        # create training file source
+        train_source = create_source(tse["train_file"], api, log)
+        test_source = create_source(tse["test_file"], api, log)
+    
+        # WHIZZML train anomaly detector and extract importances
+        log.info("Building WhizzML inputs")
+        script_inputs = {
+           "inputs": [
+            ["source_repair_flags", repairs_source["resource"]],
+            ["source_train", train_source["resource"]],
+            ["all_input_features", params_dict["input-features"]]
+           ]
+        }
+     
+        importances_execution_result = execute_whizzml(config_dict["train_importances_anomaly_whizzml_id"], script_inputs, api, log)
+     
+        # get whizzml results
+        imp_anomaly_detector_id = importances_execution_result["anomaly-detector"]
+        train_dataset_id = importances_execution_result["train-dataset-joined"]
         
-        # get all features anomaly detector
-        api.ok(train_ds)
-        anomaly_all_features = api.create_anomaly(train_ds, {"input_fields": all_input_features})
-        api.ok(anomaly_all_features)
-        log.info("All features anomaly detector ready %s" % anomaly_all_features["resource"])
-
-        # download train dataset as dataframe
+        # build train dataframe
         train_export_file_path = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_train_dataset.csv"
-        api.download_dataset(train_ds,train_export_file_path)
+        train_dataset = api.get_dataset(train_dataset_id)
+        api.download_dataset(train_dataset_id,train_export_file_path)
         log.info("Train dataset downloaded %s" % train_export_file_path)
         train_df = pd.read_csv(train_export_file_path)
 
-        # init shap forest
-        json_anomaly = api.get_anomaly(anomaly_all_features)
-        forest = ShapForest(json_anomaly)
-        
-        scores = []
-        predictions = []
-        # loop over train dataframe and make/store explained predictions
-        for index, row in train_df.iterrows(): 
-
-            # build current predictions dictionnary looping over features list
-            input_values = {} 
-            for i in all_input_features: 
-                # build input_values dynamically
-                log.debug("Adding %s information to input_values, value: %s" % (input_values[i],row[i]) )
-                input_values[i] = row[i]
-
-            # append explained prediction
-            log.debug("Making prediction for row: %s" % row["fingerprint"])
-            predictions.append(forest.predict(input_values, explanation=True))
-
-        
-        # add predictions into dataframe as new columns
-        # first we'll need to loop over the list and decompose it into a score list and an importances structure
-
-
-
-
-
-api.create_dataset(
-                    [{
-                        "id": "dataset/6037efc079b77d73620019ed",
-                        "name": "A"
-                     },
-                     {
-                        "id": "dataset/6037ef7e79b77d7379004783",
-                        "name": "B"
-                     }
-                    ],
-                    {
-                        "sql_query": "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`fingerprint` = `B`.`fingerprint`"
-                    }
-                )
-
-
-
+        # calculate importances, returns a dataframe with importances for the candidate welds
+        imp_df = calculate_importances(imp_anomaly_detector_id, train_dataset, train_df, params_dict, api, log)
      
+        # build importances dataframes
+        importances_df = build_importances_dataframes(imp_df, log)
+
+        # append within all importances df
+        all_importances_df = all_importances_df.append(importances_df, ignore_index=True)
+
+        # UPDATE USELESS FEATURES LIST by removing current dataset useful features
+        # loop over current dataframe
+        for index, row in importances_df.iterrows():
+            # if both diff median and mean are positives the feature is isolating well repairs this time
+            if row["imp_mean_diffs"] > config_dict["useless_importance_limit"] and row["imp_median_diffs"] > config_dict["useless_importance_limit"]:
+                #check if current row parameter exists in the original list
+                if row["field_names"] in useless_features_list:
+                    log.debug("Useful field found: %s" % row["field_names"])
+                    useless_features_list.remove(row["field_names"])
+
+        # export importances into CSV file
+        export_file_path = config_dict["tmp_datasets_directory"] + "/" + tse["name"] + "_field_importances_stats.csv"
+        importances_df.to_csv(export_file_path, index = False, header=True)
+        log.info("Importances TSE detail file exported: %s" % export_file_path)
+
+        # Retrieve new input fields: by ordering top importance diff median
+        new_input_fields = []
+        # loop over first N optimal features and store feature names
+        for index, row in importances_df.sort_values('imp_median_diffs', ascending=False).reset_index(drop=True).iterrows():
+            if index == config_dict["optimal_field_num"]:
+                break  # exit loop
+            # check median importance difference is greater than the minumum configured value before keeping the feature
+            if row["imp_median_diffs"] > config_dict["minimum_imp_median_diff"]:
+                log.debug("Top feature found: %s ,importance diff median: %s" % (row["field_names"],row["imp_median_diffs"]) )
+                new_input_fields.append(row["field_names"])
+            else:
+                log.debug("Stop searching for features, median diff values too low: %s" % row["imp_median_diffs"])
+                break #exit loop
+
+        # BASELINE FEATURES MODE
+        if config_dict["baseline_features_mode"] == 1:
+            log.info("Merging baseline features")
+            # merge new features to baseline features and remove duplicates
+            final_input_fields = list(dict.fromkeys(params_dict["baseline-input-features"] + new_input_fields))
+        else:
+            final_input_fields = new_input_fields
+
+
+        if len(final_input_fields) >= config_dict["minimum_field_num"]:
+            # Train anomaly detector, perform BAS and gather ranks stats
+            log.info("%s input fields selected: %s" % (len(final_input_fields),final_input_fields))
+            result_dict = train_anomaly_gather_ranks(tse, repairs_source, train_source, test_source, final_input_fields, params_dict, config_dict, log, api)
+            # obtain results from dictionnary:
+            original_alerts_count = result_dict['original_alerts_count']
+            optimal_alerts_count = result_dict['optimal_alerts_count']
+            current_data_df = result_dict['rank_stats_df']
+
+            rank_stats_df = rank_stats_df.append(current_data_df, ignore_index=True)
+
+            # gather ds rank stats
+            current_ds_stats_df = gather_ds_stats(tse, current_data_df, original_alerts_count, optimal_alerts_count, log)
+            log.debug("Appending dataset stats")
+            ds_rank_stats_df = ds_rank_stats_df.append(current_ds_stats_df, ignore_index=True)     
+            
+        else:
+            log.warning("Not enough input fields found: %s" % final_input_fields)
+
+        log.info("TSE treatment ended")
+        log.info("##################################")
+        log.info("##################################")
+        log.info("##################################")
+        log.info("##################################")
+
+
+
+     # generate overall importances report information
+     overall_importances_stats_df = all_importances_df.groupby('field_names').agg({'imp_means': 'mean',
+                                                                                   'imp_medians': 'mean',
+                                                                                   'imp_maxes': 'mean',
+                                                                                   'imp_mins': 'mean',
+                                                                                   'imp_mean_diffs': 'mean',
+                                                                                   'imp_median_diffs': 'mean'}).reset_index()
+
+     overall_importances_stats_df = overall_importances_stats_df.sort_values(by='imp_means')
+
+     export_file_path = config_dict["tmp_datasets_directory"] + "/" + params_dict["test_name"] + "_overall_importances_stats.csv"
+     overall_importances_stats_df.to_csv(export_file_path, index = False, header=True)
+     log.info("Importances overall file exported: %s" % export_file_path)
+
+     # gather overall stats
+     log.info("##################################")
+     log.info("##################################")
+     log.info("OVERALL RANK STATISTICS (means):")
+     log.info("##################################")
+     log.info("##################################")
+     log.info("Median Rank Difference: %s" % ds_rank_stats_df['median_rank_diff'].mean())
+     log.info("Median Percentile Rank Difference: %s" % ds_rank_stats_df['median_pct_rank_diff'].mean())
+     log.info("Average Rank Difference: %s" % ds_rank_stats_df['avg_rank_diff'].mean())
+     log.info("Max Rank Difference: %s" % ds_rank_stats_df['max_rank_diff'].mean())
+     log.info("Min Rank Difference: %s" % ds_rank_stats_df['min_rank_diff'].mean())
+     log.info("Optimal Rank: %s" % ds_rank_stats_df['median_optimal_rank'].mean())
+     log.info("Original Rank: %s" % ds_rank_stats_df['median_original_rank'].mean())
+     log.info("Optimal Score: %s" % ds_rank_stats_df['median_optimal_score'].mean())
+     log.info("Original Score: %s" % ds_rank_stats_df['median_original_score'].mean())
+     log.info("Optimal Alerts Count: %s" % ds_rank_stats_df['optimal_alerts_count'].mean())
+     log.info("Original Alerts Count: %s" % ds_rank_stats_df['original_alerts_count'].mean())
+     log.info("Total Repairs: %s" % ds_rank_stats_df['total_repaired'].sum())
+     log.info("Total Assembly Repairs: %s" % ds_rank_stats_df['total_assembly'].sum())
+     
+
+     # generate & log stats reports
+     # DS level stats
+     export_file_path = config_dict["tmp_datasets_directory"] + "/" + params_dict["test_name"] + "_ds_rank_stats.csv"
+     ds_rank_stats_df.to_csv(export_file_path, index = False, header=True)
+     log.info("Dataset level rank stats file exported: %s" % export_file_path)
+
+     # Repair level stats
+     export_file_path = config_dict["tmp_datasets_directory"] + "/" + params_dict["test_name"] + "_repair_rank_stats.csv"
+     rank_stats_df.to_csv(export_file_path, index = False, header=True)
+     log.info("Repairs level rank stats file exported: %s" % export_file_path)
+
+     # log useless features
+     for f_name in useless_features_list:
+        log.info("Useless Feature Detected: %s" % f_name)
 
 if __name__ == "__main__":
    main()
