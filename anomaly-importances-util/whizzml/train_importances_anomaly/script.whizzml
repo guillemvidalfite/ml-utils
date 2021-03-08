@@ -1,0 +1,32 @@
+
+;; repair flags dataset
+(define dataset_repair_flags
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_repair_flags
+                                                 "all_fields" true}
+                                                source_repair_flags)))
+;; train dataset
+(define dataset_train
+  (create-and-wait-dataset (bigml.fields.to-ids {"source" source_train
+                                                 "all_fields" true} source_train)))
+
+;;join both datasets by fingerid
+(define dataset_train_flags
+  (create-and-wait-dataset {"origin_datasets"
+                            [{"id" dataset_train "name" "A"}
+                             {"id" dataset_repair_flags "name" "B"}]
+                            "sql_query"
+                            "SELECT `A`.*, `B`.`tse`, `B`.`score`, `B`.`body_repair`, `B`.`assembly_repair`, `B`.`repaired`, `B`.`alert` FROM `A` LEFT JOIN `B` ON `A`.`fingerprint` = `B`.`fingerprint`"
+                            "all_fields" true}))
+
+
+;;train anomaly detector using all fields
+(define anomaly1
+  (create-and-wait-anomaly {"dataset" dataset_train_flags
+                            "seed"
+                            "mltoolbox"
+                            "input_fields" all_input_features
+                            "anomaly_seed"
+                            "mltoolbox"}))
+
+;;output dataset
+(define importance-anomaly-output {"anomaly-detector" anomaly1 "train-dataset-joined" dataset_train_flags})
