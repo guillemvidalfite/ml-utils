@@ -184,13 +184,13 @@ def main(args=sys.argv[1:]):
         current_results_df = pd.DataFrame(current_results_dict)
         results_df = results_df.append(current_results_df, ignore_index=True)
 
-    # Print report
-    log.info("Final results: %s " % results_df)
-    
-    # export csv
-    export_file_path = config_dict["resulting_reports_directory"] + "/" + params_dict["test_name"] + "_t_stats_report.csv"
-    current_results_df.to_csv(export_file_path, index = False, header=True)
-    log.info("T Test Stats report file exported: %s" % export_file_path)
+     # Print report
+     log.info("Final results: %s " % results_df)
+     
+     # export csv
+     export_file_path = config_dict["resulting_reports_directory"] + "/" + params_dict["test_name"] + "_t_stats_report.csv"
+     current_results_df.to_csv(export_file_path, index = False, header=True)
+     log.info("T Test Stats report file exported: %s" % export_file_path)
 
 if __name__ == "__main__":
    main()
