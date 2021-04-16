@@ -5,9 +5,14 @@
     "bigml_username": "bigml09",
     "log_level": "INFO",
     "extract_importances_whizzml_id": "script/603bfd1179b77d6eaa00004d",
+    "train_importances_anomaly_whizzml_id": "script/603d3f5b79b77d6eb40006f6",
     "anomaly_detector_whizzml_id": "script/603bfd2879b77d6eaa000050",
     "tmp_datasets_directory": "/Users/guillem/Data/Customers/Daimler/anomalies-analysis/tmp_datasets",
     "bigml_dashboard_base_url": "https://daimler.dev.bigml.com/dashboard/",
     "useless_importance_limit": 0.01,
-    "optimal_field_num": 4
+    "optimal_field_num": 10,
+    "minimum_field_num": 3,
+    "minimum_imp_median_diff": 0.001,
+    "standard_alert_score_threshold": 0.6,
+    "baseline_features_mode": 0
 }
