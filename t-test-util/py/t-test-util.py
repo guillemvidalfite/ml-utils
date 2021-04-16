@@ -171,7 +171,7 @@ def main(args=sys.argv[1:]):
         if p < config_dict["alpha"]:
             log.info("TEST FAILED! Scores variation likely to be caused by data variations")
             test_result = 'FAIL'
-        else
+        else:
             log.info("TEST SUCCESSFUL! Scores variation likely to be caused by features")
             test_result = 'SUCCESS'
 
