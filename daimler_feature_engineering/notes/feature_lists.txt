@@ -87,8 +87,14 @@
 
 
 
-
-
+"lift_pos_shift",
+"lift_pos_imp_snr",
+"lift_pos_distance",
+"lift_pos_imp_error",
+"current_shift",
+"current_distance",
+"current_imp_error",
+"current_imp_snr",
 
 
 

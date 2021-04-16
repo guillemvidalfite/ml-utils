@@ -151,3 +151,68 @@ group by a.tool_stud_ext);
 
 
 
+
+
+-- TRAIN OCT-DEC vs TEST JAN
+-- select all extensions with both repairs in both training and test with at least 100 training welds
+(select a.tool_stud_ext
+from imp_hits_all a
+where a.timestamp >= '2020-10-01' and a.timestamp < '2021-01-01' and
+      exists (select 1 from tmp_repaired_studs b
+              where b.stud_id = a.stud_id and
+                    b.carbody_id = a.carbody_id and 
+                    b.repaired_at is not null and
+                    not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint) and
+                    (b.repaired_at = 'Assembly Shop' or (b.repaired_at = 'Body Shop' and b.error_code in ('2000','3000')))) and
+      not exists (select 1 from imp_conf_changes_all_tses c where c.timestamp >= '2020-10-01' and c.timestamp < '2021-01-01' and 
+                                                                  c.tool_stud_ext = a.tool_stud_ext)
+group by a.tool_stud_ext)
+intersect
+(select x.tool_stud_ext from
+    (select b.tool_stud_ext, count(1) from imp_hits_all b where b.timestamp >= '2020-10-01' and b.timestamp < '2021-01-01' group by b.tool_stud_ext having count(1) > 500) x)
+intersect
+(select a.tool_stud_ext
+from imp_hits_all a
+where a.timestamp >= '2021-01-01' and a.timestamp < '2021-02-01' and
+      exists (select 1 from tmp_repaired_studs b
+              where b.stud_id = a.stud_id and
+                    b.carbody_id = a.carbody_id and 
+                    b.repaired_at is not null and
+                    not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint) and
+                   (b.repaired_at = 'Assembly Shop' or (b.repaired_at = 'Body Shop' and b.error_code in ('2000','3000')))) and
+      not exists (select 1 from imp_conf_changes_all_tses c where c.timestamp >= '2021-01-01' and c.timestamp < '2021-02-01' and 
+                                                          c.tool_stud_ext = a.tool_stud_ext)
+group by a.tool_stud_ext);
+
+select distinct a.tool_stud_ext from imp_conf_changes a where 
+not exists (select 1 from imp_conf_changes b where a.tool_stud_ext = b.tool_stud_ext and b.timestamp >= '2020-10-01' and b.timestamp < '2021-02-01');
+
+
+
+
+-- TRAIN OCT-DEC vs TEST JAN
+-- select all extensions with both repairs in both training and test with at least 100 training welds
+(select a.tool_stud_ext
+from imp_hits_all a
+where a.timestamp >= '2020-10-01' and a.timestamp < '2021-01-01' and
+      exists (select 1 from tmp_repaired_studs b
+              where b.stud_id = a.stud_id and
+                    b.carbody_id = a.carbody_id and 
+                    b.repaired_at is not null and
+                    not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint) and
+                    (b.repaired_at = 'Assembly Shop' or (b.repaired_at = 'Body Shop' and b.error_code in ('2000','3000'))))
+group by a.tool_stud_ext)
+intersect
+(select x.tool_stud_ext from
+    (select b.tool_stud_ext, count(1) from imp_hits_all b where b.timestamp >= '2020-10-01' and b.timestamp < '2021-01-01' group by b.tool_stud_ext having count(1) > 3000) x)
+intersect
+(select a.tool_stud_ext
+from imp_hits_all a
+where a.timestamp >= '2021-01-01' and a.timestamp < '2021-02-01' and
+      exists (select 1 from tmp_repaired_studs b
+              where b.stud_id = a.stud_id and
+                    b.carbody_id = a.carbody_id and 
+                    b.repaired_at is not null and
+                    not exists (select 1 from tmp_weldtimeactual_zero c where c.fingerprint = a.fingerprint) and
+                   (b.repaired_at = 'Assembly Shop' or (b.repaired_at = 'Body Shop' and b.error_code in ('2000','3000'))))
+group by a.tool_stud_ext);
