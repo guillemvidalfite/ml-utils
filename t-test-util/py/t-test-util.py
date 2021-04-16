@@ -51,7 +51,7 @@ def init_logger(log_level):
      return LOGGER
 
 #### DB CONNECT ################################################################################
-def db_connect(host, port, user, password, database, log)
+def db_connect(host, port, user, password, database, log):
 # Postgres connection to baseline database
      log.info("Connecting to Postgres database %s ..." % database)
      conn = psycopg2.connect(
@@ -65,7 +65,7 @@ def db_connect(host, port, user, password, database, log)
      return conn
 
 #### GET SCORES LIST ############################################################################
-def get_scores_list(conn, log)
+def get_scores_list(conn, log):
      log.info("Getting scores list...")
 
      cursor = conn.cursor()
