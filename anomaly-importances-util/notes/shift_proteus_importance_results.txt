@@ -1,0 +1,95 @@
+
+MeasurementData.MeasurementParameter.LMPositionActual.value 11
+LiftPosition.DTW_Distance 11
+Voltage.DTW_Distance 9
+LMPenetrationActual 9
+WeldTimeActual 8
+WeldResistance 8
+WeldCurrentActualPositive 8
+WeldEnergyActual 7
+WeldVoltageActual 7
+DropTimeActual 7
+PilotVoltageActual 6
+PilotPower 6
+StickoutActual 5
+LMLiftHeightActual 5
+WeldToolSlideBackwardMoveTime 5
+WeldToolSlideForwardResponseTimeActualLeaveBackPosition 4
+CleanTimeActual 4
+WeldPower 4
+CleanResistance 4
+LiftFinishedMode 4
+PilotResistance 3
+CleanPower 3
+PilotCurrentActual 3
+CleanVoltageActual 3
+CleanCurrentActual 3
+Current.DTW_Distance 2
+WeldToolTotalWelds 2
+MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value 2
+WeldToolSlideForwardMoveTime 1
+WeldToolMoveTimeLoadingPinBackward
+
+
+
+
+
+['LiftPosition.DTW_Distance', 'WeldEnergyActual', 'Voltage.DTW_Distance', 'StickoutActual', 'PilotVoltageActual', 'WeldVoltageActual', 'WeldTimeActual', 'LMLiftHeightActual', 'LMPenetrationActual', 'PilotPower', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'MeasurementData.MeasurementParameter.WeldToolSlideForwardMoveTime.value', 'DropTimeActual', 'MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value', 'Current.DTW_Distance', 'MeasurementData.MeasurementParameter.WeldToolTotalWelds.value', 'WeldResistance']
+
+['CleanTimeActual', 'MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value', 'PilotResistance', 'Voltage.DTW_Distance', 'MeasurementData.MeasurementParameter.PilotCurrentActual.value', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'WeldVoltageActual', 'WeldPower', 'PilotPower', 'WeldEnergyActual', 'CleanPower', 'CleanResistance', 'PilotVoltageActual', 'LiftPosition.DTW_Distance', 'WeldResistance', 'MeasurementData.MeasurementParameter.CleanVoltageActual.value', 'WeldCurrentActualPositive', 'StickoutActual']
+
+['CleanTimeActual', 'WeldCurrentActualPositive', 'MeasurementData.MeasurementParameter.CleanCurrentActual.value', 'CleanResistance', 'Voltage.DTW_Distance', 'StickoutActual', 'PilotVoltageActual', 'MeasurementData.MeasurementParameter.CleanVoltageActual.value', 'WeldResistance', 'PilotPower', 'DropTimeActual', 'CleanPower', 'WeldTimeActual', 'MeasurementData.MeasurementParameter.WeldToolTotalWelds.value', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'WeldEnergyActual']
+
+['MeasurementData.MeasurementParameter.LMPositionActual.value', 'DropTimeActual', 'WeldCurrentActualPositive', 'Current.DTW_Distance', 'StickoutActual', 'Voltage.DTW_Distance', 'WeldResistance', 'WeldPower', 'LMPenetrationActual', 'WeldTimeActual', 'MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value', 'WeldEnergyActual', 'MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinForward.value', 'WeldVoltageActual']
+
+['LiftPosition.DTW_Distance', 'DropTimeActual', 'WeldTimeActual', 'WeldEnergyActual', 'WeldCurrentActualPositive', 'WeldVoltageActual', 'WeldPower', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'LMLiftHeightActual', 'WeldResistance', 'LMPenetrationActual']
+
+['MeasurementData.MeasurementParameter.LMPositionActual.value', 'MeasurementData.MeasurementParameter.LiftFinishedMode.value', 'LiftPosition.DTW_Distance', 'LMPenetrationActual', 'Voltage.DTW_Distance', 'WeldCurrentActualPositive', 'MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value', 'MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value', 'MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value', 'WeldVoltageActual', 'WeldResistance']
+
+['CleanTimeActual', 'WeldCurrentActualPositive', 'MeasurementData.MeasurementParameter.CleanCurrentActual.value', 'Voltage.DTW_Distance', 'CleanResistance', 'LMLiftHeightActual', 'LiftPosition.DTW_Distance', 'DropTimeActual', 'WeldTimeActual', 'PilotPower', 'PilotVoltageActual', 'MeasurementData.MeasurementParameter.PilotCurrentActual.value', 'MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value']
+
+ ['DropTimeActual', 'LiftPosition.DTW_Distance', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'WeldEnergyActual', 'LMLiftHeightActual', 'WeldTimeActual', 'WeldCurrentActualPositive', 'LMPenetrationActual', 'WeldVoltageActual', 'WeldPower', 'WeldResistance']
+
+ ['MeasurementData.MeasurementParameter.LiftFinishedMode.value', 'MeasurementData.MeasurementParameter.WeldCurrentActualNegative.value', 'LMPenetrationActual', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'LiftPosition.DTW_Distance', 'MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value', 'MeasurementData.MeasurementParameter.OutletTotalWelds.value']
+
+ ['MeasurementData.MeasurementParameter.LiftFinishedMode.value', 'LMPenetrationActual', 'LiftPosition.DTW_Distance', 'MeasurementData.MeasurementParameter.LMPositionActual.value']
+
+ ['WeldCurrentActualPositive', 'MeasurementData.MeasurementParameter.PilotCurrentActual.value', 'Voltage.DTW_Distance', 'LMLiftHeightActual', 'LiftPosition.DTW_Distance', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'PilotResistance', 'WeldTimeActual']
+
+ ['MeasurementData.MeasurementParameter.LiftFinishedMode.value', 'LMPenetrationActual', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'LiftPosition.DTW_Distance', 'PilotResistance', 'MeasurementData.MeasurementParameter.WeldToolMoveTimeLoadingPinBackward.value', 'PilotVoltageActual', 'PilotPower', 'MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value', 'MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value']
+
+['MeasurementData.MeasurementParameter.CleanCurrentActual.value', 'CleanTimeActual', 'Voltage.DTW_Distance', 'CleanResistance', 'CleanPower', 'WeldResistance', 'WeldVoltageActual', 'LMPenetrationActual', 'LiftPosition.DTW_Distance', 'StickoutActual', 'MeasurementData.MeasurementParameter.CleanVoltageActual.value', 'DropTimeActual', 'PilotPower', 'WeldTimeActual', 'MeasurementData.MeasurementParameter.LMPositionActual.value', 'PilotVoltageActual']
+
+
+
+["MeasurementData.MeasurementParameter.LMPositionActual.value",
+"LiftPosition.DTW_Distance",
+"Voltage.DTW_Distance",
+"LMPenetrationActual",
+"WeldTimeActual",
+"WeldResistance",
+"WeldCurrentActualPositive",
+"WeldEnergyActual",
+"WeldVoltageActual",
+"DropTimeActual",
+"PilotVoltageActual",
+"PilotPower",
+"StickoutActual",
+"LMLiftHeightActual",
+"MeasurementData.MeasurementParameter.WeldToolSlideBackwardMoveTime.value",
+"MeasurementData.MeasurementParameter.WeldToolSlideForwardResponseTimeActualLeaveBackPosition.value",
+"CleanTimeActual",
+"WeldPower",
+"CleanResistance",
+"MeasurementData.MeasurementParameter.LiftFinishedMode.value",
+"PilotResistance",
+"CleanPower",
+"MeasurementData.MeasurementParameter.PilotCurrentActual.value",
+"MeasurementData.MeasurementParameter.CleanVoltageActual.value",
+"MeasurementData.MeasurementParameter.CleanCurrentActual.value",
+"Current.DTW_Distance",
+"MeasurementData.MeasurementParameter.WeldToolTotalWelds.value"]
+
+
+
+

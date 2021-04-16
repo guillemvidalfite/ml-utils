@@ -289,6 +289,7 @@ def calculate_importances(imp_anomaly_detector_id, train_dataset, train_df, para
 
     # load anomaly detector and initialize shap forest
     anomaly_all_features = api.get_anomaly(imp_anomaly_detector_id)
+    log.info("Loading shapsplain forest anomaly: %s" % imp_anomaly_detector_id)
     forest = ShapForest(anomaly_all_features)
 
     # build train CANDIDATES dataframe to make explained predictions:
@@ -312,6 +313,7 @@ def calculate_importances(imp_anomaly_detector_id, train_dataset, train_df, para
             
         # append score and importances in both lists
         log.debug("Making prediction for row: %s" % row["fingerprint"])
+        log.info("Making prediction with values: %s" % input_values)
         current_pred_res = forest.predict(input_values, explanation=True)
     
         cur_importances = current_pred_res[0][1:]
