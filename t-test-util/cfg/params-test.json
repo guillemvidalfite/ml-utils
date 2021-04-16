@@ -1,0 +1,10 @@
+{
+    "test_name": "round9_test",
+    "baseline-database": "guillem_eval_fs1",
+    "t-tests-list": [
+                     {"name": "baseline_plus_feature1", "db": "guillem_eval_fs2"},
+                     {"name": "baseline_plus_feature2", "db": "guillem_eval_fs3"},
+                     {"name": "baseline_plus_feature3", "db": "guillem_eval_fs4"},
+                     {"name": "baseline_plus_feature4", "db": "guillem_eval_fs5"}
+                    ]
+}
