@@ -157,7 +157,7 @@ def main(args=sys.argv[1:]):
         current_scores = get_scores_list(conn, log)
 
         # cardinality check
-        if baseline_scores.shape != current_scores.shape:
+        if len(baseline_scores) != len(current_scores):
             log.error("Baseline scores array shape: %s" % baseline_scores.shape)
             log.error("Current scores array shape: %s" % current_scores.shape)
             sys.exit("Scores arrays shapes found do not match")
