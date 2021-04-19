@@ -72,16 +72,18 @@ def get_scores_list(conn, log):
      cursor.execute("""SELECT score, fingerprint FROM predictions ORDER BY fingerprint""")
      rows = cursor.fetchall()
      current_scores = []
+     current_fingerprints = []
 
      log.debug("Fetching results...")
      for row in rows:
         current_scores.append(row[0])
+        current_fingerprints.append(row[1])
 
      log.debug("Closing connection...")
      cursor.close()
      conn.close()
 
-     return current_scores
+     return {"scores": current_scores, "fingerprints": current_fingerprints}
 
 ####################################################################################
 ####### MAIN
@@ -136,7 +138,7 @@ def main(args=sys.argv[1:]):
 
      # Get scores list
      log.info("Getting baselines scores from db %s" % params_dict["baseline-database"])
-     baseline_scores = get_scores_list(conn, log)
+     baseline_scores_dict = get_scores_list(conn, log)
      
      # results dataframe
      results_df = pd.DataFrame()
@@ -154,17 +156,37 @@ def main(args=sys.argv[1:]):
                        log)
 
         # get current scores
-        current_scores = get_scores_list(conn, log)
+        current_scores_dict = get_scores_list(conn, log)
 
-        # cardinality check
-        if len(baseline_scores) != len(current_scores):
-            log.error("Baseline scores list length: %s" % len(baseline_scores))
-            log.error("Current scores list length: %s" % len(current_scores))
-            sys.exit("Scores lists lengths found do not match")
+        # copy baseline scores into a new list (in case it needs to be manipulated)
+        baseline_scores = baseline_scores_dict["scores"][:]
+
+        # cardinality check and workaround when failed
+        if len(baseline_scores) != len(current_scores_dict["scores"]):
+            log.warning("Baseline scores list length: %s" % len(baseline_scores))
+            log.warning("Current scores list length: %s" % len(current_scores_dict["scores"]))
+            log.warning("Scores lists lengths found do not match, getting fingerprints...")
+            # find missing fingerprints:
+            missing_fingerprints = np.setdiff1d(baseline_scores_dict["fingerprints"],current_scores_dict["fingerprints"])
+            # get indexes of scores to be removed:
+            missing_scores_indexes = []
+            # for all missing fingerprints append corresponding index
+            for i in missing_fingerprints:
+                missing_scores_indexes.append(missing_fingerprints.index(missing_fingerprints[i]))
+            # sort missing scores indexes descending so we can start deleting elements from the back
+            missing_scores_indexes.sort(reverse=True)
+            # delete corresponding indexes scores starting from the end of the list
+            for i in missing_scores_indexes:
+                del baseline_scores[i]
+            # final cardinality check
+            if len(baseline_scores) != len(current_scores_dict["scores"]):
+                log.error("Baseline scores list length: %s" % len(baseline_scores))
+                log.error("Current scores list length: %s" % len(current_scores_dict["scores"]))
+                sys.exit("Scores lists lengths found do not match after data treatment, exiting...")
 
         # T Test calculation
         log.info("Calculating T Stats...")
-        t_stat, p = ttest_ind(baseline_scores, current_scores)
+        t_stat, p = ttest_ind(baseline_scores, current_scores_dict["scores"])
         log.info("Results: t_stat=%s, P_value=%s" % (t_stat,p))
 
         # Log results
