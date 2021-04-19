@@ -158,8 +158,8 @@ def main(args=sys.argv[1:]):
 
         # cardinality check
         if len(baseline_scores) != len(current_scores):
-            log.error("Baseline scores list length: %s" % len(baseline_scores)
-            log.error("Current scores list length: %s" % len(current_scores)
+            log.error("Baseline scores list length: %s" % len(baseline_scores))
+            log.error("Current scores list length: %s" % len(current_scores))
             sys.exit("Scores lists lengths found do not match")
 
         # T Test calculation
