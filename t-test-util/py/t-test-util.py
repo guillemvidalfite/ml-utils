@@ -171,8 +171,8 @@ def main(args=sys.argv[1:]):
             # get indexes of scores to be removed:
             missing_scores_indexes = []
             # for all missing fingerprints append corresponding index
-            for i in missing_fingerprints:
-                missing_scores_indexes.append(missing_fingerprints.index(missing_fingerprints[i]))
+            for i in range(len(missing_fingerprints)):
+                missing_scores_indexes.append(baseline_scores_dict["fingerprints"].index(missing_fingerprints[i]))
             # sort missing scores indexes descending so we can start deleting elements from the back
             missing_scores_indexes.sort(reverse=True)
             # delete corresponding indexes scores starting from the end of the list
