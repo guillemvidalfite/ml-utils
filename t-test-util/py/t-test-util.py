@@ -173,6 +173,7 @@ def main(args=sys.argv[1:]):
             # for all missing fingerprints append corresponding index
             log.info("Building missing scores index")
             for i in range(len(missing_fingerprints)):
+                log.info("Processing fingerprint: %s" % missing_fingerprints[i])
                 missing_scores_indexes.append(baseline_scores_dict["fingerprints"].index(missing_fingerprints[i]))
             # sort missing scores indexes descending so we can start deleting elements from the back
             missing_scores_indexes.sort(reverse=True)
