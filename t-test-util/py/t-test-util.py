@@ -166,51 +166,50 @@ def main(args=sys.argv[1:]):
             log.warning("Baseline scores list length: %s" % len(baseline_scores))
             log.warning("Current scores list length: %s" % len(current_scores_dict["scores"]))
             log.warning("Scores lists lengths found do not match, getting fingerprints...")
-            break
 
             # TODO to be tested deeply
             # find missing fingerprints:
-            missing_fingerprints = np.setdiff1d(baseline_scores_dict["fingerprints"],current_scores_dict["fingerprints"]).tolist()
-            # get indexes of scores to be removed:
-            missing_scores_indexes = []
-            # for all missing fingerprints append corresponding index
-            log.info("Building missing scores index")
-            for i in range(len(missing_fingerprints)):
-                log.info("Processing fingerprint: %s" % missing_fingerprints[i])
-                missing_scores_indexes.append(baseline_scores_dict["fingerprints"].index(missing_fingerprints[i]))
-            # sort missing scores indexes descending so we can start deleting elements from the back
-            missing_scores_indexes.sort(reverse=True)
-            # delete corresponding indexes scores starting from the end of the list
-            log.info("Deleting missing scores from list")
-            for i in missing_scores_indexes:
-                del baseline_scores[i]
-            # final cardinality check
-            if len(baseline_scores) != len(current_scores_dict["scores"]):
-                log.error("Baseline scores list length: %s" % len(baseline_scores))
-                log.error("Current scores list length: %s" % len(current_scores_dict["scores"]))
-                sys.exit("Scores lists lengths found do not match after data treatment, exiting...")
-
-        # T Test calculation
-        log.info("Calculating T Stats...")
-        t_stat, p = ttest_ind(baseline_scores, current_scores_dict["scores"])
-        log.info("Results: t_stat=%s, P_value=%s" % (t_stat,p))
-
-        # Log results
-        if p < config_dict["alpha"]:
-            log.info("TEST SUCCESSFUL! Scores variation likely to be caused by features")
-            test_result = 'SUCCESS'
+##            missing_fingerprints = np.setdiff1d(baseline_scores_dict["fingerprints"],current_scores_dict["fingerprints"]).tolist()
+##            # get indexes of scores to be removed:
+##            missing_scores_indexes = []
+##            # for all missing fingerprints append corresponding index
+##            log.info("Building missing scores index")
+##            for i in range(len(missing_fingerprints)):
+##                log.info("Processing fingerprint: %s" % missing_fingerprints[i])
+##                missing_scores_indexes.append(baseline_scores_dict["fingerprints"].index(missing_fingerprints[i]))
+##            # sort missing scores indexes descending so we can start deleting elements from the back
+##            missing_scores_indexes.sort(reverse=True)
+##            # delete corresponding indexes scores starting from the end of the list
+##            log.info("Deleting missing scores from list")
+##            for i in missing_scores_indexes:
+##                del baseline_scores[i]
+##            # final cardinality check
+##            if len(baseline_scores) != len(current_scores_dict["scores"]):
+##                log.error("Baseline scores list length: %s" % len(baseline_scores))
+##                log.error("Current scores list length: %s" % len(current_scores_dict["scores"]))
+##                sys.exit("Scores lists lengths found do not match after data treatment, exiting...")
         else:
-            log.info("TEST FAILED! Scores variation likely to be caused by data variations")
-            test_result = 'FAIL'
+            # T Test calculation
+            log.info("Calculating T Stats...")
+            t_stat, p = ttest_ind(baseline_scores, current_scores_dict["scores"])
+            log.info("Results: t_stat=%s, P_value=%s" % (t_stat,p))
+    
+            # Log results
+            if p < config_dict["alpha"]:
+                log.info("TEST SUCCESSFUL! Scores variation likely to be caused by features")
+                test_result = 'SUCCESS'
+            else:
+                log.info("TEST FAILED! Scores variation likely to be caused by data variations")
+                test_result = 'FAIL'
+    
+            # Report results
+            current_results_dict = {'feature_set_name': [test["name"]],
+                                    'p_value': [p],
+                                    't_stat': [t_stat],
+                                    'test_result': [test_result]}
 
-        # Report results
-        current_results_dict = {'feature_set_name': [test["name"]],
-                                'p_value': [p],
-                                't_stat': [t_stat],
-                                'test_result': [test_result]}
-
-        current_results_df = pd.DataFrame(current_results_dict)
-        results_df = results_df.append(current_results_df, ignore_index=True)
+            current_results_df = pd.DataFrame(current_results_dict)
+            results_df = results_df.append(current_results_df, ignore_index=True)
 
      # Print report
      log.info("Final results: %s " % results_df)
