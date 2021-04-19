@@ -216,7 +216,7 @@ def main(args=sys.argv[1:]):
      
      # export csv
      export_file_path = config_dict["resulting_reports_directory"] + "/" + params_dict["test_name"] + "_t_stats_report.csv"
-     current_results_df.to_csv(export_file_path, index = False, header=True)
+     results_df.to_csv(export_file_path, index = False, header=True)
      log.info("T Test Stats report file exported: %s" % export_file_path)
 
 if __name__ == "__main__":
