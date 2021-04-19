@@ -158,9 +158,9 @@ def main(args=sys.argv[1:]):
 
         # cardinality check
         if len(baseline_scores) != len(current_scores):
-            log.error("Baseline scores array shape: %s" % baseline_scores.shape)
-            log.error("Current scores array shape: %s" % current_scores.shape)
-            sys.exit("Scores arrays shapes found do not match")
+            log.error("Baseline scores list length: %s" % len(baseline_scores)
+            log.error("Current scores list length: %s" % len(current_scores)
+            sys.exit("Scores lists lengths found do not match")
 
         # T Test calculation
         log.info("Calculating T Stats...")
@@ -169,11 +169,11 @@ def main(args=sys.argv[1:]):
 
         # Log results
         if p < config_dict["alpha"]:
-            log.info("TEST FAILED! Scores variation likely to be caused by data variations")
-            test_result = 'FAIL'
-        else:
             log.info("TEST SUCCESSFUL! Scores variation likely to be caused by features")
             test_result = 'SUCCESS'
+        else:
+            log.info("TEST FAILED! Scores variation likely to be caused by data variations")
+            test_result = 'FAIL'
 
         # Report results
         current_results_dict = {'feature_set_name': [test["name"]],

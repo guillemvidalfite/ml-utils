@@ -4,5 +4,6 @@
     "postgres_host": "127.0.0.1",
     "postgres_user": "mltoolbox",
     "postgres_port": "5432",
-    "postgres_password": "mltoolbox"
+    "postgres_password": "mltoolbox",
+    "alpha": 0.05
 }
