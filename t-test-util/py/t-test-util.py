@@ -166,6 +166,9 @@ def main(args=sys.argv[1:]):
             log.warning("Baseline scores list length: %s" % len(baseline_scores))
             log.warning("Current scores list length: %s" % len(current_scores_dict["scores"]))
             log.warning("Scores lists lengths found do not match, getting fingerprints...")
+            break
+
+            # TODO to be tested deeply
             # find missing fingerprints:
             missing_fingerprints = np.setdiff1d(baseline_scores_dict["fingerprints"],current_scores_dict["fingerprints"]).tolist()
             # get indexes of scores to be removed:
